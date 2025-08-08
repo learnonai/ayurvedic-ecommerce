@@ -21,7 +21,15 @@ app.use(cors({
     'http://localhost:3000', 
     'http://localhost:3001',
     'http://3.91.235.214:3000',
-    'http://3.91.235.214:3001'
+    'http://3.91.235.214:3001',
+    'http://learnonai.com:3000',
+    'http://learnonai.com:3001',
+    'http://www.learnonai.com:3000',
+    'http://www.learnonai.com:3001',
+    'https://learnonai.com:3000',
+    'https://learnonai.com:3001',
+    'https://www.learnonai.com:3000',
+    'https://www.learnonai.com:3001'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
