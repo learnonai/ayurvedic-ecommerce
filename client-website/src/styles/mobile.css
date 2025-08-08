@@ -1,0 +1,31 @@
+/* Mobile-First Responsive Design */
+@media (max-width: 768px) {
+  .container { padding: 0 15px; }
+  .card { margin-bottom: 1rem; border-radius: 10px; }
+  .btn { padding: 12px 20px; font-size: 16px; }
+  .form-control { padding: 12px 15px; font-size: 16px; }
+  .hero-section h1 { font-size: 2rem; }
+  .product-card img { height: 180px !important; }
+}
+
+.mobile-menu-overlay {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5); z-index: 1000;
+}
+
+.mobile-menu-content {
+  position: fixed; top: 0; right: 0; width: 280px; height: 100vh;
+  background: white; z-index: 1001; box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+}
+
+.mobile-menu-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem; border-bottom: 1px solid #eee; background: #28a745; color: white;
+}
+
+.mobile-menu-item {
+  display: block; padding: 0.75rem 1rem; color: #333; text-decoration: none;
+  border: none; background: none; width: 100%; text-align: left;
+}
+
+.mobile-menu-item:hover { background: #f8f9fa; color: #28a745; }

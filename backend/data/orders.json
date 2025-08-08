@@ -1,0 +1,135 @@
+[
+  {
+    "items": [
+      {
+        "product": "1754111427521",
+        "quantity": 1,
+        "price": "100"
+      }
+    ],
+    "totalAmount": 100,
+    "paymentStatus": "pending",
+    "shippingAddress": {
+      "name": "Test User",
+      "address": "Default Address",
+      "city": "City",
+      "pincode": "123456"
+    },
+    "user": "1754066792561",
+    "status": "delivered",
+    "_id": "1754111558522",
+    "createdAt": "2025-08-02T05:12:38.522Z",
+    "updatedAt": "2025-08-02T08:45:54.203Z"
+  },
+  {
+    "items": [
+      {
+        "product": "1754066829882",
+        "quantity": 1,
+        "price": 199
+      },
+      {
+        "product": "1754108411030",
+        "quantity": 1,
+        "price": 399
+      },
+      {
+        "product": "1754108428354",
+        "quantity": 1,
+        "price": 599
+      }
+    ],
+    "totalAmount": 1197,
+    "paymentStatus": "pending",
+    "shippingAddress": {
+      "name": "someshnavale123@gmail.com",
+      "phone": "9146639224",
+      "address": "B9 tower , The lofts, Hinjewadi pune ",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "pincode": "411057"
+    },
+    "user": "1754112345678",
+    "status": "pending",
+    "_id": "1754112400355",
+    "createdAt": "2025-08-02T05:26:40.355Z",
+    "updatedAt": "2025-08-02T05:26:40.355Z"
+  },
+  {
+    "items": [
+      {
+        "product": "1754111427521",
+        "quantity": 1,
+        "price": "100"
+      }
+    ],
+    "totalAmount": 100,
+    "paymentStatus": "pending",
+    "shippingAddress": {
+      "name": "someshnavale123@gmail.com",
+      "phone": "8733123456",
+      "address": "Malad West.",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "pincode": "422605"
+    },
+    "user": "1754112345678",
+    "status": "pending",
+    "_id": "1754112468364",
+    "createdAt": "2025-08-02T05:27:48.364Z",
+    "updatedAt": "2025-08-02T05:27:48.364Z"
+  },
+  {
+    "items": [
+      {
+        "product": "1754066820597",
+        "quantity": 1,
+        "price": 299
+      },
+      {
+        "product": "1754066829882",
+        "quantity": 1,
+        "price": 199
+      }
+    ],
+    "totalAmount": 498,
+    "paymentStatus": "pending",
+    "shippingAddress": {
+      "name": "Somesh Shivaji Nawale",
+      "phone": "8123456543",
+      "address": "Pune city",
+      "city": "pune",
+      "state": "Maharashtra",
+      "pincode": "422605"
+    },
+    "user": "1754112345678",
+    "status": "pending",
+    "_id": "1754124065227",
+    "createdAt": "2025-08-02T08:41:05.227Z",
+    "updatedAt": "2025-08-02T08:41:05.227Z"
+  },
+  {
+    "items": [
+      {
+        "product": "1754066829882",
+        "quantity": 1,
+        "price": 199
+      }
+    ],
+    "totalAmount": 199,
+    "paymentStatus": "pending",
+    "shippingAddress": {
+      "name": "Somesh Shivaji Nawale",
+      "phone": "9146639224",
+      "address": "pune city",
+      "city": "pune",
+      "state": "mumbai",
+      "pincode": "432134"
+    },
+    "user": "1754112345678",
+    "status": "pending",
+    "_id": "1754124447433",
+    "createdAt": "2025-08-02T08:47:27.433Z",
+    "updatedAt": "2025-08-02T08:47:27.433Z"
+  }
+]

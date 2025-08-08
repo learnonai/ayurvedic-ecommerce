@@ -1,0 +1,185 @@
+[
+  {
+    "name": "Ashwagandha Powder & Relief.",
+    "description": "Pure Ashwagandha root powder for stress relief",
+    "price": "299",
+    "category": "powders",
+    "stock": "50",
+    "benefits": [
+      "Reduces stress",
+      "Improves energy",
+      "Better sleep"
+    ],
+    "ingredients": [
+      "Ashwagandha root"
+    ],
+    "usage": "1 tsp twice daily with warm milk ",
+    "isActive": true,
+    "_id": "1754066820597",
+    "createdAt": "2025-08-01T16:47:00.597Z",
+    "updatedAt": "2025-08-02T15:33:50.510Z",
+    "images": [
+      "uploads/1754148830509-Shio elephant and rabbit friend playing ball together, red bandana, both happy expressions, playful interaction, 3D animation, joyful friendship moment, 5 seconds.jpg"
+    ]
+  },
+  {
+    "name": "Triphala Churna",
+    "description": "Traditional herbal blend for digestion water",
+    "price": "199",
+    "category": "jadi-buti",
+    "stock": "30",
+    "benefits": [
+      "Improves digestion",
+      "Detoxifies body",
+      "Boosts immunity and water"
+    ],
+    "ingredients": [
+      "Amla",
+      "Haritaki",
+      "Bibhitaki"
+    ],
+    "usage": "1 tsp with warm water before bed and water",
+    "isActive": true,
+    "_id": "1754066829882",
+    "createdAt": "2025-08-01T16:47:09.882Z",
+    "updatedAt": "2025-08-02T15:33:38.322Z",
+    "images": [
+      "uploads/1754148818317-Cute elephant character Shio, gray color, red bandana with dots, happy face, cartoon animation style, jungle background.jpg"
+    ]
+  },
+  {
+    "name": "Brahmi Oil",
+    "description": "Pure Brahmi oil for hair growth and mental clarity",
+    "price": "399",
+    "category": "oils",
+    "stock": "25",
+    "benefits": [
+      "Hair growth",
+      "Memory enhancement",
+      "Stress relief"
+    ],
+    "ingredients": [
+      "Brahmi extract",
+      "Coconut oil"
+    ],
+    "usage": "Massage on scalp 2-3 times weekly",
+    "isActive": true,
+    "_id": "1754108411030",
+    "createdAt": "2025-08-02T04:20:11.030Z",
+    "updatedAt": "2025-08-02T15:34:03.101Z",
+    "images": [
+      "uploads/1754148843099-Cartoon elephant Shio, gray body, red spotted bandana, smiling expression, animation style, colorful background.jpg"
+    ]
+  },
+  {
+    "name": "Chyawanprash",
+    "description": "Traditional immunity booster with 40+ herbs",
+    "price": "599",
+    "category": "medicines",
+    "stock": "40",
+    "benefits": [
+      "Boosts immunity",
+      "Improves digestion",
+      "Anti-aging properties"
+    ],
+    "ingredients": [
+      "Amla",
+      "Ghee",
+      "Honey",
+      "40+ herbs"
+    ],
+    "usage": "1-2 tsp daily with warm milk",
+    "isActive": true,
+    "_id": "1754108428354",
+    "createdAt": "2025-08-02T04:20:28.354Z",
+    "updatedAt": "2025-08-02T15:34:12.500Z",
+    "images": [
+      "uploads/1754148852499-Elephant character Shio, gray skin, red bandana, walking motion, friendly cartoon style, forest setting.jpg"
+    ]
+  },
+  {
+    "name": "Giloy Tablets",
+    "description": "Natural immunity booster tablets",
+    "price": 249,
+    "category": "tablets",
+    "stock": 60,
+    "benefits": [
+      "Immunity booster",
+      "Fever reducer",
+      "Detoxifies blood"
+    ],
+    "ingredients": [
+      "Giloy extract"
+    ],
+    "usage": "2 tablets twice daily after meals",
+    "isActive": true,
+    "_id": "1754108447922",
+    "createdAt": "2025-08-02T04:20:47.922Z",
+    "updatedAt": "2025-08-02T04:20:47.922Z"
+  },
+  {
+    "name": "Neem Powder",
+    "description": "Pure neem leaf powder for skin and blood purification",
+    "price": 179,
+    "category": "powders",
+    "stock": 35,
+    "benefits": [
+      "Blood purification",
+      "Skin health",
+      "Anti-bacterial"
+    ],
+    "ingredients": [
+      "Neem leaves"
+    ],
+    "usage": "1/2 tsp with water on empty stomach",
+    "isActive": true,
+    "_id": "1754108463744",
+    "createdAt": "2025-08-02T04:21:03.744Z",
+    "updatedAt": "2025-08-02T04:21:03.744Z"
+  },
+  {
+    "name": "Truptis Hair oil",
+    "description": "Its very good and to reduce a hair fall quickly.",
+    "price": 100,
+    "category": "oils",
+    "stock": 100,
+    "benefits": [
+      "good",
+      "result",
+      ""
+    ],
+    "ingredients": [
+      "coconut oil",
+      "caster oil",
+      "nilgiri oil"
+    ],
+    "usage": "coconut oil, caster oil, nilgiri oil",
+    "isActive": true,
+    "_id": "1754109068931",
+    "createdAt": "2025-08-02T04:31:08.931Z",
+    "updatedAt": "2025-08-02T04:31:08.931Z"
+  },
+  {
+    "name": "Ayurvedic Vedana shamak oil",
+    "description": "Ayurvedic Vedana shamak oil are good for the body.",
+    "price": "100",
+    "category": "oils",
+    "stock": "200",
+    "benefits": [
+      "Ayurvedic Vedana shamak oil",
+      "Ayurvedic Vedana shamak oil",
+      "Ayurvedic Vedana shamak oil"
+    ],
+    "ingredients": [
+      ""
+    ],
+    "usage": "Ayurvedic Vedana shamak oil,Ayurvedic Vedana shamak oil",
+    "images": [
+      "uploads/1754111427516-Cartoon elephant Shio, gray body, red spotted bandana, smiling expression, animation style, colorful background.jpg"
+    ],
+    "isActive": true,
+    "_id": "1754111427521",
+    "createdAt": "2025-08-02T05:10:27.521Z",
+    "updatedAt": "2025-08-02T05:10:27.521Z"
+  }
+]

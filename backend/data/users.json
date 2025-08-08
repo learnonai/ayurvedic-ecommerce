@@ -1,0 +1,83 @@
+[
+  {
+    "_id": "admin1",
+    "name": "Admin User",
+    "email": "admin@ayurveda.com",
+    "password": "$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+    "role": "admin",
+    "isVerified": true,
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "user1",
+    "name": "Test User",
+    "email": "test@example.com",
+    "password": "$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+    "role": "user",
+    "isVerified": true,
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "name": "Ram hari",
+    "email": "someshnavale97@gmail.com",
+    "password": "$2a$10$ftTLhqPqq3yTUT6/rYIGWe6LLJpQ1/dgnQ5g1x4E6r2fnsFVpeYui",
+    "role": "user",
+    "isVerified": false,
+    "verificationCode": "975497",
+    "verificationExpiry": "2025-08-02T15:20:27.347Z",
+    "_id": "1754147427347",
+    "createdAt": "2025-08-02T15:10:27.347Z",
+    "updatedAt": "2025-08-02T15:10:27.347Z"
+  },
+  {
+    "name": "jayjaygopal hari",
+    "email": "osdssvnm@gmail.com",
+    "password": "$2a$10$RGH5.uObleVBfldiyIGZJOqRX2V5MePgOlLdNU88dWLK2q9gNlxLu",
+    "role": "user",
+    "isVerified": false,
+    "verificationCode": "550941",
+    "verificationExpiry": "2025-08-02T15:23:00.011Z",
+    "_id": "1754147580012",
+    "createdAt": "2025-08-02T15:13:00.012Z",
+    "updatedAt": "2025-08-02T15:13:00.012Z"
+  },
+  {
+    "name": "Hari gopal",
+    "email": "someshdsp97@gmail.com",
+    "password": "$2a$10$mTK1C/JSmzNSTHnwkfHCCusJHyeZ0RZN56KrwX0WrCSNUxT24fPKe",
+    "phone": "8329221189",
+    "role": "user",
+    "isVerified": false,
+    "verificationCode": "820397",
+    "verificationExpiry": "2025-08-02T15:40:16.224Z",
+    "_id": "1754148616225",
+    "createdAt": "2025-08-02T15:30:16.225Z",
+    "updatedAt": "2025-08-02T15:30:16.225Z"
+  },
+  {
+    "name": "Gopal",
+    "email": "restorefort@gmail.com",
+    "password": "$2a$10$01ZbV8DEiHQsAlkfPjue6uYkenqOIZP8QmV.lJ/xss155szR/YaFm",
+    "phone": "8329221189",
+    "role": "user",
+    "isVerified": false,
+    "verificationCode": "285562",
+    "verificationExpiry": "2025-08-02T15:51:50.225Z",
+    "_id": "1754149310226",
+    "createdAt": "2025-08-02T15:41:50.226Z",
+    "updatedAt": "2025-08-02T15:41:50.226Z"
+  },
+  {
+    "name": "ram",
+    "email": "someshnavale123@gmail.com",
+    "password": "$2a$10$Wf6d2K2OBrPvEd9zx6imzON5SI37kVhmzumO2woZ/N/GdvhqYQUIC",
+    "phone": "9146639224",
+    "role": "user",
+    "isVerified": false,
+    "verificationCode": "169791",
+    "verificationExpiry": "2025-08-02T15:53:01.924Z",
+    "_id": "1754149381924",
+    "createdAt": "2025-08-02T15:43:01.924Z",
+    "updatedAt": "2025-08-02T15:43:01.924Z"
+  }
+]

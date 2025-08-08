@@ -1,0 +1,16 @@
+{
+  "short_name": "Ayurvedic Store",
+  "name": "Ayurvedic Ecommerce Store",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%2328a745'/%3E%3Ctext x='96' y='110' font-family='Arial' font-size='80' fill='white' text-anchor='middle'%3E🌿%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#28a745",
+  "background_color": "#ffffff",
+  "description": "Natural Ayurvedic products for healthy living"
+}
