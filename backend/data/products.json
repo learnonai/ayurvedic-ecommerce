@@ -19,7 +19,7 @@
     "createdAt": "2025-08-01T16:47:00.597Z",
     "updatedAt": "2025-08-02T15:33:50.510Z",
     "images": [
-      "uploads/1754148830509-Shio elephant and rabbit friend playing ball together, red bandana, both happy expressions, playful interaction, 3D animation, joyful friendship moment, 5 seconds.jpg"
+      "uploads/ayurvedic-leaf.jpg"
     ]
   },
   {
@@ -44,7 +44,7 @@
     "createdAt": "2025-08-01T16:47:09.882Z",
     "updatedAt": "2025-08-02T15:33:38.322Z",
     "images": [
-      "uploads/1754148818317-Cute elephant character Shio, gray color, red bandana with dots, happy face, cartoon animation style, jungle background.jpg"
+      "uploads/ayurvedic-leaf.jpg"
     ]
   },
   {
@@ -68,7 +68,7 @@
     "createdAt": "2025-08-02T04:20:11.030Z",
     "updatedAt": "2025-08-02T15:34:03.101Z",
     "images": [
-      "uploads/1754148843099-Cartoon elephant Shio, gray body, red spotted bandana, smiling expression, animation style, colorful background.jpg"
+      "uploads/ayurvedic-leaf.jpg"
     ]
   },
   {
@@ -94,7 +94,7 @@
     "createdAt": "2025-08-02T04:20:28.354Z",
     "updatedAt": "2025-08-02T15:34:12.500Z",
     "images": [
-      "uploads/1754148852499-Elephant character Shio, gray skin, red bandana, walking motion, friendly cartoon style, forest setting.jpg"
+      "uploads/ayurvedic-leaf.jpg"
     ]
   },
   {
@@ -115,7 +115,10 @@
     "isActive": true,
     "_id": "1754108447922",
     "createdAt": "2025-08-02T04:20:47.922Z",
-    "updatedAt": "2025-08-02T04:20:47.922Z"
+    "updatedAt": "2025-08-02T04:20:47.922Z",
+    "images": [
+      "uploads/ayurvedic-leaf.jpg"
+    ]
   },
   {
     "name": "Neem Powder",
@@ -135,7 +138,10 @@
     "isActive": true,
     "_id": "1754108463744",
     "createdAt": "2025-08-02T04:21:03.744Z",
-    "updatedAt": "2025-08-02T04:21:03.744Z"
+    "updatedAt": "2025-08-02T04:21:03.744Z",
+    "images": [
+      "uploads/ayurvedic-leaf.jpg"
+    ]
   },
   {
     "name": "Truptis Hair oil",
@@ -157,7 +163,10 @@
     "isActive": true,
     "_id": "1754109068931",
     "createdAt": "2025-08-02T04:31:08.931Z",
-    "updatedAt": "2025-08-02T04:31:08.931Z"
+    "updatedAt": "2025-08-02T04:31:08.931Z",
+    "images": [
+      "uploads/ayurvedic-leaf.jpg"
+    ]
   },
   {
     "name": "Ayurvedic Vedana shamak oil",
@@ -175,7 +184,7 @@
     ],
     "usage": "Ayurvedic Vedana shamak oil,Ayurvedic Vedana shamak oil",
     "images": [
-      "uploads/1754111427516-Cartoon elephant Shio, gray body, red spotted bandana, smiling expression, animation style, colorful background.jpg"
+      "uploads/ayurvedic-leaf.jpg"
     ],
     "isActive": true,
     "_id": "1754111427521",
