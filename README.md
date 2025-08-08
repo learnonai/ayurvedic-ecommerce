@@ -49,6 +49,12 @@ cd client-website && npm install && BROWSER=none PORT=3001 npm start
 
 ## 🌐 Access Applications
 
+### 🚀 Live Production URLs
+- **Customer Website**: http://3.91.235.214:3001
+- **Admin Panel**: http://3.91.235.214:3000
+- **Backend API**: http://3.91.235.214:5000
+
+### 💻 Local Development URLs
 - **Customer Website**: http://localhost:3001
 - **Admin Panel**: http://localhost:3000
 - **Backend API**: http://localhost:5000
@@ -80,6 +86,9 @@ cd client-website && npm install && BROWSER=none PORT=3001 npm start
 - **Authentication**: JWT tokens
 - **File Upload**: Multer
 - **Payment**: Mock integration (ready for Razorpay)
+- **Deployment**: AWS EC2 (t3.small)
+- **CI/CD**: GitHub Actions + AWS CodeDeploy
+- **Process Manager**: PM2
 
 ## 📁 Project Structure
 
@@ -93,6 +102,8 @@ Ayurvedic-Ecommerce/
 ```
 
 ## 🔄 API Endpoints
+
+**Base URL**: http://3.91.235.214:5000
 
 ### Authentication
 - `POST /api/auth/register` - User registration
@@ -143,6 +154,27 @@ lsof -ti:3001 | xargs kill -9
 rm -rf node_modules package-lock.json
 npm install
 ```
+
+## 🚀 CI/CD Pipeline
+
+### Automatic Deployment
+- **Trigger**: Every push to `main` branch
+- **Platform**: GitHub Actions + AWS CodeDeploy
+- **Target**: EC2 instance (3.91.235.214)
+- **Zero Downtime**: Rolling deployment with PM2
+
+### Manual Deployment
+```bash
+git add .
+git commit -m "Your changes"
+git push origin main
+# Automatic deployment will start!
+```
+
+## 💰 Infrastructure Cost
+- **EC2 t3.small**: ~$16-21/month
+- **CodeDeploy**: FREE
+- **GitHub Actions**: FREE (2000 min/month)
 
 ## 📞 Support
 
