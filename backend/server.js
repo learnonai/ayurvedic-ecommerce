@@ -17,7 +17,12 @@ const app = express();
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: [
+    'http://localhost:3000', 
+    'http://localhost:3001',
+    'http://3.91.235.214:3000',
+    'http://3.91.235.214:3001'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -36,6 +41,11 @@ const limiter = rateLimit({
   max: 100 // limit each IP to 100 requests per windowMs
 });
 app.use('/api', limiter);
+
+// Root route for testing
+app.get('/', (req, res) => {
+  res.json({ message: 'Ayurvedic Ecommerce API is running!', status: 'OK' });
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
