@@ -22,7 +22,7 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router basename="/admin">
       <div className="d-flex">
         <nav className="bg-dark text-white p-3" style={{width: '250px', minHeight: '100vh'}}>
           <h4>Ayurvedic Admin</h4>
