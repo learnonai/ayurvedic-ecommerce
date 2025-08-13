@@ -6,6 +6,8 @@ const Users = () => {
   const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showStatsModal, setShowStatsModal] = useState(false);
+  const [statsData, setStatsData] = useState({ title: '', users: [] });
 
   useEffect(() => {
     fetchUsers();
@@ -49,26 +51,37 @@ const Users = () => {
     setShowModal(true);
   };
 
+  const [showStatsModal, setShowStatsModal] = useState(false);
+  const [statsData, setStatsData] = useState({ title: '', users: [] });
+
   const handleStatClick = (type) => {
     let filteredUsers = [];
+    let title = '';
+    
     switch(type) {
       case 'total':
         filteredUsers = userList;
+        title = 'All Users';
         break;
       case 'verified':
         filteredUsers = userList.filter(u => u.isVerified);
+        title = 'Verified Users';
         break;
       case 'pending':
         filteredUsers = userList.filter(u => !u.isVerified);
+        title = 'Pending Verification';
         break;
       case 'admin':
         filteredUsers = userList.filter(u => u.role === 'admin');
+        title = 'Admin Users';
         break;
       default:
         filteredUsers = userList;
+        title = 'All Users';
     }
     
-    alert(`${type.toUpperCase()} USERS:\n\n${filteredUsers.map(u => `• ${u.name} (${u.email})`).join('\n')}`);
+    setStatsData({ title, users: filteredUsers });
+    setShowStatsModal(true);
   };
 
   if (loading) return <div>Loading users...</div>;
@@ -235,6 +248,129 @@ const Users = () => {
       )}
       
       {showModal && <div className="modal-backdrop fade show"></div>}
+      
+      {/* Stats Modal */}
+      {showStatsModal && (
+        <div className="modal fade show" style={{display: 'block'}} tabIndex="-1">
+          <div className="modal-dialog modal-lg">
+            <div className="modal-content">
+              <div className="modal-header bg-primary text-white">
+                <h5 className="modal-title">
+                  <i className="bi bi-people-fill me-2"></i>
+                  {statsData.title} ({statsData.users.length})
+                </h5>
+                <button type="button" className="btn-close btn-close-white" onClick={() => setShowStatsModal(false)}></button>
+              </div>
+              <div className="modal-body">
+                {statsData.users.length === 0 ? (
+                  <div className="text-center py-4">
+                    <i className="bi bi-inbox" style={{fontSize: '3rem', color: '#6c757d'}}></i>
+                    <p className="text-muted mt-2">No users found in this category</p>
+                  </div>
+                ) : (
+                  <div className="table-responsive">
+                    <table className="table table-hover">
+                      <thead className="table-light">
+                        <tr>
+                          <th><i className="bi bi-person"></i> Name</th>
+                          <th><i className="bi bi-envelope"></i> Email</th>
+                          <th><i className="bi bi-shield"></i> Role</th>
+                          <th><i className="bi bi-check-circle"></i> Status</th>
+                          <th><i className="bi bi-calendar"></i> Joined</th>
+                          <th><i className="bi bi-gear"></i> Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {statsData.users.map(user => (
+                          <tr key={user._id}>
+                            <td>
+                              <div className="d-flex align-items-center">
+                                <div className="avatar-circle me-2" style={{
+                                  width: '32px', height: '32px', borderRadius: '50%',
+                                  backgroundColor: user.role === 'admin' ? '#dc3545' : '#0d6efd',
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                  color: 'white', fontSize: '14px', fontWeight: 'bold'
+                                }}>
+                                  {user.name.charAt(0).toUpperCase()}
+                                </div>
+                                <strong>{user.name}</strong>
+                              </div>
+                            </td>
+                            <td>
+                              <span className="text-muted">{user.email}</span>
+                            </td>
+                            <td>
+                              <span className={`badge bg-${user.role === 'admin' ? 'danger' : 'primary'}`}>
+                                <i className={`bi bi-${user.role === 'admin' ? 'shield-fill' : 'person'} me-1`}></i>
+                                {user.role.toUpperCase()}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge bg-${user.isVerified ? 'success' : 'warning'}`}>
+                                <i className={`bi bi-${user.isVerified ? 'check-circle-fill' : 'clock'} me-1`}></i>
+                                {user.isVerified ? 'Verified' : 'Pending'}
+                              </span>
+                            </td>
+                            <td>
+                              <small className="text-muted">
+                                {new Date(user.createdAt).toLocaleDateString('en-US', {
+                                  year: 'numeric',
+                                  month: 'short',
+                                  day: 'numeric'
+                                })}
+                              </small>
+                            </td>
+                            <td>
+                              <div className="btn-group" role="group">
+                                <button 
+                                  className="btn btn-sm btn-outline-primary"
+                                  onClick={() => {
+                                    setShowStatsModal(false);
+                                    handleViewDetails(user);
+                                  }}
+                                  title="View Details"
+                                >
+                                  <i className="bi bi-eye"></i>
+                                </button>
+                                {!user.isVerified && (
+                                  <button 
+                                    className="btn btn-sm btn-outline-success"
+                                    onClick={() => {
+                                      handleVerifyUser(user._id);
+                                      setShowStatsModal(false);
+                                    }}
+                                    title="Verify User"
+                                  >
+                                    <i className="bi bi-check-lg"></i>
+                                  </button>
+                                )}
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+              <div className="modal-footer bg-light">
+                <div className="me-auto">
+                  <small className="text-muted">
+                    <i className="bi bi-info-circle me-1"></i>
+                    Showing {statsData.users.length} user{statsData.users.length !== 1 ? 's' : ''}
+                  </small>
+                </div>
+                <button type="button" className="btn btn-secondary" onClick={() => setShowStatsModal(false)}>
+                  <i className="bi bi-x-lg me-1"></i>
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {showStatsModal && <div className="modal-backdrop fade show"></div>}
     </div>
   );
 };
