@@ -127,26 +127,32 @@ const Dashboard = () => {
       {/* User Stats Row */}
       <div className="row mb-4">
         <div className="col-md-4">
-          <div className="card bg-light" style={{cursor: 'pointer'}} onClick={() => setSelectedCategory('users')}>
-            <div className="card-body text-center">
-              <h5>Pending Verification</h5>
-              <h3 className="text-warning">{stats.pendingUsers}</h3>
+          <Link to="/users?filter=pending" className="text-decoration-none">
+            <div className="card bg-light" style={{cursor: 'pointer'}}>
+              <div className="card-body text-center">
+                <h5>Pending Verification</h5>
+                <h3 className="text-warning">{stats.pendingUsers}</h3>
+                <small>Click to view pending users</small>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
         <div className="col-md-4">
-          <div className="card bg-light" style={{cursor: 'pointer'}} onClick={() => setSelectedCategory('admins')}>
-            <div className="card-body text-center">
-              <h5>Admin Users</h5>
-              <h3 className="text-danger">{stats.adminUsers}</h3>
+          <Link to="/users?filter=admin" className="text-decoration-none">
+            <div className="card bg-light" style={{cursor: 'pointer'}}>
+              <div className="card-body text-center">
+                <h5>Admin Users</h5>
+                <h3 className="text-danger">{stats.adminUsers}</h3>
+                <small>Click to view admin users</small>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
         <div className="col-md-4">
           <div className="card bg-light">
             <div className="card-body text-center">
               <h5>User Growth</h5>
-              <h3 className="text-success">+{Math.floor(stats.users * 0.15)}</h3>
+              <h3 className="text-success">+1</h3>
               <small>This month</small>
             </div>
           </div>

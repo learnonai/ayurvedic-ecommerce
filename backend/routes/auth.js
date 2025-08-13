@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
     res.status(201).json({ 
       token, 
       user: { id: user._id, name, email, role: user.role, isVerified: user.isVerified },
-      message: 'Registration successful! Check console for verification code.'
+      message: `Registration successful! For demo purposes, your verification code is: ${user.verificationCode}. In production, this would be sent to your email.`
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

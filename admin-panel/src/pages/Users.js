@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { users } from '../utils/api';
 
 const Users = () => {
@@ -9,9 +10,18 @@ const Users = () => {
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [statsData, setStatsData] = useState({ title: '', users: [] });
 
+  const [searchParams] = useSearchParams();
+
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    const filter = searchParams.get('filter');
+    if (filter && userList.length > 0) {
+      handleStatClick(filter);
+    }
+  }, [userList, searchParams]);
 
   const fetchUsers = async () => {
     try {
@@ -50,9 +60,6 @@ const Users = () => {
     setSelectedUser(user);
     setShowModal(true);
   };
-
-  const [showStatsModal, setShowStatsModal] = useState(false);
-  const [statsData, setStatsData] = useState({ title: '', users: [] });
 
   const handleStatClick = (type) => {
     let filteredUsers = [];

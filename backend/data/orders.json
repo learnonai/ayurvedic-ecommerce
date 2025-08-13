@@ -16,10 +16,10 @@
       "pincode": "123456"
     },
     "user": "1754066792561",
-    "status": "cancelled",
+    "status": "delivered",
     "_id": "1754111558522",
     "createdAt": "2025-08-02T05:12:38.522Z",
-    "updatedAt": "2025-08-13T10:27:17.643Z"
+    "updatedAt": "2025-08-13T15:17:26.420Z"
   },
   {
     "items": [
@@ -131,5 +131,29 @@
     "_id": "1754124447433",
     "createdAt": "2025-08-02T08:47:27.433Z",
     "updatedAt": "2025-08-02T08:47:27.433Z"
+  },
+  {
+    "items": [
+      {
+        "product": "1755098387154",
+        "quantity": 2,
+        "price": "199"
+      }
+    ],
+    "totalAmount": 398,
+    "paymentStatus": "pending",
+    "shippingAddress": {
+      "name": "Test User",
+      "phone": "9865453245",
+      "address": "The Lofts , B9 tower, Hinjewadi pune, 411057",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "pincode": "411057"
+    },
+    "user": "user1",
+    "status": "delivered",
+    "_id": "1755098466675",
+    "createdAt": "2025-08-13T15:21:06.675Z",
+    "updatedAt": "2025-08-13T15:22:01.961Z"
   }
 ]

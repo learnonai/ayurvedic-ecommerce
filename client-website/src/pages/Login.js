@@ -81,6 +81,22 @@ const Login = ({ onLogin }) => {
                 <PhoneLogin onLogin={onLogin} />
               )}
               <div className="text-center mt-3">
+                <div className="mb-2">
+                  <button 
+                    type="button" 
+                    className="btn btn-link p-0 text-decoration-none"
+                    onClick={() => {
+                      const email = prompt('Enter your email address:');
+                      if (email && email.includes('@')) {
+                        alert('For demo purposes: Use password "password123" for test@example.com or "admin123" for admin@ayurveda.com');
+                      } else if (email) {
+                        alert('Please enter a valid email address.');
+                      }
+                    }}
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
                 <Link to="/register">Don't have an account? Register</Link>
               </div>
             </div>

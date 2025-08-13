@@ -34,12 +34,12 @@
     "email": "osdssvnm@gmail.com",
     "password": "$2a$10$RGH5.uObleVBfldiyIGZJOqRX2V5MePgOlLdNU88dWLK2q9gNlxLu",
     "role": "user",
-    "isVerified": false,
-    "verificationCode": "550941",
+    "isVerified": true,
+    "verificationCode": null,
     "verificationExpiry": "2025-08-02T15:23:00.011Z",
     "_id": "1754147580012",
     "createdAt": "2025-08-02T15:13:00.012Z",
-    "updatedAt": "2025-08-02T15:13:00.012Z"
+    "updatedAt": "2025-08-13T12:29:07.576Z"
   },
   {
     "name": "Hari gopal",
@@ -47,12 +47,12 @@
     "password": "$2a$10$mTK1C/JSmzNSTHnwkfHCCusJHyeZ0RZN56KrwX0WrCSNUxT24fPKe",
     "phone": "8329221189",
     "role": "user",
-    "isVerified": false,
-    "verificationCode": "820397",
+    "isVerified": true,
+    "verificationCode": null,
     "verificationExpiry": "2025-08-02T15:40:16.224Z",
     "_id": "1754148616225",
     "createdAt": "2025-08-02T15:30:16.225Z",
-    "updatedAt": "2025-08-02T15:30:16.225Z"
+    "updatedAt": "2025-08-13T15:17:43.265Z"
   },
   {
     "name": "Gopal",
@@ -79,5 +79,31 @@
     "_id": "1754149381924",
     "createdAt": "2025-08-02T15:43:01.924Z",
     "updatedAt": "2025-08-02T15:43:01.924Z"
+  },
+  {
+    "name": "jay hari gopal",
+    "email": "ramharigopal@gmail.com",
+    "password": "$2a$10$DxMzYTiaboOlMH5PZZ697.7BoeWi.1YOXanbyhvxigp0xAUkgAR7.",
+    "phone": "9134235676",
+    "role": "user",
+    "isVerified": true,
+    "verificationCode": null,
+    "verificationExpiry": "2025-08-13T12:40:56.802Z",
+    "_id": "1755088256803",
+    "createdAt": "2025-08-13T12:30:56.803Z",
+    "updatedAt": "2025-08-13T12:31:16.322Z"
+  },
+  {
+    "name": "somesh nawale ",
+    "email": "learnonai@gmail.com",
+    "password": "$2a$10$FcfUQXaogspZHoWZVfCIKOnoFpILRtoSkKhJSULkAnfqYycW.dMsm",
+    "phone": "7654231234",
+    "role": "user",
+    "isVerified": true,
+    "verificationCode": null,
+    "verificationExpiry": "2025-08-13T12:41:49.146Z",
+    "_id": "1755088309146",
+    "createdAt": "2025-08-13T12:31:49.146Z",
+    "updatedAt": "2025-08-13T12:32:39.220Z"
   }
 ]

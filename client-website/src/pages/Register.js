@@ -13,12 +13,11 @@ const Register = ({ onLogin }) => {
   const validationRules = {
     name: { required: true, validator: validateName, message: 'Name must be at least 2 characters' },
     email: { required: true, validator: validateEmail, message: 'Please enter a valid email' },
-    password: { required: true, validator: validatePassword, message: 'Password must be at least 6 characters' },
-    phone: { required: false, validator: validatePhone, message: 'Please enter a valid Indian phone number' }
+    password: { required: true, validator: validatePassword, message: 'Password must be at least 6 characters' }
   };
   
   const { values: formData, errors, touched, handleChange, handleBlur, validateAll } = useFormValidation(
-    { name: '', email: '', password: '', phone: '' },
+    { name: '', email: '', password: '' },
     validationRules
   );
 
@@ -91,17 +90,7 @@ const Register = ({ onLogin }) => {
                       />
                       <FormError message={touched.email ? errors.email : ''} />
                     </div>
-                    <div className="mb-3">
-                      <input
-                        type="tel"
-                        className={`form-control form-control-lg ${errors.phone && touched.phone ? 'is-invalid' : ''}`}
-                        placeholder="Phone Number (Optional)"
-                        value={formData.phone}
-                        onChange={(e) => handleChange('phone', e.target.value)}
-                        onBlur={() => handleBlur('phone')}
-                      />
-                      <FormError message={touched.phone ? errors.phone : ''} />
-                    </div>
+
                     <div className="mb-3">
                       <input
                         type="password"

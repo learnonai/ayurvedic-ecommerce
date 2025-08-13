@@ -207,5 +207,45 @@
     "_id": "1755080723642",
     "createdAt": "2025-08-13T10:25:23.642Z",
     "updatedAt": "2025-08-13T10:25:23.642Z"
+  },
+  {
+    "name": "Test4",
+    "description": "Test3",
+    "price": "12",
+    "category": "medicines",
+    "stock": "4",
+    "benefits": [
+      "Test3"
+    ],
+    "ingredients": [
+      "Test3"
+    ],
+    "usage": "Test3",
+    "images": [],
+    "isActive": false,
+    "_id": "1755098225683",
+    "createdAt": "2025-08-13T15:17:05.683Z",
+    "updatedAt": "2025-08-13T15:17:13.372Z"
+  },
+  {
+    "name": "Trupti Hair Oil",
+    "description": "Trupti Hair Oil",
+    "price": "199",
+    "category": "oils",
+    "stock": "10",
+    "benefits": [
+      "Trupti Hair Oil"
+    ],
+    "ingredients": [
+      "Trupti Hair Oil"
+    ],
+    "usage": "Trupti Hair Oil",
+    "images": [
+      "uploads/1755098387112-Screenshot 2025-08-12 at 2.26.54â¯PM.png"
+    ],
+    "isActive": true,
+    "_id": "1755098387154",
+    "createdAt": "2025-08-13T15:19:47.154Z",
+    "updatedAt": "2025-08-13T15:19:47.154Z"
   }
 ]

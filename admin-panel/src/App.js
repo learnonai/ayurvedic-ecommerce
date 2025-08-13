@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Dashboard from './pages/Dashboard';
@@ -9,6 +9,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+    if (token && storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -22,7 +30,7 @@ function App() {
   }
 
   return (
-    <Router basename={process.env.NODE_ENV === 'production' ? '/admin' : '/'}>
+    <Router basename="/">
       <div className="d-flex">
         <nav className="bg-dark text-white p-3" style={{width: '250px', minHeight: '100vh'}}>
           <h4>Ayurvedic Admin</h4>
