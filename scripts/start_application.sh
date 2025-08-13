@@ -7,11 +7,20 @@ cd backend && npm install
 cd ../admin-panel && npm install && npm run build
 cd ../client-website && npm install && npm run build
 
-# Start only backend service (nginx serves static files)
-echo "Starting backend service..."
+# Stop existing processes
+echo "Stopping existing processes..."
+pm2 delete all 2>/dev/null || true
+
+# Start all services
+echo "Starting services..."
 cd backend
-pm2 delete api 2>/dev/null || true
 pm2 start server.js --name "api"
+
+cd ../admin-panel
+pm2 serve build 3000 --name "admin" --spa
+
+cd ../client-website
+pm2 serve build 3001 --name "client" --spa
 
 # Copy nginx config
 echo "Updating nginx config..."
@@ -20,4 +29,4 @@ sudo ln -sf /etc/nginx/sites-available/learnonai.com /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 
 pm2 save
-echo "Deployment completed!"
+echo "All services started!"
