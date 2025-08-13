@@ -22,12 +22,12 @@
     "email": "someshnavale97@gmail.com",
     "password": "$2a$10$ftTLhqPqq3yTUT6/rYIGWe6LLJpQ1/dgnQ5g1x4E6r2fnsFVpeYui",
     "role": "user",
-    "isVerified": false,
-    "verificationCode": "975497",
+    "isVerified": true,
+    "verificationCode": null,
     "verificationExpiry": "2025-08-02T15:20:27.347Z",
     "_id": "1754147427347",
     "createdAt": "2025-08-02T15:10:27.347Z",
-    "updatedAt": "2025-08-02T15:10:27.347Z"
+    "updatedAt": "2025-08-13T10:26:19.331Z"
   },
   {
     "name": "jayjaygopal hari",

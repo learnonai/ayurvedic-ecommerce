@@ -1,23 +1,21 @@
 [
   {
-    "name": "Ashwagandha Powder & Relief.",
-    "description": "Pure Ashwagandha root powder for stress relief",
+    "name": "Test 1",
+    "description": "test1",
     "price": "299",
-    "category": "powders",
+    "category": "oils",
     "stock": "50",
     "benefits": [
-      "Reduces stress",
-      "Improves energy",
-      "Better sleep"
+      "test1"
     ],
     "ingredients": [
-      "Ashwagandha root"
+      "test1"
     ],
-    "usage": "1 tsp twice daily with warm milk ",
-    "isActive": true,
+    "usage": "test1",
+    "isActive": false,
     "_id": "1754066820597",
     "createdAt": "2025-08-01T16:47:00.597Z",
-    "updatedAt": "2025-08-02T15:33:50.510Z",
+    "updatedAt": "2025-08-13T10:25:26.365Z",
     "images": [
       "uploads/ayurvedic-leaf.jpg"
     ]
@@ -190,5 +188,24 @@
     "_id": "1754111427521",
     "createdAt": "2025-08-02T05:10:27.521Z",
     "updatedAt": "2025-08-02T05:10:27.521Z"
+  },
+  {
+    "name": "test2",
+    "description": "test2",
+    "price": "322",
+    "category": "oils",
+    "stock": "33",
+    "benefits": [
+      ""
+    ],
+    "ingredients": [
+      ""
+    ],
+    "usage": "",
+    "images": [],
+    "isActive": true,
+    "_id": "1755080723642",
+    "createdAt": "2025-08-13T10:25:23.642Z",
+    "updatedAt": "2025-08-13T10:25:23.642Z"
   }
 ]
