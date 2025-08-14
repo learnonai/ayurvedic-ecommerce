@@ -16,8 +16,8 @@ echo "Starting services..."
 cd /home/ubuntu/ayurvedic-ecommerce/backend
 pm2 start server.js --name "api"
 
-cd /home/ubuntu/ayurvedic-ecommerce/admin-panel
-pm2 serve build 3000 --name "admin" --spa
+# Admin panel served as static files via nginx
+echo "Admin panel built and will be served via nginx"
 
 cd /home/ubuntu/ayurvedic-ecommerce/client-website
 pm2 serve build 3001 --name "client" --spa
