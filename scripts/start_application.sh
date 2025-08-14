@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ec2-user/ayurvedic-ecommerce
+cd /home/ubuntu/ayurvedic-ecommerce
 
 # Install dependencies and build
 echo "Installing dependencies..."
@@ -13,18 +13,18 @@ pm2 delete all 2>/dev/null || true
 
 # Start all services
 echo "Starting services..."
-cd backend
+cd /home/ubuntu/ayurvedic-ecommerce/backend
 pm2 start server.js --name "api"
 
-cd ../admin-panel
+cd /home/ubuntu/ayurvedic-ecommerce/admin-panel
 pm2 serve build 3000 --name "admin" --spa
 
-cd ../client-website
+cd /home/ubuntu/ayurvedic-ecommerce/client-website
 pm2 serve build 3001 --name "client" --spa
 
 # Copy nginx config
 echo "Updating nginx config..."
-sudo cp ../nginx.conf /etc/nginx/sites-available/learnonai.com
+sudo cp /home/ubuntu/ayurvedic-ecommerce/nginx.conf /etc/nginx/sites-available/learnonai.com
 sudo ln -sf /etc/nginx/sites-available/learnonai.com /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 
