@@ -1,8 +1,5 @@
 {
-  "name": "ayurvedic-admin-panel",
-  "version": "1.0.0",
-  "private": true,
-  "homepage": "/admin",
+
 
 
   "dependencies": {
