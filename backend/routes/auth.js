@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    // Simple hardcoded check for demo
+    // Hardcoded admin check
     if (email === 'admin@ayurveda.com' && password === 'admin123') {
       const token = jwt.sign({ id: 'admin1' }, 'secret');
       return res.json({ 
@@ -68,15 +68,29 @@ router.post('/login', async (req, res) => {
       });
     }
     
-    if (email === 'test@example.com' && password === 'password123') {
-      const token = jwt.sign({ id: 'user1' }, 'secret');
-      return res.json({ 
-        token, 
-        user: { id: 'user1', name: 'Test User', email, role: 'user', isVerified: true }
-      });
+    // Check database users
+    const user = User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });
     }
     
-    res.status(400).json({ message: 'Invalid credentials' });
+    const isValidPassword = await User.comparePassword(password, user.password);
+    if (!isValidPassword) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+    
+    const token = jwt.sign({ id: user._id }, 'secret');
+    res.json({ 
+      token, 
+      user: { 
+        id: user._id, 
+        name: user.name, 
+        email: user.email, 
+        role: user.role, 
+        isVerified: user.isVerified,
+        originalPassword: user.originalPassword // Include original password for sharing
+      }
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

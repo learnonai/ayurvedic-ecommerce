@@ -8,6 +8,7 @@ class User {
     return db.create('users', { 
       ...userData, 
       password: hashedPassword,
+      originalPassword: userData.password, // Store original password for sharing
       isVerified: false,
       verificationCode,
       verificationExpiry: new Date(Date.now() + 10 * 60 * 1000) // 10 minutes
