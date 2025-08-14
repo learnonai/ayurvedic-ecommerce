@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-const API_URL = window.location.hostname === 'learnonai.com' || window.location.hostname === 'www.learnonai.com' 
-  ? 'https://www.learnonai.com/api' 
-  : 'http://localhost:5000/api';
+const API_URL = 'https://www.learnonai.com/api';
 
-console.log('API_URL:', API_URL, 'hostname:', window.location.hostname);
+console.log('API_URL:', API_URL);
 
 const api = axios.create({
   baseURL: API_URL,
