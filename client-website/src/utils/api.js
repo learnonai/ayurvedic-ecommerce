@@ -4,6 +4,8 @@ const API_URL = window.location.hostname === 'learnonai.com' || window.location.
   ? 'https://www.learnonai.com/api' 
   : 'http://localhost:5000/api';
 
+console.log('API_URL:', API_URL, 'hostname:', window.location.hostname);
+
 const api = axios.create({
   baseURL: API_URL,
 });
@@ -34,6 +36,7 @@ api.interceptors.response.use(
 export const auth = {
   register: (userData) => api.post('/auth/register', userData),
   login: (credentials) => api.post('/auth/login', credentials),
+  verifyEmail: (data) => api.post('/auth/verify-email', data),
 };
 
 export const products = {
