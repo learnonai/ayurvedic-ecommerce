@@ -105,5 +105,29 @@
     "_id": "1755088309146",
     "createdAt": "2025-08-13T12:31:49.146Z",
     "updatedAt": "2025-08-13T12:32:39.220Z"
+  },
+  {
+    "name": "jay gopl",
+    "email": "jay@gmail.com",
+    "password": "$2a$10$ZgaibayWnAgPD19U3Q8sPeg30tWYi3zirOk1sXMAZ.sDzQtRjtMDy",
+    "role": "user",
+    "isVerified": false,
+    "verificationCode": "301605",
+    "verificationExpiry": "2025-08-14T04:12:58.686Z",
+    "_id": "1755144178687",
+    "createdAt": "2025-08-14T04:02:58.687Z",
+    "updatedAt": "2025-08-14T04:02:58.687Z"
+  },
+  {
+    "name": "hari ram",
+    "email": "hari@gmail.com",
+    "password": "$2a$10$lAaKIxfnsRtuvU4jfW6yMeVvv/MCk0mKhZvJ0Qia5L7yYXP0r9nAW",
+    "role": "user",
+    "isVerified": true,
+    "verificationCode": null,
+    "verificationExpiry": "2025-08-14T04:13:44.054Z",
+    "_id": "1755144224055",
+    "createdAt": "2025-08-14T04:03:44.055Z",
+    "updatedAt": "2025-08-14T04:04:00.269Z"
   }
 ]
