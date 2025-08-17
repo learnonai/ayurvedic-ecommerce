@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../utils/api';
 
 const PhoneLogin = ({ onLogin }) => {
   const [step, setStep] = useState(1); // 1: phone, 2: otp
@@ -16,7 +17,7 @@ const PhoneLogin = ({ onLogin }) => {
     
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/sms/send-otp', { phone });
+      await axios.post(`${BASE_URL}/api/sms/send-otp`, { phone });
       setStep(2);
       alert('OTP sent to your phone! Check console for demo OTP.');
     } catch (error) {
@@ -29,7 +30,7 @@ const PhoneLogin = ({ onLogin }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/sms/verify-otp', { phone, otp });
+      const response = await axios.post(`${BASE_URL}/api/sms/verify-otp`, { phone, otp });
       localStorage.setItem('userToken', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       onLogin(response.data.user);

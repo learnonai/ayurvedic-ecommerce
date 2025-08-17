@@ -1,17 +1,25 @@
 import axios from 'axios';
 
-// Environment-based API URL configuration
-const getApiUrl = () => {
+// Environment-based URL configuration
+const getBaseUrl = () => {
   // Check if we're in development mode
   if (process.env.NODE_ENV === 'development') {
-    return 'http://localhost:5000/api';
+    return 'http://localhost:5000';
   }
   
   // Production URL
-  return 'https://learnonai.com/api';
+  return 'https://learnonai.com';
 };
 
+const getApiUrl = () => {
+  return `${getBaseUrl()}/api`;
+};
+
+const BASE_URL = getBaseUrl();
 const API_URL = getApiUrl();
+
+// Export for use in components
+export { BASE_URL };
 
 console.log('API_URL:', API_URL);
 

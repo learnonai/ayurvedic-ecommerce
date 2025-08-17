@@ -1,5 +1,5 @@
 import React from 'react';
-import { wishlist } from '../utils/api';
+import { wishlist, BASE_URL } from '../utils/api';
 
 const ProductCard = ({ product, onAddToCart, user }) => {
   const addToWishlist = async () => {
@@ -18,7 +18,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
     <div className="card h-100">
       {product.images && product.images.length > 0 ? (
         <img 
-          src={`http://localhost:5000/${product.images[0]}`} 
+          src={`${BASE_URL}/${product.images[0]}`} 
           className="card-img-top" 
           alt={product.name}
           style={{height: '200px', objectFit: 'cover'}}

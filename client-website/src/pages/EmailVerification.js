@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { BASE_URL } from '../utils/api';
 
 const EmailVerification = ({ email, onVerified }) => {
   const [code, setCode] = useState('');
@@ -12,7 +13,7 @@ const EmailVerification = ({ email, onVerified }) => {
     setLoading(true);
     
     try {
-      await axios.post('http://localhost:5000/api/auth/verify-email', {
+      await axios.post(`${BASE_URL}/api/auth/verify-email`, {
         email,
         code
       });
