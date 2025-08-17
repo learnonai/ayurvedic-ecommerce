@@ -58,6 +58,19 @@ const ProductCard = ({ product, onAddToCart, user }) => {
         <p className="text-success fw-bold">₹{product.price}</p>
         <p className="text-muted small">Category: {product.category}</p>
         
+        {/* Stock Status */}
+        <div className="mb-2">
+          {(product.stock || 0) > 0 ? (
+            <span className="badge bg-success">
+              ✓ In Stock ({product.stock || 0} available)
+            </span>
+          ) : (
+            <span className="badge bg-danger">
+              ✗ Out of Stock
+            </span>
+          )}
+        </div>
+        
         {product.benefits && (
           <div className="mb-2">
             <small className="text-muted">Benefits:</small>
@@ -72,10 +85,16 @@ const ProductCard = ({ product, onAddToCart, user }) => {
         <div className="d-flex gap-2">
           <button 
             className="btn btn-success flex-fill" 
-            onClick={() => onAddToCart(product)}
-            disabled={product.stock === 0}
+            onClick={() => {
+              if ((product.stock || 0) > 0) {
+                onAddToCart(product);
+              } else {
+                alert('Sorry, this product is out of stock!');
+              }
+            }}
+            disabled={(product.stock || 0) === 0}
           >
-            {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+            {(product.stock || 0) === 0 ? 'Out of Stock' : 'Add to Cart'}
           </button>
           <button 
             className="btn btn-outline-danger"

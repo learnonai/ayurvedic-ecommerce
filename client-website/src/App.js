@@ -10,6 +10,7 @@ import Wishlist from './pages/Wishlist';
 import Orders from './pages/Orders';
 import Checkout from './pages/Checkout';
 import Policies from './pages/Policies';
+import Profile from './pages/Profile';
 import { orders, payment } from './utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/mobile.css';
@@ -104,6 +105,7 @@ function App() {
         <Route path="/wishlist" element={<Wishlist onAddToCart={handleAddToCart} user={user} />} />
         <Route path="/orders" element={<Orders user={user} />} />
         <Route path="/policies" element={<Policies />} />
+        <Route path="/profile" element={<Profile user={user} onLogin={handleLogin} />} />
       </Routes>
       <ToastContainer />
     </Router>

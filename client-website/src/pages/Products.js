@@ -12,7 +12,11 @@ const Products = ({ onAddToCart, user }) => {
   const [productsPerPage] = useState(9);
   const [filters, setFilters] = useState({
     category: searchParams.get('category') || '',
-    search: searchParams.get('search') || ''
+    search: searchParams.get('search') || '',
+    minPrice: '',
+    maxPrice: '',
+    sortBy: 'name',
+    inStock: false
   });
 
   useEffect(() => {
@@ -45,21 +49,49 @@ const Products = ({ onAddToCart, user }) => {
   const filterProducts = () => {
     let filtered = productList.filter(product => product.isActive);
     
+    // Category filter
     if (filters.category) {
       filtered = filtered.filter(product => 
         product.category === filters.category
       );
     }
     
+    // Search filter
     if (filters.search) {
       const searchTerm = filters.search.toLowerCase();
       filtered = filtered.filter(product => 
         product.name.toLowerCase().includes(searchTerm) ||
         product.description.toLowerCase().includes(searchTerm) ||
-        product.benefits.some(benefit => benefit.toLowerCase().includes(searchTerm)) ||
-        product.ingredients.some(ingredient => ingredient.toLowerCase().includes(searchTerm))
+        (product.benefits && product.benefits.some(benefit => benefit.toLowerCase().includes(searchTerm))) ||
+        (product.ingredients && product.ingredients.some(ingredient => ingredient.toLowerCase().includes(searchTerm)))
       );
     }
+    
+    // Price range filter
+    if (filters.minPrice) {
+      filtered = filtered.filter(product => product.price >= parseFloat(filters.minPrice));
+    }
+    if (filters.maxPrice) {
+      filtered = filtered.filter(product => product.price <= parseFloat(filters.maxPrice));
+    }
+    
+    // Stock filter
+    if (filters.inStock) {
+      filtered = filtered.filter(product => (product.stock || 0) > 0);
+    }
+    
+    // Sorting
+    filtered.sort((a, b) => {
+      switch (filters.sortBy) {
+        case 'price-low':
+          return a.price - b.price;
+        case 'price-high':
+          return b.price - a.price;
+        case 'name':
+        default:
+          return a.name.localeCompare(b.name);
+      }
+    });
     
     setFilteredProducts(filtered);
   };
@@ -161,31 +193,98 @@ const Products = ({ onAddToCart, user }) => {
         </div>
       </div>
       
-      {/* Filters */}
-      <div className="row mb-4">
-        <div className="col-md-6">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search products by name, benefits, ingredients..."
-            value={filters.search}
-            onChange={(e) => handleFilterChange({...filters, search: e.target.value})}
-          />
+      {/* Advanced Filters */}
+      <div className="card mb-4">
+        <div className="card-header">
+          <h5 className="mb-0">🔍 Search & Filters</h5>
         </div>
-        <div className="col-md-6">
-          <select
-            className="form-control"
-            value={filters.category}
-            onChange={(e) => handleFilterChange({...filters, category: e.target.value})}
-          >
-            <option value="">All Categories</option>
-            <option value="medicines">Medicines</option>
-            <option value="jadi-buti">Jadi Buti</option>
-            <option value="oils">Oils</option>
-            <option value="powders">Powders</option>
-            <option value="tablets">Tablets</option>
-            <option value="other">Other</option>
-          </select>
+        <div className="card-body">
+          <div className="row">
+            <div className="col-md-4 mb-3">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search products..."
+                value={filters.search}
+                onChange={(e) => handleFilterChange({...filters, search: e.target.value})}
+              />
+            </div>
+            <div className="col-md-4 mb-3">
+              <select
+                className="form-control"
+                value={filters.category}
+                onChange={(e) => handleFilterChange({...filters, category: e.target.value})}
+              >
+                <option value="">All Categories</option>
+                <option value="medicines">Medicines</option>
+                <option value="jadi-buti">Jadi Buti</option>
+                <option value="oils">Oils</option>
+                <option value="powders">Powders</option>
+                <option value="tablets">Tablets</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div className="col-md-4 mb-3">
+              <select
+                className="form-control"
+                value={filters.sortBy}
+                onChange={(e) => handleFilterChange({...filters, sortBy: e.target.value})}
+              >
+                <option value="name">Sort by Name</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+              </select>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-3 mb-3">
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Min Price (₹)"
+                value={filters.minPrice}
+                onChange={(e) => handleFilterChange({...filters, minPrice: e.target.value})}
+              />
+            </div>
+            <div className="col-md-3 mb-3">
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Max Price (₹)"
+                value={filters.maxPrice}
+                onChange={(e) => handleFilterChange({...filters, maxPrice: e.target.value})}
+              />
+            </div>
+            <div className="col-md-3 mb-3">
+              <div className="form-check mt-2">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id="inStockFilter"
+                  checked={filters.inStock}
+                  onChange={(e) => handleFilterChange({...filters, inStock: e.target.checked})}
+                />
+                <label className="form-check-label" htmlFor="inStockFilter">
+                  In Stock Only
+                </label>
+              </div>
+            </div>
+            <div className="col-md-3 mb-3">
+              <button 
+                className="btn btn-outline-secondary w-100"
+                onClick={() => handleFilterChange({
+                  category: '',
+                  search: '',
+                  minPrice: '',
+                  maxPrice: '',
+                  sortBy: 'name',
+                  inStock: false
+                })}
+              >
+                Clear Filters
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

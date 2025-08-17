@@ -52,6 +52,7 @@ const Header = ({ user, onLogout, cartCount }) => {
               <Link className="nav-link" to="/wishlist">❤️ Wishlist</Link>
               <Link className="nav-link" to="/cart">🛒 Cart ({cartCount})</Link>
               <Link className="nav-link" to="/orders">📦 My Orders</Link>
+              <Link className="nav-link" to="/profile">👤 Profile</Link>
               <button className="btn btn-outline-light btn-sm ms-2" onClick={onLogout}>
                 Logout
               </button>

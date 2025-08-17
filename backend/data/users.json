@@ -142,5 +142,18 @@
     "_id": "1755411667769",
     "createdAt": "2025-08-17T06:21:07.769Z",
     "updatedAt": "2025-08-17T06:21:13.929Z"
+  },
+  {
+    "name": "RamKrushn",
+    "email": "ramkrushn@gmail.com",
+    "password": "$2a$10$hHRar7nIvaLV0iYYQm57NuV555lnshwWNQonDoTVG.Zz3Qq/4VudK",
+    "role": "user",
+    "originalPassword": "ram123",
+    "isVerified": true,
+    "verificationCode": null,
+    "verificationExpiry": "2025-08-17T13:59:14.213Z",
+    "_id": "1755438554213",
+    "createdAt": "2025-08-17T13:49:14.213Z",
+    "updatedAt": "2025-08-17T13:49:19.617Z"
   }
 ]
