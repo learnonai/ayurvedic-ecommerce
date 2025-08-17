@@ -57,7 +57,13 @@ router.post('/verify-email', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
   try {
+    console.log('Login request body:', req.body);
     const { email, password } = req.body;
+    
+    if (!email || !password) {
+      console.log('Missing email or password');
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
     
     // Hardcoded admin check
     if (email === 'admin@ayurveda.com' && password === 'admin123') {
@@ -78,8 +84,10 @@ router.post('/login', async (req, res) => {
     }
     
     // Check database users
+    console.log('Checking database for user:', email);
     const user = User.findOne({ email });
     if (!user) {
+      console.log('User not found in database');
       return res.status(400).json({ message: 'Invalid credentials' });
     }
     
