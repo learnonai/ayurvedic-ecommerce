@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // Environment-based URL configuration
 const getBaseUrl = () => {
-  // Check if we're in development mode
-  if (process.env.NODE_ENV === 'development') {
+  // More reliable detection using hostname
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     return 'http://localhost:5000';
   }
   

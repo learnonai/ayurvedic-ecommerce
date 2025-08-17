@@ -12,7 +12,7 @@ const Policies = () => {
   useEffect(() => {
     const loadPolicies = async () => {
       try {
-        const baseUrl = process.env.NODE_ENV === 'development' 
+        const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
           ? 'http://localhost:5000' 
           : 'https://learnonai.com';
         
