@@ -18,7 +18,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
     <div className="card h-100">
       {product.images && product.images.length > 0 ? (
         <img 
-          src={`${BASE_URL}/${product.images[0]}`} 
+          src={`${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}`} 
           className="card-img-top" 
           alt={product.name}
           style={{height: '200px', objectFit: 'cover'}}

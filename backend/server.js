@@ -11,6 +11,7 @@ const wishlistRoutes = require('./routes/wishlist');
 const paymentRoutes = require('./routes/payment');
 const smsRoutes = require('./routes/sms');
 const userRoutes = require('./routes/users');
+const imageRoutes = require('./routes/images');
 
 const app = express();
 
@@ -60,6 +61,7 @@ app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/sms', smsRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/images', imageRoutes);
 
 console.log('Database: JSON file storage ready');
 
