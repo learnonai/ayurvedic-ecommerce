@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /home/ec2-user/ayurvedic-ecommerce
 
-# Install dependencies and build
+# Install dependencies and build for production
 echo "Installing dependencies..."
 cd backend && npm install
 cd ../admin-panel && npm install && npm run build
@@ -14,24 +14,22 @@ pm2 delete all 2>/dev/null || true
 # Start backend API
 echo "Starting backend API..."
 cd /home/ec2-user/ayurvedic-ecommerce/backend
-pm2 start server.js --name "api" -- --port 5000
+pm2 start server.js --name "api"
 
 # Start client website
 echo "Starting client website..."
 cd /home/ec2-user/ayurvedic-ecommerce/client-website
 pm2 serve build 3001 --name "client" --spa
 
-# Copy built admin panel to nginx directory
-echo "Deploying admin panel..."
-sudo rm -rf /var/www/html/admin
-sudo mkdir -p /var/www/html/admin
-sudo cp -r /home/ec2-user/ayurvedic-ecommerce/admin-panel/build/* /var/www/html/admin/
-sudo chown -R nginx:nginx /var/www/html/admin
+# Start admin panel on port 3002 to avoid conflicts
+echo "Starting admin panel..."
+cd /home/ec2-user/ayurvedic-ecommerce/admin-panel
+pm2 serve build 3002 --name "admin" --spa
 
-# Update nginx config for learnonai.com
+# Update nginx config
 echo "Updating nginx config..."
 sudo cp /home/ec2-user/ayurvedic-ecommerce/nginx.conf /etc/nginx/conf.d/learnonai.conf
 sudo nginx -t && sudo systemctl reload nginx
 
 pm2 save
-echo "All services started and deployed!"
+echo "All services started!"

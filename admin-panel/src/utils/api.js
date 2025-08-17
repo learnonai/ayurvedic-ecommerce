@@ -1,6 +1,17 @@
 import axios from 'axios';
 
-const API_URL = process.env.NODE_ENV === 'production' ? 'https://www.learnonai.com/api' : 'http://localhost:5000/api';
+// Environment-based API URL configuration
+const getApiUrl = () => {
+  // Check if we're in development mode
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:5000/api';
+  }
+  
+  // Production URL
+  return 'https://learnonai.com/api';
+};
+
+const API_URL = getApiUrl();
 
 const api = axios.create({
   baseURL: API_URL,

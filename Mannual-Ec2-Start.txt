@@ -1,0 +1,32 @@
+# Navigate to project directory
+cd /home/ec2-user/ayurvedic-ecommerce
+
+# Check if directory exists, if not clone the repo
+ls -la
+
+# If directory doesn't exist, clone it:
+# git clone https://github.com/learnonai/ayurvedic-ecommerce.git
+# cd ayurvedic-ecommerce
+
+# Pull latest changes
+git pull origin main
+
+# Run the deployment script
+./scripts/deploy.sh
+
+
+
+
+------------After this --------------
+# Fix nginx config directory structure
+sudo mkdir -p /etc/nginx/sites-available
+sudo mkdir -p /etc/nginx/sites-enabled
+
+# Copy nginx config to the correct location
+sudo cp nginx.conf /etc/nginx/conf.d/learnonai.conf
+
+# Test and reload nginx
+sudo nginx -t && sudo systemctl reload nginx
+
+# Check if services are running
+pm2 status
