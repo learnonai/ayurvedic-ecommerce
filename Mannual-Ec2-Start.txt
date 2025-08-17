@@ -1,32 +1,36 @@
+# QUICK DEPLOYMENT - Run these commands on EC2:
+
 # Navigate to project directory
 cd /home/ec2-user/ayurvedic-ecommerce
-
-# Check if directory exists, if not clone the repo
-ls -la
-
-# If directory doesn't exist, clone it:
-# git clone https://github.com/learnonai/ayurvedic-ecommerce.git
-# cd ayurvedic-ecommerce
 
 # Pull latest changes
 git pull origin main
 
-# Run the deployment script
-./scripts/deploy.sh
+# Stop all services
+pm2 delete all
 
+# Setup images
+mkdir -p backend/uploads
+cp backend/sample-images/* backend/uploads/
 
+# Start backend
+cd backend && npm install && pm2 start server.js --name "api"
 
+# Build and start client
+cd ../client-website && npm install && npm run build && pm2 serve build 3001 --name "client" --spa
+
+# Reload nginx and save PM2
+sudo systemctl reload nginx && pm2 save
 
 ------------After this --------------
-# Fix nginx config directory structure
-sudo mkdir -p /etc/nginx/sites-available
-sudo mkdir -p /etc/nginx/sites-enabled
-
-# Copy nginx config to the correct location
-sudo cp nginx.conf /etc/nginx/conf.d/learnonai.conf
-
-# Test and reload nginx
-sudo nginx -t && sudo systemctl reload nginx
-
 # Check if services are running
 pm2 status
+
+# Check nginx status
+sudo systemctl status nginx
+
+# Check if ports are listening
+sudo netstat -tlnp | grep -E ':(80|443|5000|3001|8080)'
+
+# If still having issues, check nginx logs
+sudo tail -f /var/log/nginx/error.log

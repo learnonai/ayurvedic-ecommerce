@@ -1,20 +1,33 @@
 #!/bin/bash
+echo "🔧 Fixing admin panel connection issue..."
 
-echo "🔧 Fixing admin panel routing..."
+# Navigate to project directory
+cd /home/ec2-user/ayurvedic-ecommerce
 
-# Check if admin panel is running on port 3000
-echo "Checking if admin panel is running on port 3000..."
-if ! curl -s http://localhost:3000 > /dev/null; then
-    echo "❌ Admin panel not running on port 3000"
-    echo "Starting admin panel..."
-    cd admin-panel && npm start &
-    sleep 5
+# Ensure admin panel is built
+echo "📦 Building admin panel..."
+cd admin-panel && npm run build
+
+# Update nginx config to use the corrected version
+echo "⚙️ Updating nginx config..."
+sudo cp /home/ec2-user/ayurvedic-ecommerce/nginx.conf /etc/nginx/conf.d/learnonai.conf
+
+# Remove any conflicting configs
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo rm -f /etc/nginx/sites-enabled/learnonai.com
+
+# Test nginx config
+echo "🧪 Testing nginx config..."
+sudo nginx -t
+
+if [ $? -eq 0 ]; then
+    echo "✅ Nginx config is valid, reloading..."
+    sudo systemctl reload nginx
+    echo "🎉 Admin panel should now be accessible at https://learnonai.com:8080"
 else
-    echo "✅ Admin panel is running on port 3000"
+    echo "❌ Nginx config has errors. Please check the configuration."
 fi
 
-# Restart nginx
-echo "Restarting nginx..."
-sudo systemctl restart nginx
-
-echo "✅ Admin panel should now work at https://www.learnonai.com/admin"
+# Check if port 8080 is open
+echo "🔍 Checking if port 8080 is accessible..."
+sudo netstat -tlnp | grep :8080
