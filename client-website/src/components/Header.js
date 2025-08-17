@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import MobileMenu from './MobileMenu';
 
 const Header = ({ user, onLogout, cartCount }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState({
     category: '',
     minPrice: '',
@@ -11,7 +12,19 @@ const Header = ({ user, onLogout, cartCount }) => {
     sortBy: 'name',
     inStock: false
   });
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowFilters(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -50,13 +63,17 @@ const Header = ({ user, onLogout, cartCount }) => {
     });
   };
 
+  const toggleFilters = () => {
+    setShowFilters(!showFilters);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
       <div className="container">
         <Link className="navbar-brand" to="/">🌿 Ayurvedic Store</Link>
         
         {/* Amazon-style Search Bar with Filters */}
-        <div className="d-flex flex-grow-1 mx-3 d-none d-md-flex position-relative">
+        <div className="d-flex flex-grow-1 mx-3 d-none d-md-flex position-relative" ref={dropdownRef}>
           <form className="d-flex w-100" onSubmit={handleSearch}>
             <div className="input-group">
               <input
@@ -68,16 +85,25 @@ const Header = ({ user, onLogout, cartCount }) => {
                 style={{ borderRadius: '4px 0 0 0' }}
               />
               <button 
-                className="btn btn-outline-secondary dropdown-toggle"
+                className="btn btn-outline-secondary"
                 type="button"
-                data-bs-toggle="dropdown"
+                onClick={toggleFilters}
                 style={{ borderRadius: '0', borderLeft: 'none', borderRight: 'none' }}
                 title="Filters"
               >
                 🔧
               </button>
-              <ul className="dropdown-menu p-3" style={{ minWidth: '300px' }}>
-                <li>
+              {showFilters && (
+                <div 
+                  className="position-absolute bg-white border rounded shadow p-3" 
+                  style={{ 
+                    top: '100%', 
+                    left: '0', 
+                    right: '50px', 
+                    zIndex: 1000,
+                    minWidth: '300px'
+                  }}
+                >
                   <div className="mb-2">
                     <label className="form-label small">Category</label>
                     <select 
@@ -93,8 +119,7 @@ const Header = ({ user, onLogout, cartCount }) => {
                       <option value="tablets">Tablets</option>
                     </select>
                   </div>
-                </li>
-                <li>
+                  
                   <div className="row mb-2">
                     <div className="col-6">
                       <label className="form-label small">Min Price</label>
@@ -117,8 +142,7 @@ const Header = ({ user, onLogout, cartCount }) => {
                       />
                     </div>
                   </div>
-                </li>
-                <li>
+                  
                   <div className="mb-2">
                     <label className="form-label small">Sort By</label>
                     <select 
@@ -131,9 +155,8 @@ const Header = ({ user, onLogout, cartCount }) => {
                       <option value="price-high">Price: High to Low</option>
                     </select>
                   </div>
-                </li>
-                <li>
-                  <div className="form-check">
+                  
+                  <div className="form-check mb-3">
                     <input 
                       className="form-check-input" 
                       type="checkbox" 
@@ -145,13 +168,14 @@ const Header = ({ user, onLogout, cartCount }) => {
                       In Stock Only
                     </label>
                   </div>
-                </li>
-                <li><hr className="dropdown-divider" /></li>
-                <li>
+                  
                   <div className="d-flex gap-2">
                     <button 
                       className="btn btn-primary btn-sm flex-fill"
-                      onClick={applyFilters}
+                      onClick={() => {
+                        applyFilters();
+                        setShowFilters(false);
+                      }}
                     >
                       Apply
                     </button>
@@ -162,8 +186,8 @@ const Header = ({ user, onLogout, cartCount }) => {
                       Clear
                     </button>
                   </div>
-                </li>
-              </ul>
+                </div>
+              )}
               <button 
                 className="btn btn-warning" 
                 type="submit"

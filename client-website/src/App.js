@@ -13,6 +13,7 @@ import Policies from './pages/Policies';
 import Profile from './pages/Profile';
 import { orders, payment } from './utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './styles/mobile.css';
 import { useToast } from './components/Toast';
 
