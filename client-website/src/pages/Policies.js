@@ -17,6 +17,11 @@ const Policies = () => {
           : 'https://learnonai.com';
         
         const response = await fetch(`${baseUrl}/api/policies`);
+        
+        if (!response.ok) {
+          throw new Error('API not available');
+        }
+        
         const data = await response.json();
         
         setPolicies({
@@ -26,7 +31,17 @@ const Policies = () => {
           terms: data.terms
         });
       } catch (error) {
-        console.error('Error loading policies:', error);
+        console.error('Error loading policies from API:', error);
+        // Fallback to static content for local development
+        setPolicies({
+          privacy: `PRIVACY POLICY\n\nLast updated: January 2025\n\n1. INFORMATION WE COLLECT\nWe collect information you provide directly to us, such as when you create an account, make a purchase, or contact us.\n\n2. HOW WE USE YOUR INFORMATION\n- Process transactions and orders\n- Communicate with you about products and services\n- Improve our website and services\n- Comply with legal obligations\n\n3. INFORMATION SHARING\nWe do not sell, trade, or rent your personal information to third parties without your consent.\n\n4. DATA SECURITY\nWe implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.\n\n5. COOKIES\nOur website uses cookies to enhance your browsing experience and analyze website traffic.\n\n6. YOUR RIGHTS\nYou have the right to access, update, or delete your personal information at any time.\n\n7. CONTACT US\nIf you have questions about this Privacy Policy, please contact us at privacy@ayurveda.com`,
+          
+          returnRefund: `RETURN & REFUND POLICY\n\nLast updated: January 2025\n\n1. RETURN ELIGIBILITY\n- Items must be returned within 30 days of purchase\n- Products must be in original condition and packaging\n- Ayurvedic medicines cannot be returned once opened for safety reasons\n\n2. REFUND PROCESS\n- Refunds will be processed within 7-10 business days\n- Original shipping charges are non-refundable\n- Refunds will be credited to the original payment method\n\n3. NON-RETURNABLE ITEMS\n- Opened medicine bottles or packages\n- Personalized or custom-made products\n- Perishable goods\n\n4. HOW TO RETURN\n- Contact our customer service at returns@ayurveda.com\n- Obtain a Return Authorization Number (RAN)\n- Ship items back with RAN clearly marked\n\n5. DAMAGED OR DEFECTIVE ITEMS\nWe will replace or refund damaged/defective items at no cost to you.\n\n6. CONTACT US\nFor return inquiries, email us at returns@ayurveda.com or call +91-9876543210`,
+          
+          shipping: `SHIPPING POLICY\n\nLast updated: January 2025\n\n1. SHIPPING AREAS\nWe currently ship across India. International shipping is not available at this time.\n\n2. DELIVERY TIMEFRAMES\n- Metro Cities: 2-3 business days\n- Other Cities: 4-6 business days\n- Remote Areas: 7-10 business days\n\n3. SHIPPING CHARGES\n- Orders above ₹500: FREE shipping\n- Orders below ₹500: ₹50 shipping charge\n- Express delivery: Additional ₹100\n\n4. ORDER PROCESSING\n- Orders are processed within 24 hours of payment confirmation\n- Orders placed on weekends/holidays will be processed the next business day\n\n5. TRACKING\n- Tracking information will be sent via SMS and email\n- You can track your order on our website using the order ID\n\n6. DELIVERY ISSUES\n- If no one is available at delivery address, we will attempt redelivery\n- After 3 failed attempts, the order will be returned to our warehouse\n\n7. CONTACT US\nFor shipping inquiries, contact us at shipping@ayurveda.com`,
+          
+          terms: `TERMS & CONDITIONS\n\nLast updated: January 2025\n\n1. ACCEPTANCE OF TERMS\nBy using our website, you agree to these Terms & Conditions.\n\n2. USE OF WEBSITE\n- You must be 18+ years old to make purchases\n- Provide accurate information during registration\n- Do not misuse our website or services\n\n3. PRODUCT INFORMATION\n- We strive for accuracy in product descriptions\n- Ayurvedic products are not intended to diagnose, treat, cure, or prevent any disease\n- Consult healthcare professionals before use\n\n4. PRICING & PAYMENT\n- All prices are in Indian Rupees (INR)\n- Prices may change without notice\n- Payment must be completed before order processing\n\n5. USER ACCOUNTS\n- You are responsible for maintaining account security\n- Notify us immediately of any unauthorized use\n- We may suspend accounts for policy violations\n\n6. INTELLECTUAL PROPERTY\nAll content on this website is our property and protected by copyright laws.\n\n7. LIMITATION OF LIABILITY\nWe are not liable for any indirect, incidental, or consequential damages.\n\n8. GOVERNING LAW\nThese terms are governed by the laws of India.\n\n9. CONTACT US\nFor questions about these terms, contact us at legal@ayurveda.com`
+        });
       } finally {
         setLoading(false);
       }
