@@ -2,6 +2,17 @@ import React from 'react';
 import { wishlist, BASE_URL } from '../utils/api';
 
 const ProductCard = ({ product, onAddToCart, user }) => {
+  // Debug: Log the image URL being generated
+  const imageUrl = product.images && product.images.length > 0 
+    ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}` 
+    : null;
+  
+  if (imageUrl) {
+    console.log('Image URL:', imageUrl);
+    console.log('BASE_URL:', BASE_URL);
+    console.log('Original image path:', product.images[0]);
+  }
+  
   const addToWishlist = async () => {
     if (!user) {
       alert('Please login to add to wishlist');
@@ -18,12 +29,19 @@ const ProductCard = ({ product, onAddToCart, user }) => {
     <div className="card h-100">
       {product.images && product.images.length > 0 ? (
         <img 
-          src={`${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}`} 
+          src={imageUrl} 
           className="card-img-top" 
           alt={product.name}
           style={{height: '200px', objectFit: 'cover'}}
           onError={(e) => {
-            e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjhmOWZhIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTEwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDAiIGZpbGw9IiM2Yzc1N2QiIHRleHQtYW5jaG9yPSJtaWRkbGUiPvCfjL88L3RleHQ+Cjwvc3ZnPgo=';
+            console.log('Image failed to load:', e.target.src);
+            // Try fallback URL
+            if (!e.target.src.includes('/uploads/')) {
+              e.target.src = `${BASE_URL}/${product.images[0]}`;
+            } else {
+              // Final fallback to placeholder
+              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjhmOWZhIi8+Cjx0ZXh0IHg9IjEwMCIgeT0iMTEwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDAiIGZpbGw9IiM2Yzc1N2QiIHRleHQtYW5jaG9yPSJtaWRkbGUiPvCfjL88L3RleHQ+Cjwvc3ZnPgo=';
+            }
           }}
         />
       ) : (
