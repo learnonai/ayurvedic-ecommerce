@@ -15,6 +15,7 @@ import Policies from './pages/Policies';
 import Profile from './pages/Profile';
 import { orders, payment } from './utils/api';
 import { sessionManager } from './utils/security';
+import './utils/logger'; // Disable console in production
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './styles/mobile.css';

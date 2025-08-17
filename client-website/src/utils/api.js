@@ -25,29 +25,8 @@ const api = axios.create({
   baseURL: API_URL,
 });
 
-// Mask sensitive data for logging
-const maskSensitiveData = (data) => {
-  if (!data || typeof data !== 'object') return data;
-  
-  const masked = { ...data };
-  const sensitiveFields = ['password', 'token', 'email', 'phone'];
-  
-  sensitiveFields.forEach(field => {
-    if (masked[field]) {
-      masked[field] = '***MASKED***';
-    }
-  });
-  
-  return masked;
-};
-
 api.interceptors.request.use(
   (config) => {
-    // Only log in development, mask sensitive data
-    if (process.env.NODE_ENV === 'development') {
-      console.log('API Request:', config.method?.toUpperCase(), config.url, maskSensitiveData(config.data));
-    }
-    
     const token = localStorage.getItem('userToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -58,19 +37,8 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  (response) => {
-    // Only log in development, mask sensitive data
-    if (process.env.NODE_ENV === 'development') {
-      console.log('API Response:', response.status, maskSensitiveData(response.data));
-    }
-    return response;
-  },
+  (response) => response,
   (error) => {
-    // Only log errors, no sensitive data
-    if (process.env.NODE_ENV === 'development') {
-      console.error('API Error:', error.response?.status, error.response?.data?.message || 'Request failed');
-    }
-    
     if (error.response?.status === 401) {
       localStorage.removeItem('userToken');
       localStorage.removeItem('user');

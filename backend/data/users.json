@@ -209,5 +209,19 @@
     "_id": "1755442199523",
     "createdAt": "2025-08-17T14:49:59.523Z",
     "updatedAt": "2025-08-17T14:50:06.250Z"
+  },
+  {
+    "name": "gopi3",
+    "email": "gopi3@gmail.com",
+    "password": "$2a$10$thBXGYMM.2Et9Im2Nl4MreuXbOVjuSHOjf844zaDfxOQe8rrgaQyO",
+    "phone": "9876542345",
+    "role": "user",
+    "originalPassword": "fiogbw",
+    "isVerified": true,
+    "verificationCode": null,
+    "verificationExpiry": "2025-08-17T15:02:47.239Z",
+    "_id": "1755442367239",
+    "createdAt": "2025-08-17T14:52:47.239Z",
+    "updatedAt": "2025-08-17T14:52:58.524Z"
   }
 ]

@@ -4,7 +4,6 @@ import { auth } from '../utils/api';
 import EmailVerification from './EmailVerification';
 import { useFormValidation, validateEmail, validatePhone, validatePassword, validateName, FormError } from '../components/FormValidation';
 import { sanitizeEmail, sanitizeInput, rateLimiter, sessionManager } from '../utils/security';
-import { hashPassword } from '../utils/encryption';
 
 const Register = ({ onLogin }) => {
   const [loading, setLoading] = useState(false);
@@ -41,12 +40,12 @@ const Register = ({ onLogin }) => {
     
     setLoading(true);
     
-    // Sanitize and hash form data
+    // Sanitize form data (backend handles password hashing)
     const sanitizedData = {
       name: sanitizeInput(formData.name),
       email: sanitizeEmail(formData.email),
       phone: sanitizeInput(formData.phone),
-      password: hashPassword(sanitizeInput(formData.password))
+      password: sanitizeInput(formData.password)
     };
     
     if (!sanitizedData.email) {

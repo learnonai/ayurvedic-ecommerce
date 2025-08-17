@@ -14,16 +14,9 @@ const ProductCard = ({ product, onAddToCart, user }) => {
       addToRecentlyViewed(product);
     }
   }, [product]);
-  // Debug: Log the image URL being generated
   const imageUrl = product.images && product.images.length > 0 
     ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}` 
     : null;
-  
-  if (imageUrl) {
-    console.log('Image URL:', imageUrl);
-    console.log('BASE_URL:', BASE_URL);
-    console.log('Original image path:', product.images[0]);
-  }
   
   const addToWishlist = async () => {
     if (!user) {
