@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import MobileMenu from './MobileMenu';
+import { sanitizeInput, rateLimiter } from '../utils/security';
 
 const Header = ({ user, onLogout, cartCount }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,9 +29,18 @@ const Header = ({ user, onLogout, cartCount }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    
+    // Rate limiting for search
+    if (!rateLimiter.isAllowed('search', 10, 60000)) { // 10 searches per minute
+      alert('Too many searches. Please wait a moment.');
+      return;
+    }
+    
+    const sanitizedQuery = sanitizeInput(searchQuery.trim());
     const params = new URLSearchParams();
-    if (searchQuery.trim()) {
-      params.set('search', searchQuery.trim());
+    
+    if (sanitizedQuery) {
+      params.set('search', sanitizedQuery);
     }
     if (filters.category) {
       params.set('category', filters.category);
@@ -81,7 +91,7 @@ const Header = ({ user, onLogout, cartCount }) => {
                 className="form-control"
                 placeholder="Search for Ayurvedic products..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => setSearchQuery(sanitizeInput(e.target.value))}
                 style={{ borderRadius: '4px 0 0 0' }}
               />
               <button 
@@ -236,7 +246,7 @@ const Header = ({ user, onLogout, cartCount }) => {
               className="form-control"
               placeholder="Search products..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(sanitizeInput(e.target.value))}
             />
             <button 
               className="btn btn-outline-secondary"

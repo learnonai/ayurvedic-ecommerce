@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../utils/api';
 import PhoneLogin from '../components/PhoneLogin';
 import { useFormValidation, validateEmail, validatePassword, FormError } from '../components/FormValidation';
+import { sanitizeEmail, sanitizeInput, rateLimiter, sessionManager } from '../utils/security';
 
 const Login = ({ onLogin }) => {
   const [loading, setLoading] = useState(false);
@@ -25,19 +26,41 @@ const Login = ({ onLogin }) => {
     if (!validateAll()) {
       return;
     }
+
+    // Rate limiting check
+    const clientId = 'login_' + (credentials.email || 'anonymous');
+    if (!rateLimiter.isAllowed(clientId, 5, 300000)) { // 5 attempts per 5 minutes
+      const remainingTime = Math.ceil(rateLimiter.getRemainingTime(clientId, 300000) / 1000);
+      alert(`Too many login attempts. Please try again in ${remainingTime} seconds.`);
+      return;
+    }
     
     setLoading(true);
-    console.log('Attempting login with:', credentials);
+    
+    // Sanitize credentials
+    const sanitizedCredentials = {
+      email: sanitizeEmail(credentials.email),
+      password: sanitizeInput(credentials.password)
+    };
+    
+    if (!sanitizedCredentials.email) {
+      alert('Please enter a valid email address');
+      setLoading(false);
+      return;
+    }
+    
     try {
-      const response = await auth.login(credentials);
-      localStorage.setItem('userToken', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      const response = await auth.login(sanitizedCredentials);
+      
+      // Use secure session management
+      sessionManager.set('userToken', response.data.token, 24); // 24 hours
+      sessionManager.set('user', response.data.user, 24);
+      
       onLogin(response.data.user);
       navigate('/');
     } catch (error) {
       console.error('Login error:', error);
-      console.error('Error response:', error.response);
-      alert('Login failed: ' + (error.response?.data?.message || 'Unknown error'));
+      alert('Login failed: ' + (error.response?.data?.message || 'Invalid credentials'));
     }
     setLoading(false);
   };

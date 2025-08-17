@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../utils/api';
 import EmailVerification from './EmailVerification';
 import { useFormValidation, validateEmail, validatePhone, validatePassword, validateName, FormError } from '../components/FormValidation';
+import { sanitizeEmail, sanitizeInput, rateLimiter, sessionManager } from '../utils/security';
 
 const Register = ({ onLogin }) => {
   const [loading, setLoading] = useState(false);
@@ -27,22 +28,44 @@ const Register = ({ onLogin }) => {
     if (!validateAll()) {
       return;
     }
+
+    // Rate limiting check
+    const clientId = 'register_' + (formData.email || 'anonymous');
+    if (!rateLimiter.isAllowed(clientId, 3, 600000)) { // 3 attempts per 10 minutes
+      const remainingTime = Math.ceil(rateLimiter.getRemainingTime(clientId, 600000) / 1000);
+      alert(`Too many registration attempts. Please try again in ${remainingTime} seconds.`);
+      return;
+    }
     
     setLoading(true);
+    
+    // Sanitize form data
+    const sanitizedData = {
+      name: sanitizeInput(formData.name),
+      email: sanitizeEmail(formData.email),
+      password: sanitizeInput(formData.password)
+    };
+    
+    if (!sanitizedData.email) {
+      alert('Please enter a valid email address');
+      setLoading(false);
+      return;
+    }
+    
     try {
-      const response = await auth.register(formData);
+      const response = await auth.register(sanitizedData);
       if (response.data.user.isVerified) {
-        localStorage.setItem('userToken', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
+        sessionManager.set('userToken', response.data.token, 24);
+        sessionManager.set('user', response.data.user, 24);
         onLogin(response.data.user);
         navigate('/');
       } else {
-        setUserEmail(formData.email);
+        setUserEmail(sanitizedData.email);
         setShowVerification(true);
         alert(response.data.message);
       }
     } catch (error) {
-      alert('Registration failed: ' + (error.response?.data?.message || 'Unknown error'));
+      alert('Registration failed: ' + (error.response?.data?.message || 'Please try again'));
     }
     setLoading(false);
   };
