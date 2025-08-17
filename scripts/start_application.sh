@@ -1,6 +1,11 @@
 #!/bin/bash
 cd /home/ec2-user/ayurvedic-ecommerce
 
+# Setup sample images for production
+echo "Setting up sample images..."
+mkdir -p backend/uploads
+cp backend/sample-images/* backend/uploads/ 2>/dev/null || echo "No sample images found"
+
 # Install dependencies and build for production
 echo "Installing dependencies..."
 cd backend && npm install

@@ -10,6 +10,11 @@ cd /home/ec2-user/ayurvedic-ecommerce
 echo "📥 Pulling latest code..."
 git pull origin main
 
+# Setup sample images for production
+echo "🖼️ Setting up sample images..."
+mkdir -p backend/uploads
+cp backend/sample-images/* backend/uploads/ 2>/dev/null || echo "No sample images found"
+
 # Install dependencies and build
 echo "📦 Installing dependencies..."
 cd backend && npm install
@@ -32,8 +37,7 @@ pm2 serve build 3001 --name "client" --spa
 
 # Update nginx config
 echo "⚙️ Updating nginx config..."
-sudo cp /home/ec2-user/ayurvedic-ecommerce/nginx.conf /etc/nginx/sites-available/learnonai.com
-sudo ln -sf /etc/nginx/sites-available/learnonai.com /etc/nginx/sites-enabled/
+sudo cp /home/ec2-user/ayurvedic-ecommerce/nginx.conf /etc/nginx/conf.d/learnonai.conf
 sudo nginx -t && sudo systemctl reload nginx
 
 # Save PM2 processes

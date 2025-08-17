@@ -5,5 +5,6 @@ dist/
 *.log
 .cache/
 uploads/
+!backend/sample-images/
 .DS_Store
 *.tar.gz.idea/
