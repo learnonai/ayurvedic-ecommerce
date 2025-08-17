@@ -12,18 +12,18 @@ const Policies = () => {
   useEffect(() => {
     const loadPolicies = async () => {
       try {
-        const [privacy, returnRefund, shipping, terms] = await Promise.all([
-          fetch('/policies/privacyPolicy.txt').then(res => res.text()),
-          fetch('/policies/returnRefundPolicy.txt').then(res => res.text()),
-          fetch('/policies/shippingPolicy.txt').then(res => res.text()),
-          fetch('/policies/termsConditions.txt').then(res => res.text())
-        ]);
-
+        const baseUrl = process.env.NODE_ENV === 'development' 
+          ? 'http://localhost:5000' 
+          : 'https://learnonai.com';
+        
+        const response = await fetch(`${baseUrl}/api/policies`);
+        const data = await response.json();
+        
         setPolicies({
-          privacy,
-          returnRefund,
-          shipping,
-          terms
+          privacy: data.privacy,
+          returnRefund: data.returnRefund,
+          shipping: data.shipping,
+          terms: data.terms
         });
       } catch (error) {
         console.error('Error loading policies:', error);
