@@ -1,9 +1,0 @@
-node_modules/
-build/
-dist/
-.env
-*.log
-.cache/
-uploads/
-.DS_Store
-*.tar.gz.idea/
