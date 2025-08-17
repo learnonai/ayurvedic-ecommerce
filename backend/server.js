@@ -41,10 +41,11 @@ app.use('/uploads', express.static('uploads', {
   }
 }));
 
-// Rate limiting
+// Rate limiting with proper trust proxy config
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100, // limit each IP to 100 requests per windowMs
+  trustProxy: false // Disable trust proxy for rate limiting
 });
 app.use('/api', limiter);
 
