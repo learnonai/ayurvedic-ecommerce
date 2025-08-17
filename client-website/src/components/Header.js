@@ -78,9 +78,9 @@ const Header = ({ user, onLogout, cartCount }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success" role="navigation" aria-label="Main navigation">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-success">
       <div className="container">
-        <Link className="navbar-brand" to="/" aria-label="Ayurvedic Store - Go to homepage">🌿 Ayurvedic Store</Link>
+        <Link className="navbar-brand" to="/">🌿 Ayurvedic Store</Link>
         
         {/* Amazon-style Search Bar with Filters */}
         <div className="d-flex flex-grow-1 mx-3 d-none d-md-flex position-relative" ref={dropdownRef}>
@@ -93,18 +93,13 @@ const Header = ({ user, onLogout, cartCount }) => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(sanitizeInput(e.target.value))}
                 style={{ borderRadius: '4px 0 0 0' }}
-                aria-label="Search for products"
-                role="searchbox"
               />
               <button 
                 className="btn btn-outline-secondary"
                 type="button"
                 onClick={toggleFilters}
                 style={{ borderRadius: '0', borderLeft: 'none', borderRight: 'none' }}
-                title="Open search filters"
-                aria-label="Open search filters"
-                aria-expanded={showFilters}
-                aria-haspopup="true"
+                title="Filters"
               >
                 🔧
               </button>
@@ -118,18 +113,13 @@ const Header = ({ user, onLogout, cartCount }) => {
                     zIndex: 1000,
                     minWidth: '300px'
                   }}
-                  role="dialog"
-                  aria-label="Search filters"
-                  aria-modal="false"
                 >
                   <div className="mb-2">
-                    <label className="form-label small" htmlFor="category-filter">Category</label>
+                    <label className="form-label small">Category</label>
                     <select 
-                      id="category-filter"
                       className="form-select form-select-sm"
                       value={filters.category}
                       onChange={(e) => handleFilterChange('category', e.target.value)}
-                      aria-describedby="category-help"
                     >
                       <option value="">All Categories</option>
                       <option value="medicines">Medicines</option>
@@ -142,41 +132,33 @@ const Header = ({ user, onLogout, cartCount }) => {
                   
                   <div className="row mb-2">
                     <div className="col-6">
-                      <label className="form-label small" htmlFor="min-price-filter">Min Price</label>
+                      <label className="form-label small">Min Price</label>
                       <input 
-                        id="min-price-filter"
                         type="number" 
                         className="form-control form-control-sm" 
                         placeholder="₹0"
                         value={filters.minPrice}
                         onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                        aria-label="Minimum price filter"
-                        min="0"
                       />
                     </div>
                     <div className="col-6">
-                      <label className="form-label small" htmlFor="max-price-filter">Max Price</label>
+                      <label className="form-label small">Max Price</label>
                       <input 
-                        id="max-price-filter"
                         type="number" 
                         className="form-control form-control-sm" 
                         placeholder="₹999"
                         value={filters.maxPrice}
                         onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                        aria-label="Maximum price filter"
-                        min="0"
                       />
                     </div>
                   </div>
                   
                   <div className="mb-2">
-                    <label className="form-label small" htmlFor="sort-filter">Sort By</label>
+                    <label className="form-label small">Sort By</label>
                     <select 
-                      id="sort-filter"
                       className="form-select form-select-sm"
                       value={filters.sortBy}
                       onChange={(e) => handleFilterChange('sortBy', e.target.value)}
-                      aria-label="Sort products by"
                     >
                       <option value="name">Name A-Z</option>
                       <option value="price-low">Price: Low to High</option>
@@ -191,12 +173,10 @@ const Header = ({ user, onLogout, cartCount }) => {
                       id="stockFilter"
                       checked={filters.inStock}
                       onChange={(e) => handleFilterChange('inStock', e.target.checked)}
-                      aria-describedby="stock-help"
                     />
                     <label className="form-check-label small" htmlFor="stockFilter">
                       In Stock Only
                     </label>
-                    <div id="stock-help" className="visually-hidden">Filter to show only products that are currently in stock</div>
                   </div>
                   
                   <div className="d-flex gap-2">
@@ -222,8 +202,6 @@ const Header = ({ user, onLogout, cartCount }) => {
                 className="btn btn-warning" 
                 type="submit"
                 style={{ borderRadius: '0 4px 4px 0', minWidth: '50px' }}
-                aria-label="Search products"
-                title="Search"
               >
                 🔍
               </button>
@@ -232,25 +210,25 @@ const Header = ({ user, onLogout, cartCount }) => {
         </div>
         
         {/* Desktop Menu */}
-        <div className="navbar-nav ms-auto d-none d-lg-flex" role="menubar">
-          <Link className="nav-link" to="/" role="menuitem">Home</Link>
-          <Link className="nav-link" to="/products" role="menuitem">Products</Link>
-          <Link className="nav-link" to="/policies" role="menuitem" aria-label="Policies and Terms">📋 Policies</Link>
+        <div className="navbar-nav ms-auto d-none d-lg-flex">
+          <Link className="nav-link" to="/">Home</Link>
+          <Link className="nav-link" to="/products">Products</Link>
+          <Link className="nav-link" to="/policies">📋 Policies</Link>
           
           {user ? (
             <>
-              <Link className="nav-link" to="/wishlist" role="menuitem" aria-label="Wishlist">❤️ Wishlist</Link>
-              <Link className="nav-link" to="/cart" role="menuitem" aria-label={`Shopping cart with ${cartCount} items`}>🛒 Cart ({cartCount})</Link>
-              <Link className="nav-link" to="/orders" role="menuitem" aria-label="My Orders">📦 My Orders</Link>
-              <Link className="nav-link" to="/profile" role="menuitem" aria-label="User Profile">👤 Profile</Link>
-              <button className="btn btn-outline-light btn-sm ms-2" onClick={onLogout} aria-label="Logout from account">
+              <Link className="nav-link" to="/wishlist">❤️ Wishlist</Link>
+              <Link className="nav-link" to="/cart">🛒 Cart ({cartCount})</Link>
+              <Link className="nav-link" to="/orders">📦 My Orders</Link>
+              <Link className="nav-link" to="/profile">👤 Profile</Link>
+              <button className="btn btn-outline-light btn-sm ms-2" onClick={onLogout}>
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link className="nav-link" to="/login" role="menuitem">Login</Link>
-              <Link className="nav-link" to="/register" role="menuitem">Register</Link>
+              <Link className="nav-link" to="/login">Login</Link>
+              <Link className="nav-link" to="/register">Register</Link>
             </>
           )}
         </div>

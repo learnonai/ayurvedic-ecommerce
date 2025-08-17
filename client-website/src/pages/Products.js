@@ -195,8 +195,8 @@ const Products = ({ onAddToCart, user }) => {
   return (
     <div className="container my-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1>Our Products</h1>
-        <div className="text-muted" role="status" aria-live="polite" aria-label="Product count">
+        <h2>Our Products</h2>
+        <div className="text-muted">
           Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, filteredProducts.length)} of {filteredProducts.length} products
         </div>
       </div>
@@ -305,17 +305,15 @@ const Products = ({ onAddToCart, user }) => {
         </div>
       ) : (
         <>
-          <section className="row" aria-label="Product grid">
+          <div className="row">
             {currentProducts.map(product => (
               <div key={product._id} className="col-lg-4 col-md-6 mb-4">
                 <ProductCard product={product} onAddToCart={onAddToCart} user={user} />
               </div>
             ))}
-          </section>
+          </div>
           
-          <nav aria-label="Product pagination">
-            <Pagination />
-          </nav>
+          <Pagination />
         </>
       )}
     </div>

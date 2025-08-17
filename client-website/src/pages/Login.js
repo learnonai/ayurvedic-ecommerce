@@ -71,7 +71,7 @@ const Login = ({ onLogin }) => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <h1 className="text-center mb-4">Login</h1>
+              <h3 className="text-center mb-4">Login</h3>
               
               <div className="btn-group w-100 mb-3" role="group">
                 <button 
@@ -94,9 +94,7 @@ const Login = ({ onLogin }) => {
                 <>
                   <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label htmlFor="login-email" className="visually-hidden">Email Address</label>
                   <input
-                    id="login-email"
                     type="email"
                     className={`form-control form-control-lg ${errors.email && touched.email ? 'is-invalid' : ''}`}
                     placeholder="Email"
@@ -104,15 +102,11 @@ const Login = ({ onLogin }) => {
                     onChange={(e) => handleChange('email', e.target.value)}
                     onBlur={() => handleBlur('email')}
                     required
-                    aria-describedby={errors.email && touched.email ? 'email-error' : undefined}
-                    autoComplete="email"
                   />
-                  <FormError message={touched.email ? errors.email : ''} id="email-error" />
+                  <FormError message={touched.email ? errors.email : ''} />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="login-password" className="visually-hidden">Password</label>
                   <input
-                    id="login-password"
                     type="password"
                     className={`form-control form-control-lg ${errors.password && touched.password ? 'is-invalid' : ''}`}
                     placeholder="Password"
@@ -120,10 +114,8 @@ const Login = ({ onLogin }) => {
                     onChange={(e) => handleChange('password', e.target.value)}
                     onBlur={() => handleBlur('password')}
                     required
-                    aria-describedby={errors.password && touched.password ? 'password-error' : undefined}
-                    autoComplete="current-password"
                   />
-                  <FormError message={touched.password ? errors.password : ''} id="password-error" />
+                  <FormError message={touched.password ? errors.password : ''} />
                 </div>
                   <button type="submit" className="btn btn-success btn-lg w-100" disabled={loading}>
                     {loading ? (

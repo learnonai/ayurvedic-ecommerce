@@ -59,7 +59,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
     }
   };
   return (
-    <article className="card h-100" role="article" aria-labelledby={`product-${product._id}`}>
+    <div className="card h-100">
       {product.images && product.images.length > 0 ? (
         <div className="position-relative" style={{height: '200px'}}>
           {imageLoading && (
@@ -115,9 +115,9 @@ const ProductCard = ({ product, onAddToCart, user }) => {
         </div>
       )}
       <div className="card-body">
-        <h5 className="card-title" id={`product-${product._id}`}>{product.name}</h5>
+        <h5 className="card-title">{product.name}</h5>
         <p className="card-text">{product.description}</p>
-        <p className="text-success fw-bold" aria-label={`Price: ${product.price} rupees`}>₹{product.price}</p>
+        <p className="text-success fw-bold">₹{product.price}</p>
         <p className="text-muted small">Category: {product.category}</p>
         
         {/* Stock Status */}
@@ -169,7 +169,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
           </button>
         </div>
       </div>
-    </article>
+    </div>
   );
 };
 
