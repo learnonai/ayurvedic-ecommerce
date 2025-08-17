@@ -117,7 +117,7 @@ const Login = ({ onLogin }) => {
                   />
                   <FormError message={touched.password ? errors.password : ''} />
                 </div>
-                  <button type="submit" className="btn btn-success btn-lg w-100" disabled={loading || Object.keys(errors).length > 0}>
+                  <button type="submit" className="btn btn-success btn-lg w-100" disabled={loading}>
                     {loading ? (
                       <>
                         <span className="spinner-border spinner-border-sm me-2" role="status"></span>

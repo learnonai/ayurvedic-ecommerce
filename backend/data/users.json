@@ -155,5 +155,31 @@
     "_id": "1755438554213",
     "createdAt": "2025-08-17T13:49:14.213Z",
     "updatedAt": "2025-08-17T13:49:19.617Z"
+  },
+  {
+    "name": "jayGopaHari",
+    "email": "jaygopalhari@gmail.com",
+    "password": "$2a$10$em5kSXDVahRueCuQd3hnQOaLticFft00ITCV7riK/ISYz5l6DqaXq",
+    "role": "user",
+    "originalPassword": "ram123",
+    "isVerified": true,
+    "verificationCode": null,
+    "verificationExpiry": "2025-08-17T14:53:44.840Z",
+    "_id": "1755441824840",
+    "createdAt": "2025-08-17T14:43:44.840Z",
+    "updatedAt": "2025-08-17T14:43:49.920Z"
+  },
+  {
+    "name": "jayhari1",
+    "email": "jayhari1@gmail.com",
+    "password": "$2a$10$pxW3XNmqHn8GixkxZOUFh.Xwg/I3bNUaSw8iG1HFAx9aZRY/1O.xW",
+    "role": "user",
+    "originalPassword": "ram123456",
+    "isVerified": true,
+    "verificationCode": null,
+    "verificationExpiry": "2025-08-17T14:55:02.187Z",
+    "_id": "1755441902188",
+    "createdAt": "2025-08-17T14:45:02.188Z",
+    "updatedAt": "2025-08-17T14:45:09.222Z"
   }
 ]

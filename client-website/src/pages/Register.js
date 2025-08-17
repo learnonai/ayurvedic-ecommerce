@@ -14,11 +14,12 @@ const Register = ({ onLogin }) => {
   const validationRules = {
     name: { required: true, validator: validateName, message: 'Name must be at least 2 characters' },
     email: { required: true, validator: validateEmail, message: 'Please enter a valid email' },
+    phone: { required: true, validator: validatePhone, message: 'Please enter a valid phone number' },
     password: { required: true, validator: validatePassword, message: 'Password must be at least 6 characters' }
   };
   
   const { values: formData, errors, touched, handleChange, handleBlur, validateAll } = useFormValidation(
-    { name: '', email: '', password: '' },
+    { name: '', email: '', phone: '', password: '' },
     validationRules
   );
 
@@ -43,11 +44,18 @@ const Register = ({ onLogin }) => {
     const sanitizedData = {
       name: sanitizeInput(formData.name),
       email: sanitizeEmail(formData.email),
+      phone: sanitizeInput(formData.phone),
       password: sanitizeInput(formData.password)
     };
     
     if (!sanitizedData.email) {
       alert('Please enter a valid email address');
+      setLoading(false);
+      return;
+    }
+    
+    if (!sanitizedData.phone || sanitizedData.phone.length < 10) {
+      alert('Please enter a valid phone number');
       setLoading(false);
       return;
     }
@@ -113,6 +121,18 @@ const Register = ({ onLogin }) => {
                       />
                       <FormError message={touched.email ? errors.email : ''} />
                     </div>
+                    <div className="mb-3">
+                      <input
+                        type="tel"
+                        className={`form-control form-control-lg ${errors.phone && touched.phone ? 'is-invalid' : ''}`}
+                        placeholder="Phone Number"
+                        value={formData.phone}
+                        onChange={(e) => handleChange('phone', e.target.value)}
+                        onBlur={() => handleBlur('phone')}
+                        required
+                      />
+                      <FormError message={touched.phone ? errors.phone : ''} />
+                    </div>
 
                     <div className="mb-3">
                       <input
@@ -128,7 +148,12 @@ const Register = ({ onLogin }) => {
                       <FormError message={touched.password ? errors.password : ''} />
                     </div>
                     <button type="submit" className="btn btn-success btn-lg w-100" disabled={loading}>
-                      {loading ? 'Registering...' : 'Register'}
+                      {loading ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                          Registering...
+                        </>
+                      ) : 'Register'}
                     </button>
                   </form>
                 </>
