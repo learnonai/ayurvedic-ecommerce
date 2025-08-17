@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ubuntu/ayurvedic-ecommerce
+cd /home/ec2-user/ayurvedic-ecommerce
 
 # Install dependencies and build
 echo "Installing dependencies..."
@@ -11,22 +11,27 @@ cd ../client-website && npm install && npm run build
 echo "Stopping existing processes..."
 pm2 delete all 2>/dev/null || true
 
-# Start all services
-echo "Starting services..."
-cd /home/ubuntu/ayurvedic-ecommerce/backend
-pm2 start server.js --name "api"
+# Start backend API
+echo "Starting backend API..."
+cd /home/ec2-user/ayurvedic-ecommerce/backend
+pm2 start server.js --name "api" -- --port 5000
 
-# Admin panel served as static files via nginx
-echo "Admin panel built and will be served via nginx"
-
-cd /home/ubuntu/ayurvedic-ecommerce/client-website
+# Start client website
+echo "Starting client website..."
+cd /home/ec2-user/ayurvedic-ecommerce/client-website
 pm2 serve build 3001 --name "client" --spa
 
-# Copy nginx config
+# Copy built admin panel to nginx directory
+echo "Deploying admin panel..."
+sudo rm -rf /var/www/html/admin
+sudo mkdir -p /var/www/html/admin
+sudo cp -r /home/ec2-user/ayurvedic-ecommerce/admin-panel/build/* /var/www/html/admin/
+sudo chown -R nginx:nginx /var/www/html/admin
+
+# Update nginx config for learnonai.com
 echo "Updating nginx config..."
-sudo cp /home/ubuntu/ayurvedic-ecommerce/nginx.conf /etc/nginx/sites-available/learnonai.com
-sudo ln -sf /etc/nginx/sites-available/learnonai.com /etc/nginx/sites-enabled/
+sudo cp /home/ec2-user/ayurvedic-ecommerce/nginx.conf /etc/nginx/conf.d/learnonai.conf
 sudo nginx -t && sudo systemctl reload nginx
 
 pm2 save
-echo "All services started!"
+echo "All services started and deployed!"

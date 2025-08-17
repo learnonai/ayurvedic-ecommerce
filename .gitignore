@@ -6,4 +6,4 @@ dist/
 .cache/
 uploads/
 .DS_Store
-*.tar.gz
+*.tar.gz.idea/
