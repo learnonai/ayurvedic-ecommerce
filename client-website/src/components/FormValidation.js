@@ -18,6 +18,23 @@ export const validateName = (name) => {
   return name.trim().length >= 2;
 };
 
+export const validatePincode = (pincode) => {
+  const re = /^[1-9][0-9]{5}$/;
+  return re.test(pincode);
+};
+
+export const validateAddress = (address) => {
+  return address.trim().length >= 10;
+};
+
+export const validateCity = (city) => {
+  return city.trim().length >= 2;
+};
+
+export const validateState = (state) => {
+  return state.trim().length >= 2;
+};
+
 export const FormError = ({ message }) => {
   if (!message) return null;
   return <div className="text-danger small mt-1">{message}</div>;

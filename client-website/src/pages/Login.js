@@ -2,15 +2,30 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../utils/api';
 import PhoneLogin from '../components/PhoneLogin';
+import { useFormValidation, validateEmail, validatePassword, FormError } from '../components/FormValidation';
 
 const Login = ({ onLogin }) => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [loginMethod, setLoginMethod] = useState('email');
   const navigate = useNavigate();
+  
+  const validationRules = {
+    email: { required: true, validator: validateEmail, message: 'Please enter a valid email' },
+    password: { required: true, validator: validatePassword, message: 'Password must be at least 6 characters' }
+  };
+  
+  const { values: credentials, errors, touched, handleChange, handleBlur, validateAll } = useFormValidation(
+    { email: '', password: '' },
+    validationRules
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!validateAll()) {
+      return;
+    }
+    
     setLoading(true);
     console.log('Attempting login with:', credentials);
     try {
@@ -58,22 +73,26 @@ const Login = ({ onLogin }) => {
                 <div className="mb-3">
                   <input
                     type="email"
-                    className="form-control form-control-lg"
+                    className={`form-control form-control-lg ${errors.email && touched.email ? 'is-invalid' : ''}`}
                     placeholder="Email"
                     value={credentials.email}
-                    onChange={(e) => setCredentials({...credentials, email: e.target.value})}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    onBlur={() => handleBlur('email')}
                     required
                   />
+                  <FormError message={touched.email ? errors.email : ''} />
                 </div>
                 <div className="mb-3">
                   <input
                     type="password"
-                    className="form-control form-control-lg"
+                    className={`form-control form-control-lg ${errors.password && touched.password ? 'is-invalid' : ''}`}
                     placeholder="Password"
                     value={credentials.password}
-                    onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+                    onChange={(e) => handleChange('password', e.target.value)}
+                    onBlur={() => handleBlur('password')}
                     required
                   />
+                  <FormError message={touched.password ? errors.password : ''} />
                 </div>
                   <button type="submit" className="btn btn-success btn-lg w-100" disabled={loading}>
                     {loading ? 'Logging in...' : 'Login'}
