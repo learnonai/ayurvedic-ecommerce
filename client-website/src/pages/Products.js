@@ -266,14 +266,42 @@ const Products = ({ onAddToCart, user }) => {
       {/* Products Grid */}
       {loading ? (
         <div className="text-center py-5">
-          <div className="spinner-border text-success" role="status">
-            <span className="visually-hidden">Loading...</span>
+          <div className="d-flex flex-column align-items-center">
+            <div className="spinner-border text-success mb-3" role="status" style={{width: '3rem', height: '3rem'}}>
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <h5 className="text-muted">Loading products...</h5>
+            <p className="text-muted">Please wait while we fetch the latest products for you.</p>
           </div>
         </div>
       ) : filteredProducts.length === 0 ? (
         <div className="text-center py-5">
-          <h4>No products found</h4>
-          <p className="text-muted">Try adjusting your search or filter criteria</p>
+          <div className="mb-4">
+            <span style={{fontSize: '4rem'}}>🔍</span>
+          </div>
+          <h4 className="text-muted">No products found</h4>
+          <p className="text-muted mb-4">We couldn't find any products matching your criteria.</p>
+          <div className="d-flex flex-column align-items-center gap-2">
+            <p className="small text-muted">Try:</p>
+            <ul className="list-unstyled small text-muted">
+              <li>• Adjusting your search terms</li>
+              <li>• Removing some filters</li>
+              <li>• Browsing all categories</li>
+            </ul>
+            <button 
+              className="btn btn-outline-success"
+              onClick={() => handleFilterChange({
+                category: '',
+                search: '',
+                minPrice: '',
+                maxPrice: '',
+                sortBy: 'name',
+                inStock: false
+              })}
+            >
+              View All Products
+            </button>
+          </div>
         </div>
       ) : (
         <>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { products } from '../utils/api';
 import ProductCard from '../components/ProductCard';
+import RecentlyViewed from '../components/RecentlyViewed';
 
 const Home = ({ onAddToCart, user }) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -46,6 +47,9 @@ const Home = ({ onAddToCart, user }) => {
           ))}
         </div>
       </div>
+
+      {/* Recently Viewed */}
+      <RecentlyViewed />
 
       {/* Featured Products */}
       <div className="container my-5">

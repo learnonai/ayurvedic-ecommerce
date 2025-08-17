@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
+import Breadcrumbs from './components/Breadcrumbs';
+import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
@@ -77,13 +79,15 @@ function App() {
 
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <Header 
-        user={user} 
-        onLogout={handleLogout} 
-        cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)} 
-      />
-      
-      <Routes>
+      <ErrorBoundary>
+        <Header 
+          user={user} 
+          onLogout={handleLogout} 
+          cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)} 
+        />
+        <Breadcrumbs />
+        
+        <Routes>
         <Route path="/" element={<Home onAddToCart={handleAddToCart} user={user} />} />
         <Route path="/products" element={<Products onAddToCart={handleAddToCart} user={user} />} />
         <Route path="/cart" element={
@@ -107,8 +111,9 @@ function App() {
         <Route path="/orders" element={<Orders user={user} />} />
         <Route path="/policies" element={<Policies />} />
         <Route path="/profile" element={<Profile user={user} onLogin={handleLogin} />} />
-      </Routes>
-      <ToastContainer />
+        </Routes>
+        <ToastContainer />
+      </ErrorBoundary>
     </Router>
   );
 }
