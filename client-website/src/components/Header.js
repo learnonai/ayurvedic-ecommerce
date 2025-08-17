@@ -45,6 +45,7 @@ const Header = ({ user, onLogout, cartCount }) => {
         <div className="navbar-nav ms-auto d-none d-lg-flex">
           <Link className="nav-link" to="/">Home</Link>
           <Link className="nav-link" to="/products">Products</Link>
+          <Link className="nav-link" to="/policies">📋 Policies</Link>
           
           {user ? (
             <>

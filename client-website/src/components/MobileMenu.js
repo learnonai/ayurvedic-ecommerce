@@ -30,6 +30,9 @@ const MobileMenu = ({ user, onLogout, cartCount }) => {
               <Link className="mobile-menu-item" to="/products" onClick={() => setIsOpen(false)}>
                 🛍️ Products
               </Link>
+              <Link className="mobile-menu-item" to="/policies" onClick={() => setIsOpen(false)}>
+                📋 Policies
+              </Link>
               
               {user ? (
                 <>

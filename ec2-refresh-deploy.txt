@@ -1,0 +1,1 @@
+cd /home/ec2-user/ayurvedic-ecommerce && git pull origin main && pm2 delete all && mkdir -p backend/uploads && cp backend/sample-images/* backend/uploads/ && cd backend && npm install && pm2 start server.js --name "api" && cd ../client-website && npm install && npm run build && pm2 serve build 3001 --name "client" --spa && sudo systemctl reload nginx && pm2 save

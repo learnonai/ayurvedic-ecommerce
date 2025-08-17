@@ -12,6 +12,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log('Attempting login with:', credentials);
     try {
       const response = await auth.login(credentials);
       localStorage.setItem('userToken', response.data.token);
@@ -19,6 +20,8 @@ const Login = ({ onLogin }) => {
       onLogin(response.data.user);
       navigate('/');
     } catch (error) {
+      console.error('Login error:', error);
+      console.error('Error response:', error.response);
       alert('Login failed: ' + (error.response?.data?.message || 'Unknown error'));
     }
     setLoading(false);
