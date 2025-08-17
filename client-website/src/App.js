@@ -19,6 +19,7 @@ import './utils/logger'; // Disable console in production
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './styles/mobile.css';
+import './styles/accessibility.css';
 import { useToast } from './components/Toast';
 
 function App() {
@@ -82,6 +83,7 @@ function App() {
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <ErrorBoundary>
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <Header 
           user={user} 
           onLogout={handleLogout} 
@@ -89,7 +91,8 @@ function App() {
         />
         <Breadcrumbs />
         
-        <Routes>
+        <main id="main-content" role="main">
+          <Routes>
         <Route path="/" element={<Home onAddToCart={handleAddToCart} user={user} />} />
         <Route path="/products" element={<Products onAddToCart={handleAddToCart} user={user} />} />
         <Route path="/cart" element={
@@ -113,7 +116,8 @@ function App() {
         <Route path="/orders" element={<Orders user={user} />} />
         <Route path="/policies" element={<Policies />} />
         <Route path="/profile" element={<Profile user={user} onLogin={handleLogin} />} />
-        </Routes>
+          </Routes>
+        </main>
         <ToastContainer />
       </ErrorBoundary>
     </Router>
