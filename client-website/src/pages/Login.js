@@ -4,6 +4,7 @@ import { auth } from '../utils/api';
 import PhoneLogin from '../components/PhoneLogin';
 import { useFormValidation, validateEmail, validatePassword, FormError } from '../components/FormValidation';
 import { sanitizeEmail, sanitizeInput, rateLimiter, sessionManager } from '../utils/security';
+import { hashPassword } from '../utils/encryption';
 
 const Login = ({ onLogin }) => {
   const [loading, setLoading] = useState(false);
@@ -37,10 +38,10 @@ const Login = ({ onLogin }) => {
     
     setLoading(true);
     
-    // Sanitize credentials
+    // Sanitize and hash credentials
     const sanitizedCredentials = {
       email: sanitizeEmail(credentials.email),
-      password: sanitizeInput(credentials.password)
+      password: hashPassword(sanitizeInput(credentials.password))
     };
     
     if (!sanitizedCredentials.email) {
