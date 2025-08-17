@@ -18,8 +18,8 @@ const Header = ({ user, onLogout, cartCount }) => {
       <div className="container">
         <Link className="navbar-brand" to="/">🌿 Ayurvedic Store</Link>
         
-        {/* Amazon-style Search Bar */}
-        <div className="d-flex flex-grow-1 mx-3 d-none d-md-flex">
+        {/* Amazon-style Search Bar with Filters */}
+        <div className="d-flex flex-grow-1 mx-3 d-none d-md-flex position-relative">
           <form className="d-flex w-100" onSubmit={handleSearch}>
             <div className="input-group">
               <input
@@ -28,8 +28,69 @@ const Header = ({ user, onLogout, cartCount }) => {
                 placeholder="Search for Ayurvedic products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ borderRadius: '4px 0 0 4px' }}
+                style={{ borderRadius: '4px 0 0 0' }}
               />
+              <button 
+                className="btn btn-outline-secondary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                style={{ borderRadius: '0', borderLeft: 'none', borderRight: 'none' }}
+                title="Filters"
+              >
+                🔧
+              </button>
+              <ul className="dropdown-menu p-3" style={{ minWidth: '300px' }}>
+                <li>
+                  <div className="mb-2">
+                    <label className="form-label small">Category</label>
+                    <select className="form-select form-select-sm">
+                      <option value="">All Categories</option>
+                      <option value="medicines">Medicines</option>
+                      <option value="jadi-buti">Jadi Buti</option>
+                      <option value="oils">Oils</option>
+                      <option value="powders">Powders</option>
+                      <option value="tablets">Tablets</option>
+                    </select>
+                  </div>
+                </li>
+                <li>
+                  <div className="row mb-2">
+                    <div className="col-6">
+                      <label className="form-label small">Min Price</label>
+                      <input type="number" className="form-control form-control-sm" placeholder="₹0" />
+                    </div>
+                    <div className="col-6">
+                      <label className="form-label small">Max Price</label>
+                      <input type="number" className="form-control form-control-sm" placeholder="₹999" />
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div className="mb-2">
+                    <label className="form-label small">Sort By</label>
+                    <select className="form-select form-select-sm">
+                      <option value="name">Name A-Z</option>
+                      <option value="price-low">Price: Low to High</option>
+                      <option value="price-high">Price: High to Low</option>
+                    </select>
+                  </div>
+                </li>
+                <li>
+                  <div className="form-check">
+                    <input className="form-check-input" type="checkbox" id="stockFilter" />
+                    <label className="form-check-label small" htmlFor="stockFilter">
+                      In Stock Only
+                    </label>
+                  </div>
+                </li>
+                <li><hr className="dropdown-divider" /></li>
+                <li>
+                  <div className="d-flex gap-2">
+                    <button className="btn btn-primary btn-sm flex-fill">Apply</button>
+                    <button className="btn btn-outline-secondary btn-sm">Clear</button>
+                  </div>
+                </li>
+              </ul>
               <button 
                 className="btn btn-warning" 
                 type="submit"
@@ -69,9 +130,9 @@ const Header = ({ user, onLogout, cartCount }) => {
         <MobileMenu user={user} onLogout={onLogout} cartCount={cartCount} />
       </div>
       
-      {/* Mobile Search Bar */}
+      {/* Mobile Search Bar with Filters */}
       <div className="container d-md-none mt-2">
-        <form className="d-flex" onSubmit={handleSearch}>
+        <form className="d-flex mb-2" onSubmit={handleSearch}>
           <div className="input-group">
             <input
               type="text"
@@ -80,11 +141,56 @@ const Header = ({ user, onLogout, cartCount }) => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
+            <button 
+              className="btn btn-outline-secondary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mobileFilters"
+            >
+              🔧
+            </button>
             <button className="btn btn-warning" type="submit">
               🔍
             </button>
           </div>
         </form>
+        
+        {/* Mobile Filters Collapse */}
+        <div className="collapse" id="mobileFilters">
+          <div className="card card-body p-2">
+            <div className="row g-2">
+              <div className="col-6">
+                <select className="form-select form-select-sm">
+                  <option>All Categories</option>
+                  <option>Medicines</option>
+                  <option>Oils</option>
+                  <option>Powders</option>
+                </select>
+              </div>
+              <div className="col-6">
+                <select className="form-select form-select-sm">
+                  <option>Sort by Name</option>
+                  <option>Price: Low to High</option>
+                  <option>Price: High to Low</option>
+                </select>
+              </div>
+              <div className="col-6">
+                <input type="number" className="form-control form-control-sm" placeholder="Min ₹" />
+              </div>
+              <div className="col-6">
+                <input type="number" className="form-control form-control-sm" placeholder="Max ₹" />
+              </div>
+              <div className="col-12">
+                <div className="form-check">
+                  <input className="form-check-input" type="checkbox" id="mobileStockFilter" />
+                  <label className="form-check-label small" htmlFor="mobileStockFilter">
+                    In Stock Only
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
   );

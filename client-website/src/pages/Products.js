@@ -193,100 +193,67 @@ const Products = ({ onAddToCart, user }) => {
         </div>
       </div>
       
-      {/* Advanced Filters */}
-      <div className="card mb-4">
-        <div className="card-header">
-          <h5 className="mb-0">🔍 Search & Filters</h5>
-        </div>
-        <div className="card-body">
-          <div className="row">
-            <div className="col-md-4 mb-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search products..."
-                value={filters.search}
-                onChange={(e) => handleFilterChange({...filters, search: e.target.value})}
-              />
-            </div>
-            <div className="col-md-4 mb-3">
-              <select
-                className="form-control"
-                value={filters.category}
-                onChange={(e) => handleFilterChange({...filters, category: e.target.value})}
-              >
-                <option value="">All Categories</option>
-                <option value="medicines">Medicines</option>
-                <option value="jadi-buti">Jadi Buti</option>
-                <option value="oils">Oils</option>
-                <option value="powders">Powders</option>
-                <option value="tablets">Tablets</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div className="col-md-4 mb-3">
-              <select
-                className="form-control"
-                value={filters.sortBy}
-                onChange={(e) => handleFilterChange({...filters, sortBy: e.target.value})}
-              >
-                <option value="name">Sort by Name</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-              </select>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-3 mb-3">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Min Price (₹)"
-                value={filters.minPrice}
-                onChange={(e) => handleFilterChange({...filters, minPrice: e.target.value})}
-              />
-            </div>
-            <div className="col-md-3 mb-3">
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Max Price (₹)"
-                value={filters.maxPrice}
-                onChange={(e) => handleFilterChange({...filters, maxPrice: e.target.value})}
-              />
-            </div>
-            <div className="col-md-3 mb-3">
-              <div className="form-check mt-2">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id="inStockFilter"
-                  checked={filters.inStock}
-                  onChange={(e) => handleFilterChange({...filters, inStock: e.target.checked})}
-                />
-                <label className="form-check-label" htmlFor="inStockFilter">
-                  In Stock Only
-                </label>
-              </div>
-            </div>
-            <div className="col-md-3 mb-3">
-              <button 
-                className="btn btn-outline-secondary w-100"
-                onClick={() => handleFilterChange({
-                  category: '',
-                  search: '',
-                  minPrice: '',
-                  maxPrice: '',
-                  sortBy: 'name',
-                  inStock: false
-                })}
-              >
-                Clear Filters
-              </button>
-            </div>
+      {/* Active Filters Display */}
+      {(filters.category || filters.search || filters.minPrice || filters.maxPrice || filters.inStock) && (
+        <div className="mb-3">
+          <div className="d-flex flex-wrap gap-2 align-items-center">
+            <span className="text-muted small">Active filters:</span>
+            {filters.search && (
+              <span className="badge bg-primary">
+                Search: "{filters.search}"
+                <button 
+                  className="btn-close btn-close-white ms-1" 
+                  style={{fontSize: '0.6em'}}
+                  onClick={() => handleFilterChange({...filters, search: ''})}
+                ></button>
+              </span>
+            )}
+            {filters.category && (
+              <span className="badge bg-success">
+                {filters.category}
+                <button 
+                  className="btn-close btn-close-white ms-1" 
+                  style={{fontSize: '0.6em'}}
+                  onClick={() => handleFilterChange({...filters, category: ''})}
+                ></button>
+              </span>
+            )}
+            {(filters.minPrice || filters.maxPrice) && (
+              <span className="badge bg-info">
+                Price: ₹{filters.minPrice || 0} - ₹{filters.maxPrice || '∞'}
+                <button 
+                  className="btn-close btn-close-white ms-1" 
+                  style={{fontSize: '0.6em'}}
+                  onClick={() => handleFilterChange({...filters, minPrice: '', maxPrice: ''})}
+                ></button>
+              </span>
+            )}
+            {filters.inStock && (
+              <span className="badge bg-warning text-dark">
+                In Stock Only
+                <button 
+                  className="btn-close ms-1" 
+                  style={{fontSize: '0.6em'}}
+                  onClick={() => handleFilterChange({...filters, inStock: false})}
+                ></button>
+              </span>
+            )}
+            <button 
+              className="btn btn-outline-secondary btn-sm"
+              onClick={() => handleFilterChange({
+                category: '',
+                search: '',
+                minPrice: '',
+                maxPrice: '',
+                sortBy: 'name',
+                inStock: false
+              })}
+            >
+              Clear All
+            </button>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Products Grid */}
       {loading ? (
