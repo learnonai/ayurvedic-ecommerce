@@ -23,7 +23,7 @@ const Home = ({ onAddToCart, user }) => {
       {/* Hero Section */}
       <div className="bg-success text-white py-5">
         <div className="container text-center">
-          <h1 className="display-4">🌿 Welcome to Ayurvedic Store</h1>
+          <h1 className="display-4">🌿 Welcome to Herbal Store</h1>
           <p className="lead">Discover the power of natural healing with our authentic Ayurvedic products</p>
           <Link to="/products" className="btn btn-light btn-lg">Shop Now</Link>
         </div>
