@@ -18,7 +18,18 @@ const app = express();
 app.set('trust proxy', true);
 
 // Security middleware
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "http://localhost:*", "https:"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https:"],
+      scriptSrc: ["'self'"],
+      connectSrc: ["'self'", "http://localhost:*", "https:"]
+    }
+  }
+}));
 app.use(cors({
   origin: '*',
   credentials: true,

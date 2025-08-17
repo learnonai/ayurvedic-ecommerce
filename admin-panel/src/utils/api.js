@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://www.learnonai.com/api';
+const API_URL = process.env.NODE_ENV === 'production' ? 'https://www.learnonai.com/api' : 'http://localhost:5000/api';
 
 const api = axios.create({
   baseURL: API_URL,

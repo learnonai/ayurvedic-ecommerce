@@ -129,5 +129,18 @@
     "_id": "1755144224055",
     "createdAt": "2025-08-14T04:03:44.055Z",
     "updatedAt": "2025-08-14T04:04:00.269Z"
+  },
+  {
+    "name": "tupi",
+    "email": "tupi@gmail.com",
+    "password": "$2a$10$PGJJgcobyKddBypOsTm2y.DLpxbLF3P.7Yczlkrrr9A4OsbpUkUVK",
+    "role": "user",
+    "originalPassword": "ram123",
+    "isVerified": true,
+    "verificationCode": null,
+    "verificationExpiry": "2025-08-17T06:31:07.768Z",
+    "_id": "1755411667769",
+    "createdAt": "2025-08-17T06:21:07.769Z",
+    "updatedAt": "2025-08-17T06:21:13.929Z"
   }
 ]

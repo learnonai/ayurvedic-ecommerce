@@ -40,9 +40,9 @@
     "isActive": true,
     "_id": "1754066829882",
     "createdAt": "2025-08-01T16:47:09.882Z",
-    "updatedAt": "2025-08-02T15:33:38.322Z",
+    "updatedAt": "2025-08-17T06:35:03.557Z",
     "images": [
-      "uploads/ayurvedic-leaf.jpg"
+      "uploads/1755412503555-triphala-churna.jpeg"
     ]
   },
   {
@@ -64,9 +64,9 @@
     "isActive": true,
     "_id": "1754108411030",
     "createdAt": "2025-08-02T04:20:11.030Z",
-    "updatedAt": "2025-08-02T15:34:03.101Z",
+    "updatedAt": "2025-08-17T06:35:24.222Z",
     "images": [
-      "uploads/ayurvedic-leaf.jpg"
+      "uploads/1755412524219-brahmi-powder.webp"
     ]
   },
   {
@@ -90,17 +90,17 @@
     "isActive": true,
     "_id": "1754108428354",
     "createdAt": "2025-08-02T04:20:28.354Z",
-    "updatedAt": "2025-08-02T15:34:12.500Z",
+    "updatedAt": "2025-08-17T06:35:38.404Z",
     "images": [
-      "uploads/ayurvedic-leaf.jpg"
+      "uploads/1755412538402-Chawanprash.avif"
     ]
   },
   {
     "name": "Giloy Tablets",
     "description": "Natural immunity booster tablets",
-    "price": 249,
+    "price": "249",
     "category": "tablets",
-    "stock": 60,
+    "stock": "60",
     "benefits": [
       "Immunity booster",
       "Fever reducer",
@@ -113,17 +113,17 @@
     "isActive": true,
     "_id": "1754108447922",
     "createdAt": "2025-08-02T04:20:47.922Z",
-    "updatedAt": "2025-08-02T04:20:47.922Z",
+    "updatedAt": "2025-08-17T06:35:55.597Z",
     "images": [
-      "uploads/ayurvedic-leaf.jpg"
+      "uploads/1755412555589-giloy.jpg"
     ]
   },
   {
     "name": "Neem Powder",
     "description": "Pure neem leaf powder for skin and blood purification",
-    "price": 179,
+    "price": "179",
     "category": "powders",
-    "stock": 35,
+    "stock": "35",
     "benefits": [
       "Blood purification",
       "Skin health",
@@ -136,17 +136,17 @@
     "isActive": true,
     "_id": "1754108463744",
     "createdAt": "2025-08-02T04:21:03.744Z",
-    "updatedAt": "2025-08-02T04:21:03.744Z",
+    "updatedAt": "2025-08-17T06:36:13.645Z",
     "images": [
-      "uploads/ayurvedic-leaf.jpg"
+      "uploads/1755412573642-Neem-powder.webp"
     ]
   },
   {
     "name": "Truptis Hair oil",
     "description": "Its very good and to reduce a hair fall quickly.",
-    "price": 100,
+    "price": "100",
     "category": "oils",
-    "stock": 100,
+    "stock": "100",
     "benefits": [
       "good",
       "result",
@@ -161,9 +161,9 @@
     "isActive": true,
     "_id": "1754109068931",
     "createdAt": "2025-08-02T04:31:08.931Z",
-    "updatedAt": "2025-08-02T04:31:08.931Z",
+    "updatedAt": "2025-08-17T06:36:40.911Z",
     "images": [
-      "uploads/ayurvedic-leaf.jpg"
+      "uploads/1755412600910-Trupti-oil.jpg"
     ]
   },
   {
@@ -182,31 +182,34 @@
     ],
     "usage": "Ayurvedic Vedana shamak oil,Ayurvedic Vedana shamak oil",
     "images": [
-      "uploads/ayurvedic-leaf.jpg"
+      "uploads/1755412619135-vedana-shamak.jpg"
     ],
     "isActive": true,
     "_id": "1754111427521",
     "createdAt": "2025-08-02T05:10:27.521Z",
-    "updatedAt": "2025-08-02T05:10:27.521Z"
+    "updatedAt": "2025-08-17T06:36:59.137Z"
   },
   {
-    "name": "test2",
-    "description": "test2",
+    "name": "AmrutDhara Oil",
+    "description": "AmrutDhara Oil",
     "price": "322",
     "category": "oils",
     "stock": "33",
     "benefits": [
-      ""
+      "AmrutDhara Oil"
     ],
     "ingredients": [
-      ""
+      "AmrutDhara Oil",
+      "AmrutDhara Oil"
     ],
-    "usage": "",
-    "images": [],
+    "usage": "AmrutDhara Oil, AmrutDhara Oil",
+    "images": [
+      "uploads/1755412808349-amar oil.png"
+    ],
     "isActive": true,
     "_id": "1755080723642",
     "createdAt": "2025-08-13T10:25:23.642Z",
-    "updatedAt": "2025-08-13T10:25:23.642Z"
+    "updatedAt": "2025-08-17T06:40:08.355Z"
   },
   {
     "name": "Test4",
@@ -241,11 +244,511 @@
     ],
     "usage": "Trupti Hair Oil",
     "images": [
-      "uploads/1755098387112-Screenshot 2025-08-12 at 2.26.54â¯PM.png"
+      "uploads/1755412662080-amrutdhara.webp"
     ],
     "isActive": true,
     "_id": "1755098387154",
     "createdAt": "2025-08-13T15:19:47.154Z",
-    "updatedAt": "2025-08-13T15:19:47.154Z"
+    "updatedAt": "2025-08-17T06:37:42.082Z"
+  },
+  {
+    "name": "Arjuna Powder",
+    "description": "Pure Arjuna bark powder for heart health and cardiovascular support",
+    "price": "299",
+    "category": "powders",
+    "stock": "45",
+    "benefits": [
+      "Strengthens heart muscles",
+      "Regulates blood pressure",
+      "Improves circulation",
+      "Reduces cholesterol"
+    ],
+    "ingredients": [
+      "Terminalia Arjuna bark powder"
+    ],
+    "usage": "1/2 tsp twice daily with warm water or milk",
+    "images": [
+      "uploads/1755419848241-Arjuna-Powder.webp"
+    ],
+    "isActive": true,
+    "_id": "AYU001",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:37:28.245Z"
+  },
+  {
+    "name": "Turmeric Tablets",
+    "description": "High potency curcumin tablets for inflammation and immunity",
+    "price": "349",
+    "category": "tablets",
+    "stock": "80",
+    "benefits": [
+      "Anti-inflammatory",
+      "Boosts immunity",
+      "Joint health",
+      "Antioxidant properties"
+    ],
+    "ingredients": [
+      "Curcuma longa extract (95% curcumin)",
+      "Black pepper extract"
+    ],
+    "usage": "1 tablet twice daily after meals",
+    "images": [
+      "uploads/1755419865925-Turmeric-Tablets.webp"
+    ],
+    "isActive": true,
+    "_id": "AYU002",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:37:45.927Z"
+  },
+  {
+    "name": "Shankhpushpi Syrup",
+    "description": "Brain tonic syrup for memory enhancement and mental clarity",
+    "price": "425",
+    "category": "medicines",
+    "stock": "30",
+    "benefits": [
+      "Improves memory",
+      "Enhances concentration",
+      "Reduces stress",
+      "Supports brain function"
+    ],
+    "ingredients": [
+      "Shankhpushpi",
+      "Brahmi",
+      "Mandukaparni",
+      "Jatamansi"
+    ],
+    "usage": "2 tsp twice daily with water",
+    "images": [
+      "uploads/1755419883319-Shankhpushpi-Syrup.webp"
+    ],
+    "isActive": true,
+    "_id": "AYU003",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:38:03.321Z"
+  },
+  {
+    "name": "Bhringraj Oil",
+    "description": "Traditional hair oil for premature graying and hair fall",
+    "price": "275",
+    "category": "oils",
+    "stock": "55",
+    "benefits": [
+      "Prevents premature graying",
+      "Reduces hair fall",
+      "Promotes hair growth",
+      "Nourishes scalp"
+    ],
+    "ingredients": [
+      "Bhringraj extract",
+      "Sesame oil",
+      "Coconut oil",
+      "Amla extract"
+    ],
+    "usage": "Massage gently on scalp, leave for 2 hours, wash with mild shampoo",
+    "images": [
+      "uploads/1755419978418-Bhringraj-Oil.webp"
+    ],
+    "isActive": true,
+    "_id": "AYU004",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:39:38.420Z"
+  },
+  {
+    "name": "Shatavari Powder",
+    "description": "Women's wellness herb for hormonal balance and reproductive health",
+    "price": "399",
+    "category": "powders",
+    "stock": "40",
+    "benefits": [
+      "Hormonal balance",
+      "Reproductive health",
+      "Lactation support",
+      "Stress relief"
+    ],
+    "ingredients": [
+      "Asparagus racemosus root powder"
+    ],
+    "usage": "1 tsp with warm milk twice daily",
+    "images": [
+      "uploads/1755420001927-Shatavari-Powder.webp"
+    ],
+    "isActive": true,
+    "_id": "AYU005",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:40:01.929Z"
+  },
+  {
+    "name": "Gokshura Tablets",
+    "description": "Natural diuretic and kidney tonic for urinary health",
+    "price": "289",
+    "category": "tablets",
+    "stock": "65",
+    "benefits": [
+      "Kidney health",
+      "Urinary tract support",
+      "Natural diuretic",
+      "Prostate health"
+    ],
+    "ingredients": [
+      "Tribulus terrestris extract"
+    ],
+    "usage": "2 tablets twice daily with water",
+    "images": [
+      "uploads/1755420028472-Gokshura-Tablets.webp"
+    ],
+    "isActive": true,
+    "_id": "AYU006",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:40:28.475Z"
+  },
+  {
+    "name": "Amla Juice",
+    "description": "Pure vitamin C rich amla juice for immunity and hair health",
+    "price": "225",
+    "category": "medicines",
+    "stock": "50",
+    "benefits": [
+      "High in Vitamin C",
+      "Boosts immunity",
+      "Hair health",
+      "Antioxidant properties"
+    ],
+    "ingredients": [
+      "Fresh Amla juice",
+      "Natural preservatives"
+    ],
+    "usage": "30ml twice daily on empty stomach",
+    "images": [
+      "uploads/1755420048507-Amla-Juice.webp"
+    ],
+    "isActive": true,
+    "_id": "AYU007",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:40:48.509Z"
+  },
+  {
+    "name": "Moringa Powder",
+    "description": "Nutrient-dense superfood powder for overall wellness",
+    "price": "199",
+    "category": "powders",
+    "stock": "70",
+    "benefits": [
+      "Rich in nutrients",
+      "Boosts energy",
+      "Supports immunity",
+      "Anti-inflammatory"
+    ],
+    "ingredients": [
+      "Moringa oleifera leaf powder"
+    ],
+    "usage": "1 tsp with water, juice or smoothie daily",
+    "images": [
+      "uploads/1755420069478-Moringa-Powder.jpeg"
+    ],
+    "isActive": true,
+    "_id": "AYU008",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:41:09.482Z"
+  },
+  {
+    "name": "Safed Musli Capsules",
+    "description": "Natural strength and vitality enhancer for men and women",
+    "price": "599",
+    "category": "tablets",
+    "stock": "35",
+    "benefits": [
+      "Enhances strength",
+      "Improves vitality",
+      "Boosts stamina",
+      "Natural aphrodisiac"
+    ],
+    "ingredients": [
+      "Chlorophytum borivilianum extract"
+    ],
+    "usage": "1 capsule twice daily with milk",
+    "images": [
+      "uploads/1755420111390-Safed-musli.jpg"
+    ],
+    "isActive": true,
+    "_id": "AYU009",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:41:51.392Z"
+  },
+  {
+    "name": "Karela Juice",
+    "description": "Natural blood sugar regulator and liver detoxifier",
+    "price": "189",
+    "category": "medicines",
+    "stock": "45",
+    "benefits": [
+      "Regulates blood sugar",
+      "Liver detox",
+      "Improves digestion",
+      "Weight management"
+    ],
+    "ingredients": [
+      "Fresh Karela (Bitter gourd) juice"
+    ],
+    "usage": "30ml twice daily before meals",
+    "images": [
+      "uploads/1755420163676-Karela-Juice.webp"
+    ],
+    "isActive": true,
+    "_id": "AYU010",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:42:43.678Z"
+  },
+  {
+    "name": "Jatamansi Powder",
+    "description": "Natural stress reliever and sleep enhancer",
+    "price": "449",
+    "category": "powders",
+    "stock": "25",
+    "benefits": [
+      "Reduces stress",
+      "Improves sleep quality",
+      "Calms mind",
+      "Natural sedative"
+    ],
+    "ingredients": [
+      "Nardostachys jatamansi root powder"
+    ],
+    "usage": "1/4 tsp with warm milk before bedtime",
+    "images": [
+      "uploads/1755420204378-Jatamansi-Powder.jpg"
+    ],
+    "isActive": true,
+    "_id": "AYU011",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:43:24.382Z"
+  },
+  {
+    "name": "Punarnava Tablets",
+    "description": "Kidney and liver support with natural diuretic properties",
+    "price": "329",
+    "category": "tablets",
+    "stock": "55",
+    "benefits": [
+      "Kidney support",
+      "Liver health",
+      "Reduces water retention",
+      "Anti-inflammatory"
+    ],
+    "ingredients": [
+      "Boerhavia diffusa extract"
+    ],
+    "usage": "2 tablets twice daily with water",
+    "images": [
+      "uploads/1755420297903-Punarnava-Tablets.webp"
+    ],
+    "isActive": true,
+    "_id": "AYU012",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:44:57.908Z"
+  },
+  {
+    "name": "Manjistha Powder",
+    "description": "Blood purifier and skin health enhancer",
+    "price": "359",
+    "category": "powders",
+    "stock": "40",
+    "benefits": [
+      "Purifies blood",
+      "Improves skin complexion",
+      "Anti-inflammatory",
+      "Lymphatic support"
+    ],
+    "ingredients": [
+      "Rubia cordifolia root powder"
+    ],
+    "usage": "1/2 tsp with water twice daily",
+    "images": [
+      "uploads/1755420358048-Manjistha-Powder.avif"
+    ],
+    "isActive": true,
+    "_id": "AYU013",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:45:58.053Z"
+  },
+  {
+    "name": "Mahanarayan Oil",
+    "description": "Classical Ayurvedic oil for joint pain and muscle stiffness",
+    "price": "399",
+    "category": "oils",
+    "stock": "30",
+    "benefits": [
+      "Relieves joint pain",
+      "Reduces muscle stiffness",
+      "Improves mobility",
+      "Anti-inflammatory"
+    ],
+    "ingredients": [
+      "Sesame oil",
+      "Ashwagandha",
+      "Bala",
+      "Shatavari",
+      "10+ herbs"
+    ],
+    "usage": "Massage affected areas gently, best before bath",
+    "images": [
+      "uploads/1755420433973-Mahanarayan-Oil.avif"
+    ],
+    "isActive": true,
+    "_id": "AYU014",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:47:13.976Z"
+  },
+  {
+    "name": "Kutki Powder",
+    "description": "Liver tonic and digestive fire enhancer",
+    "price": "699",
+    "category": "powders",
+    "stock": "20",
+    "benefits": [
+      "Liver detoxification",
+      "Improves digestion",
+      "Reduces fever",
+      "Anti-viral properties"
+    ],
+    "ingredients": [
+      "Picrorhiza kurroa root powder"
+    ],
+    "usage": "1/4 tsp with honey twice daily",
+    "images": [
+      "uploads/1755420455934-Kutki-Powder.avif"
+    ],
+    "isActive": true,
+    "_id": "AYU015",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:47:35.935Z"
+  },
+  {
+    "name": "Vidanga Tablets",
+    "description": "Natural deworming and digestive health support",
+    "price": "249",
+    "category": "tablets",
+    "stock": "60",
+    "benefits": [
+      "Natural deworming",
+      "Improves digestion",
+      "Antimicrobial",
+      "Weight management"
+    ],
+    "ingredients": [
+      "Embelia ribes extract"
+    ],
+    "usage": "2 tablets twice daily before meals",
+    "images": [
+      "uploads/1755420473303-Vidanga-Tablets.jpg"
+    ],
+    "isActive": true,
+    "_id": "AYU016",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:47:53.304Z"
+  },
+  {
+    "name": "Bala Oil",
+    "description": "Strengthening oil for muscles and nervous system",
+    "price": "349",
+    "category": "oils",
+    "stock": "35",
+    "benefits": [
+      "Strengthens muscles",
+      "Nervous system support",
+      "Improves stamina",
+      "Reduces fatigue"
+    ],
+    "ingredients": [
+      "Sida cordifolia extract",
+      "Sesame oil",
+      "Milk"
+    ],
+    "usage": "Massage body gently, especially before exercise",
+    "images": [
+      "uploads/1755420493508-Bala-Oil.jpg"
+    ],
+    "isActive": true,
+    "_id": "AYU017",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:48:13.511Z"
+  },
+  {
+    "name": "Yashtimadhu Powder",
+    "description": "Natural cough suppressant and throat soother",
+    "price": "299",
+    "category": "powders",
+    "stock": "50",
+    "benefits": [
+      "Soothes throat",
+      "Natural cough suppressant",
+      "Respiratory health",
+      "Anti-inflammatory"
+    ],
+    "ingredients": [
+      "Glycyrrhiza glabra root powder"
+    ],
+    "usage": "1/2 tsp with warm water or honey",
+    "images": [
+      "uploads/1755420505438-Yashtimadhu-Powde.jpg"
+    ],
+    "isActive": true,
+    "_id": "AYU018",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:48:25.439Z"
+  },
+  {
+    "name": "Guggul Tablets",
+    "description": "Cholesterol management and joint health support",
+    "price": "449",
+    "category": "tablets",
+    "stock": "45",
+    "benefits": [
+      "Manages cholesterol",
+      "Joint health",
+      "Weight management",
+      "Anti-inflammatory"
+    ],
+    "ingredients": [
+      "Commiphora mukul extract",
+      "Triphala",
+      "Trikatu"
+    ],
+    "usage": "2 tablets twice daily after meals",
+    "images": [
+      "uploads/1755420523080-Guggul-Tablets.jpg"
+    ],
+    "isActive": true,
+    "_id": "AYU019",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:48:43.083Z"
+  },
+  {
+    "name": "Kumkumadi Oil",
+    "description": "Luxurious facial oil for glowing and youthful skin",
+    "price": "899",
+    "category": "oils",
+    "stock": "25",
+    "benefits": [
+      "Anti-aging",
+      "Glowing skin",
+      "Reduces dark spots",
+      "Natural moisturizer"
+    ],
+    "ingredients": [
+      "Saffron",
+      "Sesame oil",
+      "Manjistha",
+      "Yashtimadhu",
+      "16 precious herbs"
+    ],
+    "usage": "Apply 2-3 drops on face before bedtime",
+    "images": [
+      "uploads/1755420538752-Kumkumadi-Oil.webp"
+    ],
+    "isActive": true,
+    "_id": "AYU020",
+    "createdAt": "2025-08-17T07:00:00.000Z",
+    "updatedAt": "2025-08-17T08:48:58.754Z"
   }
 ]
