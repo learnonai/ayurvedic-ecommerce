@@ -4,13 +4,50 @@ import MobileMenu from './MobileMenu';
 
 const Header = ({ user, onLogout, cartCount }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState({
+    category: '',
+    minPrice: '',
+    maxPrice: '',
+    sortBy: 'name',
+    inStock: false
+  });
   const navigate = useNavigate();
 
   const handleSearch = (e) => {
     e.preventDefault();
+    const params = new URLSearchParams();
     if (searchQuery.trim()) {
-      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+      params.set('search', searchQuery.trim());
     }
+    if (filters.category) {
+      params.set('category', filters.category);
+    }
+    navigate(`/products?${params.toString()}`);
+  };
+
+  const handleFilterChange = (key, value) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
+  };
+
+  const applyFilters = () => {
+    const params = new URLSearchParams();
+    if (searchQuery.trim()) params.set('search', searchQuery.trim());
+    if (filters.category) params.set('category', filters.category);
+    if (filters.minPrice) params.set('minPrice', filters.minPrice);
+    if (filters.maxPrice) params.set('maxPrice', filters.maxPrice);
+    if (filters.sortBy !== 'name') params.set('sortBy', filters.sortBy);
+    if (filters.inStock) params.set('inStock', 'true');
+    navigate(`/products?${params.toString()}`);
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      category: '',
+      minPrice: '',
+      maxPrice: '',
+      sortBy: 'name',
+      inStock: false
+    });
   };
 
   return (
@@ -43,7 +80,11 @@ const Header = ({ user, onLogout, cartCount }) => {
                 <li>
                   <div className="mb-2">
                     <label className="form-label small">Category</label>
-                    <select className="form-select form-select-sm">
+                    <select 
+                      className="form-select form-select-sm"
+                      value={filters.category}
+                      onChange={(e) => handleFilterChange('category', e.target.value)}
+                    >
                       <option value="">All Categories</option>
                       <option value="medicines">Medicines</option>
                       <option value="jadi-buti">Jadi Buti</option>
@@ -57,18 +98,34 @@ const Header = ({ user, onLogout, cartCount }) => {
                   <div className="row mb-2">
                     <div className="col-6">
                       <label className="form-label small">Min Price</label>
-                      <input type="number" className="form-control form-control-sm" placeholder="₹0" />
+                      <input 
+                        type="number" 
+                        className="form-control form-control-sm" 
+                        placeholder="₹0"
+                        value={filters.minPrice}
+                        onChange={(e) => handleFilterChange('minPrice', e.target.value)}
+                      />
                     </div>
                     <div className="col-6">
                       <label className="form-label small">Max Price</label>
-                      <input type="number" className="form-control form-control-sm" placeholder="₹999" />
+                      <input 
+                        type="number" 
+                        className="form-control form-control-sm" 
+                        placeholder="₹999"
+                        value={filters.maxPrice}
+                        onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
+                      />
                     </div>
                   </div>
                 </li>
                 <li>
                   <div className="mb-2">
                     <label className="form-label small">Sort By</label>
-                    <select className="form-select form-select-sm">
+                    <select 
+                      className="form-select form-select-sm"
+                      value={filters.sortBy}
+                      onChange={(e) => handleFilterChange('sortBy', e.target.value)}
+                    >
                       <option value="name">Name A-Z</option>
                       <option value="price-low">Price: Low to High</option>
                       <option value="price-high">Price: High to Low</option>
@@ -77,7 +134,13 @@ const Header = ({ user, onLogout, cartCount }) => {
                 </li>
                 <li>
                   <div className="form-check">
-                    <input className="form-check-input" type="checkbox" id="stockFilter" />
+                    <input 
+                      className="form-check-input" 
+                      type="checkbox" 
+                      id="stockFilter"
+                      checked={filters.inStock}
+                      onChange={(e) => handleFilterChange('inStock', e.target.checked)}
+                    />
                     <label className="form-check-label small" htmlFor="stockFilter">
                       In Stock Only
                     </label>
@@ -86,8 +149,18 @@ const Header = ({ user, onLogout, cartCount }) => {
                 <li><hr className="dropdown-divider" /></li>
                 <li>
                   <div className="d-flex gap-2">
-                    <button className="btn btn-primary btn-sm flex-fill">Apply</button>
-                    <button className="btn btn-outline-secondary btn-sm">Clear</button>
+                    <button 
+                      className="btn btn-primary btn-sm flex-fill"
+                      onClick={applyFilters}
+                    >
+                      Apply
+                    </button>
+                    <button 
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={clearFilters}
+                    >
+                      Clear
+                    </button>
                   </div>
                 </li>
               </ul>
@@ -160,32 +233,76 @@ const Header = ({ user, onLogout, cartCount }) => {
           <div className="card card-body p-2">
             <div className="row g-2">
               <div className="col-6">
-                <select className="form-select form-select-sm">
-                  <option>All Categories</option>
-                  <option>Medicines</option>
-                  <option>Oils</option>
-                  <option>Powders</option>
+                <select 
+                  className="form-select form-select-sm"
+                  value={filters.category}
+                  onChange={(e) => handleFilterChange('category', e.target.value)}
+                >
+                  <option value="">All Categories</option>
+                  <option value="medicines">Medicines</option>
+                  <option value="jadi-buti">Jadi Buti</option>
+                  <option value="oils">Oils</option>
+                  <option value="powders">Powders</option>
+                  <option value="tablets">Tablets</option>
                 </select>
               </div>
               <div className="col-6">
-                <select className="form-select form-select-sm">
-                  <option>Sort by Name</option>
-                  <option>Price: Low to High</option>
-                  <option>Price: High to Low</option>
+                <select 
+                  className="form-select form-select-sm"
+                  value={filters.sortBy}
+                  onChange={(e) => handleFilterChange('sortBy', e.target.value)}
+                >
+                  <option value="name">Sort by Name</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
                 </select>
               </div>
               <div className="col-6">
-                <input type="number" className="form-control form-control-sm" placeholder="Min ₹" />
+                <input 
+                  type="number" 
+                  className="form-control form-control-sm" 
+                  placeholder="Min ₹"
+                  value={filters.minPrice}
+                  onChange={(e) => handleFilterChange('minPrice', e.target.value)}
+                />
               </div>
               <div className="col-6">
-                <input type="number" className="form-control form-control-sm" placeholder="Max ₹" />
+                <input 
+                  type="number" 
+                  className="form-control form-control-sm" 
+                  placeholder="Max ₹"
+                  value={filters.maxPrice}
+                  onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
+                />
               </div>
               <div className="col-12">
-                <div className="form-check">
-                  <input className="form-check-input" type="checkbox" id="mobileStockFilter" />
-                  <label className="form-check-label small" htmlFor="mobileStockFilter">
-                    In Stock Only
-                  </label>
+                <div className="form-check d-flex justify-content-between align-items-center">
+                  <div>
+                    <input 
+                      className="form-check-input" 
+                      type="checkbox" 
+                      id="mobileStockFilter"
+                      checked={filters.inStock}
+                      onChange={(e) => handleFilterChange('inStock', e.target.checked)}
+                    />
+                    <label className="form-check-label small" htmlFor="mobileStockFilter">
+                      In Stock Only
+                    </label>
+                  </div>
+                  <div className="d-flex gap-1">
+                    <button 
+                      className="btn btn-primary btn-sm"
+                      onClick={applyFilters}
+                    >
+                      Apply
+                    </button>
+                    <button 
+                      className="btn btn-outline-secondary btn-sm"
+                      onClick={clearFilters}
+                    >
+                      Clear
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

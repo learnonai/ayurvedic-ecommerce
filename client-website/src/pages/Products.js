@@ -13,10 +13,10 @@ const Products = ({ onAddToCart, user }) => {
   const [filters, setFilters] = useState({
     category: searchParams.get('category') || '',
     search: searchParams.get('search') || '',
-    minPrice: '',
-    maxPrice: '',
-    sortBy: 'name',
-    inStock: false
+    minPrice: searchParams.get('minPrice') || '',
+    maxPrice: searchParams.get('maxPrice') || '',
+    sortBy: searchParams.get('sortBy') || 'name',
+    inStock: searchParams.get('inStock') === 'true'
   });
 
   useEffect(() => {
@@ -31,7 +31,11 @@ const Products = ({ onAddToCart, user }) => {
   useEffect(() => {
     setFilters({
       category: searchParams.get('category') || '',
-      search: searchParams.get('search') || ''
+      search: searchParams.get('search') || '',
+      minPrice: searchParams.get('minPrice') || '',
+      maxPrice: searchParams.get('maxPrice') || '',
+      sortBy: searchParams.get('sortBy') || 'name',
+      inStock: searchParams.get('inStock') === 'true'
     });
   }, [searchParams]);
 
@@ -101,6 +105,10 @@ const Products = ({ onAddToCart, user }) => {
     const params = new URLSearchParams();
     if (newFilters.category) params.set('category', newFilters.category);
     if (newFilters.search) params.set('search', newFilters.search);
+    if (newFilters.minPrice) params.set('minPrice', newFilters.minPrice);
+    if (newFilters.maxPrice) params.set('maxPrice', newFilters.maxPrice);
+    if (newFilters.sortBy !== 'name') params.set('sortBy', newFilters.sortBy);
+    if (newFilters.inStock) params.set('inStock', 'true');
     setSearchParams(params);
   };
 
