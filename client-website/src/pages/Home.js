@@ -34,7 +34,7 @@ const Home = ({ onAddToCart, user }) => {
       <div className="bg-success text-white py-5">
         <div className="container text-center">
           <h1 className="display-4">🌿 Welcome to Herbal Store</h1>
-          <p className="lead">Discover the power of natural healing with our authentic Ayurvedic products</p>
+          <p className="lead">Discover the power of natural healing with our authentic Herbal products</p>
           <Link to="/products" className="btn btn-light btn-lg">Shop Now</Link>
         </div>
       </div>

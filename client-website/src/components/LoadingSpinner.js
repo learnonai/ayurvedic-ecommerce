@@ -19,7 +19,7 @@ export const PageLoader = () => (
       <div className="spinner-border text-success mb-3" style={{width: '3rem', height: '3rem'}} role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
-      <p className="text-muted">Loading your Ayurvedic store...</p>
+      <p className="text-muted">Loading your Herbal store...</p>
     </div>
   </div>
 );

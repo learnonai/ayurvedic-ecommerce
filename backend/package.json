@@ -1,7 +1,7 @@
 {
   "name": "ayurvedic-ecommerce-backend",
   "version": "1.0.0",
-  "description": "Backend for Ayurvedic Ecommerce Site",
+  "description": "Backend for Herbal Ecommerce Site",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

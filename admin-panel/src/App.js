@@ -33,7 +33,7 @@ function App() {
     <Router basename={process.env.NODE_ENV === 'production' ? '/admin' : ''}>
       <div className="d-flex">
         <nav className="bg-dark text-white p-3" style={{width: '250px', minHeight: '100vh'}}>
-          <h4>Ayurvedic Admin</h4>
+          <h4>Herbal Admin</h4>
           <ul className="nav flex-column">
             <li className="nav-item">
               <Link to="/dashboard" className="nav-link text-white">Dashboard</Link>

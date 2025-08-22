@@ -37,7 +37,7 @@ Last updated: January 2025
 1. RETURN ELIGIBILITY
 - Items must be returned within 30 days of purchase
 - Products must be in original condition and packaging
-- Ayurvedic medicines cannot be returned once opened for safety reasons
+- Herbal medicines cannot be returned once opened for safety reasons
 
 2. REFUND PROCESS
 - Refunds will be processed within 7-10 business days
@@ -106,7 +106,7 @@ By using our website, you agree to these Terms & Conditions.
 
 3. PRODUCT INFORMATION
 - We strive for accuracy in product descriptions
-- Ayurvedic products are not intended to diagnose, treat, cure, or prevent any disease
+- Herbal products are not intended to diagnose, treat, cure, or prevent any disease
 - Consult healthcare professionals before use
 
 4. PRICING & PAYMENT

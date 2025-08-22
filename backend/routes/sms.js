@@ -23,7 +23,7 @@ router.post('/send-otp', async (req, res) => {
     const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
     
     await client.messages.create({
-      body: `Your Ayurvedic Store OTP: ${otp}`,
+      body: `Your Herbal Store OTP: ${otp}`,
       from: process.env.TWILIO_PHONE,
       to: `+91${phone}`
     });

@@ -49,7 +49,7 @@ app.use('/uploads', express.static('uploads', {
 
 // Root route for testing
 app.get('/', (req, res) => {
-  res.json({ message: 'Ayurvedic Ecommerce API is running!', status: 'OK' });
+  res.json({ message: 'Herbal Ecommerce API is running!', status: 'OK' });
 });
 
 // Routes
