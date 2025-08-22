@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { products } from '../utils/api';
+import ImageIndicator from '../components/ImageIndicator';
 
 const Products = () => {
   // Force rebuild for production - v2.0
@@ -167,41 +168,20 @@ const Products = () => {
           </thead>
           <tbody>
             {productList.map(product => {
-              console.log('Product:', product.name, 'Images:', product.images);
-              const hasNoImages = (!product.images || !Array.isArray(product.images) || product.images.length === 0 || !product.images[0] || product.images[0].trim() === '');
-              console.log('Has no images:', hasNoImages);
+              const hasImages = product.images && Array.isArray(product.images) && product.images.length > 0 && product.images[0] && product.images[0].trim() !== '';
               return (
               <tr key={product._id}>
                 <td>
-                  {hasNoImages ? (
-                    <span className="badge bg-danger" title="No image uploaded">
-                      ❌ No Image
-                    </span>
-                  ) : (
-                    <div>
-                      <img 
-                        src={`${process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://learnonai.com'}/api/images/${product.images[0].replace('uploads/', '')}`}
-                        alt={product.name}
-                        style={{width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd'}}
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.nextSibling.style.display = 'inline-block';
-                        }}
-                      />
-                      <span className="badge bg-success ms-2" style={{display: 'none'}} title="Image available">
-                        ✅ Has Image
-                      </span>
-                    </div>
-                  )}
+                  <ImageIndicator product={product} />
                 </td>
                 <td>
                   <div className="d-flex align-items-center">
-                    {hasNoImages && (
-                      <span className="text-danger me-2" title="Upload image needed" style={{fontSize: '12px'}}>🔴</span>
+                    {!hasImages && (
+                      <span className="text-danger me-2" title="Upload image needed">🔴</span>
                     )}
                     {product.name}
                   </div>
-                  {!hasNoImages && (
+                  {hasImages && (
                     <small className="text-muted d-block">
                       📁 {product.images[0].split('/').pop()}
                     </small>
