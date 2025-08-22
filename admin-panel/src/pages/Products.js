@@ -166,19 +166,39 @@ const Products = () => {
               <tr key={product._id}>
                 <td>
                   {(!product.images || product.images.length === 0) ? (
-                    <span className="badge bg-danger" title="No image uploaded">
-                      ❌ No Image
-                    </span>
+                    <div>
+                      <span className="badge bg-danger" title="No image uploaded">
+                        ❌ No Image
+                      </span>
+                    </div>
                   ) : (
-                    <span className="badge bg-success" title="Image available">
-                      ✅ Has Image
-                    </span>
+                    <div>
+                      <img 
+                        src={`https://learnonai.com/${product.images[0]}`}
+                        alt={product.name}
+                        style={{width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px'}}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'inline-block';
+                        }}
+                      />
+                      <span className="badge bg-success ms-2" style={{display: 'none'}} title="Image available">
+                        ✅ Has Image
+                      </span>
+                    </div>
                   )}
                 </td>
                 <td>
-                  {product.name}
-                  {(!product.images || product.images.length === 0) && (
-                    <span className="text-danger ms-2" title="Upload image needed">🔴</span>
+                  <div className="d-flex align-items-center">
+                    {(!product.images || product.images.length === 0) && (
+                      <span className="text-danger me-2" title="Upload image needed" style={{fontSize: '12px'}}>🔴</span>
+                    )}
+                    {product.name}
+                  </div>
+                  {product.images && product.images.length > 0 && (
+                    <small className="text-muted d-block">
+                      📁 {product.images[0].split('/').pop()}
+                    </small>
                   )}
                 </td>
                 <td>{product.category}</td>
