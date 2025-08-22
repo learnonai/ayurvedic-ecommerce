@@ -153,6 +153,7 @@ const Products = () => {
         <table className="table table-striped">
           <thead>
             <tr>
+              <th>Image</th>
               <th>Name</th>
               <th>Category</th>
               <th>Price</th>
@@ -163,7 +164,23 @@ const Products = () => {
           <tbody>
             {productList.map(product => (
               <tr key={product._id}>
-                <td>{product.name}</td>
+                <td>
+                  {(!product.images || product.images.length === 0) ? (
+                    <span className="badge bg-danger" title="No image uploaded">
+                      ❌ No Image
+                    </span>
+                  ) : (
+                    <span className="badge bg-success" title="Image available">
+                      ✅ Has Image
+                    </span>
+                  )}
+                </td>
+                <td>
+                  {product.name}
+                  {(!product.images || product.images.length === 0) && (
+                    <span className="text-danger ms-2" title="Upload image needed">🔴</span>
+                  )}
+                </td>
                 <td>{product.category}</td>
                 <td>₹{product.price}</td>
                 <td>{product.stock}</td>

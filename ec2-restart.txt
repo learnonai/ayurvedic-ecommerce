@@ -1,1 +1,6 @@
 cd /home/ec2-user/ayurvedic-ecommerce && git stash && git pull origin main && pm2 delete all && mkdir -p backend/uploads && cp backend/sample-images/* backend/uploads/ && cd backend && npm install && pm2 start server.js --name "api" && cd ../client-website && npm install && npm run build && rm -rf build/policies/ build/uploads/ && pm2 serve build 3001 --name "client" --spa && sudo systemctl reload nginx && pm2 save
+
+
+
+# After uploading images via admin panel, run:
+./sync-images.sh
