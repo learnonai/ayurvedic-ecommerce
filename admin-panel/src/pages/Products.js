@@ -219,7 +219,32 @@ const Products = () => {
                     Delete
                   </button>
                 </td>
-
+                <td>{product.category}</td>
+                <td>₹{product.price}</td>
+                <td>{product.stock}</td>
+                <td>
+                  <button 
+                    className="btn btn-sm btn-primary me-2"
+                    onClick={() => handleEdit(product)}
+                  >
+                    Edit
+                  </button>
+                  <button 
+                    className="btn btn-sm btn-danger" 
+                    onClick={async () => {
+                      try {
+                        await products.delete(product._id);
+                        fetchProducts();
+                      } catch (error) {
+                        alert('Error deleting product');
+                      }
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
