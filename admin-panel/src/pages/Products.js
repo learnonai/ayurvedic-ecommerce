@@ -167,24 +167,32 @@ const Products = () => {
             </tr>
           </thead>
           <tbody>
-            {productList.map(product => {
-              const hasImages = product.images && Array.isArray(product.images) && product.images.length > 0 && product.images[0] && product.images[0].trim() !== '';
-              return (
+            {productList.map(product => (
               <tr key={product._id}>
                 <td>
-                  <ImageIndicator product={product} />
+                  {(!product.images || product.images.length === 0) ? (
+                    <span style={{backgroundColor: '#dc3545', color: 'white', padding: '4px 8px', borderRadius: '4px', fontSize: '12px'}}>
+                      ❌ NO IMAGE
+                    </span>
+                  ) : (
+                    <img 
+                      src={`https://learnonai.com/api/images/${product.images[0].replace('uploads/', '')}`}
+                      style={{width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ccc'}}
+                      onError={(e) => {
+                        e.target.outerHTML = '<span style="background-color: #28a745; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">✅ HAS IMAGE</span>';
+                      }}
+                    />
+                  )}
                 </td>
                 <td>
-                  <div className="d-flex align-items-center">
-                    {!hasImages && (
-                      <span className="text-danger me-2" title="Upload image needed">🔴</span>
-                    )}
-                    {product.name}
-                  </div>
-                  {hasImages && (
-                    <small className="text-muted d-block">
+                  {(!product.images || product.images.length === 0) && (
+                    <span style={{color: '#dc3545', marginRight: '8px'}}>🔴</span>
+                  )}
+                  {product.name}
+                  {product.images && product.images.length > 0 && (
+                    <div style={{fontSize: '12px', color: '#6c757d', marginTop: '4px'}}>
                       📁 {product.images[0].split('/').pop()}
-                    </small>
+                    </div>
                   )}
                 </td>
                 <td>{product.category}</td>
@@ -211,8 +219,7 @@ const Products = () => {
                     Delete
                   </button>
                 </td>
-              </tr>
-            )})}
+
           </tbody>
         </table>
       </div>
