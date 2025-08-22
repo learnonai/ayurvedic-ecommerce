@@ -75,6 +75,9 @@ const Products = () => {
 
   return (
     <div>
+      <div className="alert alert-danger text-center mb-3">
+        <h3>🚨 TEST MODE - IMAGE INDICATORS SHOULD BE VISIBLE 🚨</h3>
+      </div>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Products <span className="badge bg-warning">v2.1 - Image Indicators Active</span></h2>
         <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
