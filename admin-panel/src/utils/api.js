@@ -8,7 +8,7 @@ const getApiUrl = () => {
   }
   
   // Production URL
-  return 'https://learnonai.com/api';
+  return 'http://learnonai.com:8080/api';
 };
 
 const API_URL = getApiUrl();
@@ -22,8 +22,26 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  console.log('API Request:', config.method?.toUpperCase(), config.url, 'Base:', config.baseURL);
   return config;
 });
+
+api.interceptors.response.use(
+  (response) => {
+    console.log('API Success:', response.config.url, response.status);
+    return response;
+  },
+  (error) => {
+    console.error('API Error:', error.config?.url, error.response?.status, error.message);
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userToken');
+      localStorage.removeItem('user');
+      window.location.reload();
+    }
+    return Promise.reject(error);
+  }
+);
 
 export const auth = {
   login: (credentials) => api.post('/auth/login', credentials),
