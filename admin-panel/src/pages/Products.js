@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { products } from '../utils/api';
 
 const Products = () => {
+  // Force rebuild for production - v2.0
   const [productList, setProductList] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
