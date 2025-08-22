@@ -165,10 +165,14 @@ const Products = () => {
             </tr>
           </thead>
           <tbody>
-            {productList.map(product => (
+            {productList.map(product => {
+              console.log('Product:', product.name, 'Images:', product.images);
+              const hasNoImages = (!product.images || !Array.isArray(product.images) || product.images.length === 0 || !product.images[0] || product.images[0].trim() === '');
+              console.log('Has no images:', hasNoImages);
+              return (
               <tr key={product._id}>
                 <td>
-                  {(!product.images || !Array.isArray(product.images) || product.images.length === 0 || !product.images[0] || product.images[0].trim() === '') ? (
+                  {hasNoImages ? (
                     <span className="badge bg-danger" title="No image uploaded">
                       ❌ No Image
                     </span>
@@ -191,12 +195,12 @@ const Products = () => {
                 </td>
                 <td>
                   <div className="d-flex align-items-center">
-                    {(!product.images || !Array.isArray(product.images) || product.images.length === 0 || !product.images[0] || product.images[0].trim() === '') && (
+                    {hasNoImages && (
                       <span className="text-danger me-2" title="Upload image needed" style={{fontSize: '12px'}}>🔴</span>
                     )}
                     {product.name}
                   </div>
-                  {product.images && Array.isArray(product.images) && product.images.length > 0 && product.images[0] && product.images[0].trim() !== '' && (
+                  {!hasNoImages && (
                     <small className="text-muted d-block">
                       📁 {product.images[0].split('/').pop()}
                     </small>
@@ -227,7 +231,7 @@ const Products = () => {
                   </button>
                 </td>
               </tr>
-            ))}
+            )})}
           </tbody>
         </table>
       </div>
