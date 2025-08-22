@@ -11,7 +11,16 @@ const Home = ({ onAddToCart, user }) => {
     const fetchProducts = async () => {
       try {
         const response = await products.getAll();
-        setFeaturedProducts(response.data.slice(0, 4));
+        const featured = response.data.slice(0, 4);
+        setFeaturedProducts(featured);
+        
+        // Preload first 2 images for faster display
+        featured.slice(0, 2).forEach(product => {
+          if (product.images && product.images.length > 0) {
+            const img = new Image();
+            img.src = `${process.env.REACT_APP_API_URL || 'https://learnonai.com'}/api/images/${product.images[0].replace('uploads/', '')}`;
+          }
+        });
       } catch (error) {
         console.error('Error fetching products:', error);
       }
