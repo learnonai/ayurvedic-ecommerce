@@ -205,7 +205,7 @@
     "benefits": ["Improves digestion", "Anti-inflammatory", "Boosts immunity", "Reduces nausea"],
     "ingredients": ["Organic ginger root powder"],
     "usage": "1/4 tsp with warm water twice daily",
-    "images": ["uploads/herbal-ginger.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB009"
   },
@@ -218,7 +218,7 @@
     "benefits": ["Supports healthy blood sugar", "Antioxidant rich", "Anti-inflammatory", "Digestive aid"],
     "ingredients": ["Ceylon cinnamon bark powder"],
     "usage": "1/2 tsp daily with food or tea",
-    "images": ["uploads/herbal-cinnamon.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB010"
   },
@@ -231,7 +231,7 @@
     "benefits": ["Reduces stress", "Boosts energy", "Supports sleep", "Adaptogenic properties"],
     "ingredients": ["Organic ashwagandha root powder"],
     "usage": "1 tsp with warm milk before bed",
-    "images": ["uploads/herbal-ashwagandha.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB011"
   },
@@ -244,7 +244,7 @@
     "benefits": ["Respiratory support", "Stress relief", "Immunity booster", "Natural detox"],
     "ingredients": ["Organic tulsi leaves"],
     "usage": "1 cup twice daily, hot or cold",
-    "images": ["uploads/herbal-tulsi.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB012"
   },
@@ -257,7 +257,7 @@
     "benefits": ["Digestive health", "Metabolic support", "Hair health", "Lactation support"],
     "ingredients": ["Organic fenugreek seed powder"],
     "usage": "1 tsp with water before meals",
-    "images": ["uploads/herbal-fenugreek.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB013"
   },
@@ -270,7 +270,7 @@
     "benefits": ["Healthy cooking oil", "Skin moisturizer", "Hair conditioner", "Antimicrobial"],
     "ingredients": ["100% virgin coconut oil"],
     "usage": "For cooking, skincare, or hair care as needed",
-    "images": ["uploads/herbal-coconut-oil.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB014"
   },
@@ -283,7 +283,7 @@
     "benefits": ["Soothes skin", "Healing properties", "Moisturizing", "Anti-inflammatory"],
     "ingredients": ["99% pure aloe vera gel"],
     "usage": "Apply to skin as needed for soothing relief",
-    "images": ["uploads/herbal-aloe-gel.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB015"
   },
@@ -296,7 +296,7 @@
     "benefits": ["Rich in antioxidants", "Supports heart health", "Natural vitamin C", "Refreshing taste"],
     "ingredients": ["Organic dried hibiscus flowers"],
     "usage": "Steep 1 tsp in hot water for 5-7 minutes",
-    "images": ["uploads/herbal-hibiscus.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB016"
   },
@@ -309,7 +309,7 @@
     "benefits": ["Promotes relaxation", "Supports sleep", "Digestive comfort", "Stress relief"],
     "ingredients": ["Organic lemon balm leaves"],
     "usage": "1 cup before bedtime for best results",
-    "images": ["uploads/herbal-lemon-balm.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB017"
   },
@@ -322,7 +322,7 @@
     "benefits": ["Hair growth stimulation", "Mental clarity", "Circulation support", "Aromatherapy"],
     "ingredients": ["Pure rosemary essential oil", "Carrier oil blend"],
     "usage": "Massage into scalp or use for aromatherapy",
-    "images": ["uploads/herbal-rosemary-oil.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB018"
   },
@@ -335,7 +335,7 @@
     "benefits": ["Promotes sleep", "Calming effect", "Digestive support", "Anti-inflammatory"],
     "ingredients": ["Organic chamomile flowers"],
     "usage": "1 cup 30 minutes before bedtime",
-    "images": ["uploads/herbal-chamomile.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB019"
   },
@@ -348,7 +348,7 @@
     "benefits": ["Digestive aid", "Natural energy", "Refreshing taste", "Breath freshener"],
     "ingredients": ["Organic peppermint leaves"],
     "usage": "1 cup after meals for digestive support",
-    "images": ["uploads/herbal-peppermint.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB020"
   },
@@ -361,7 +361,7 @@
     "benefits": ["Promotes relaxation", "Sleep support", "Skin soothing", "Aromatherapy"],
     "ingredients": ["Pure lavender essential oil", "Jojoba carrier oil"],
     "usage": "Apply to temples or use in diffuser for aromatherapy",
-    "images": ["uploads/herbal-lavender-oil.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB021"
   },
@@ -374,7 +374,7 @@
     "benefits": ["Complete protein", "Rich in vitamins", "Energy booster", "Detoxification"],
     "ingredients": ["100% pure spirulina powder"],
     "usage": "1 tsp in smoothies or juice daily",
-    "images": ["uploads/herbal-spirulina.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB022"
   },
@@ -387,7 +387,7 @@
     "benefits": ["Respiratory support", "Decongestant", "Antimicrobial", "Energizing aroma"],
     "ingredients": ["Pure eucalyptus essential oil", "Coconut carrier oil"],
     "usage": "Use in steam inhalation or diffuser",
-    "images": ["uploads/herbal-eucalyptus-oil.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB023"
   },
@@ -400,7 +400,7 @@
     "benefits": ["High in omega-3", "Rich in fiber", "Protein source", "Sustained energy"],
     "ingredients": ["100% organic chia seeds"],
     "usage": "1-2 tbsp daily in water, smoothies, or yogurt",
-    "images": ["uploads/herbal-chia-seeds.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB024"
   },
@@ -413,7 +413,7 @@
     "benefits": ["Omega-3 fatty acids", "Digestive health", "Heart healthy", "Hormone balance"],
     "ingredients": ["Organic ground flax seeds"],
     "usage": "1 tbsp daily with meals or in smoothies",
-    "images": ["uploads/herbal-flax-seeds.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB025"
   },
@@ -426,7 +426,7 @@
     "benefits": ["Antimicrobial", "Acne treatment", "Skin purifying", "Natural antiseptic"],
     "ingredients": ["Pure tea tree essential oil", "Grapeseed carrier oil"],
     "usage": "Apply diluted to affected skin areas",
-    "images": ["uploads/herbal-tea-tree-oil.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB026"
   },
@@ -439,7 +439,7 @@
     "benefits": ["Cognitive support", "Circulation enhancement", "Antioxidant rich", "Mental clarity"],
     "ingredients": ["Organic ginkgo biloba leaves"],
     "usage": "1 cup twice daily for cognitive support",
-    "images": ["uploads/herbal-ginkgo-tea.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB027"
   },
@@ -452,7 +452,7 @@
     "benefits": ["Hair nourishment", "Skin moisturizing", "Anti-aging", "Rich in vitamin E"],
     "ingredients": ["100% pure Moroccan argan oil"],
     "usage": "Apply few drops to hair or skin as needed",
-    "images": ["uploads/herbal-argan-oil.jpg"],
+    "images": [],
     "isActive": true,
     "_id": "HERB028"
   }
