@@ -165,29 +165,41 @@ const Products = () => {
             </tr>
           </thead>
           <tbody>
-            {productList.map(product => {
-              const hasImages = product.images && product.images.length > 0 && product.images[0] !== '';
-              return (
+            {productList.map(product => (
               <tr key={product._id}>
                 <td>
-                  {!hasImages ? (
-                    <span className="badge bg-danger">❌ No Image</span>
+                  {(!product.images || !Array.isArray(product.images) || product.images.length === 0 || !product.images[0] || product.images[0].trim() === '') ? (
+                    <span className="badge bg-danger" title="No image uploaded">
+                      ❌ No Image
+                    </span>
                   ) : (
                     <div>
                       <img 
-                        src={`https://learnonai.com/api/images/${product.images[0].replace('uploads/', '')}`}
+                        src={`${process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://learnonai.com'}/api/images/${product.images[0].replace('uploads/', '')}`}
                         alt={product.name}
-                        style={{width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px'}}
-                        onError={(e) => e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZjhmOWZhIi8+Cjx0ZXh0IHg9IjIwIiB5PSIyNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiBmaWxsPSIjNmM3NTdkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn4y/PC90ZXh0Pgo8L3N2Zz4K'}
+                        style={{width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd'}}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'inline-block';
+                        }}
                       />
+                      <span className="badge bg-success ms-2" style={{display: 'none'}} title="Image available">
+                        ✅ Has Image
+                      </span>
                     </div>
                   )}
                 </td>
                 <td>
-                  {!hasImages && <span className="text-danger me-2">🔴</span>}
-                  {product.name}
-                  {hasImages && (
-                    <div><small className="text-muted">📁 {product.images[0].split('/').pop()}</small></div>
+                  <div className="d-flex align-items-center">
+                    {(!product.images || !Array.isArray(product.images) || product.images.length === 0 || !product.images[0] || product.images[0].trim() === '') && (
+                      <span className="text-danger me-2" title="Upload image needed" style={{fontSize: '12px'}}>🔴</span>
+                    )}
+                    {product.name}
+                  </div>
+                  {product.images && Array.isArray(product.images) && product.images.length > 0 && product.images[0] && product.images[0].trim() !== '' && (
+                    <small className="text-muted d-block">
+                      📁 {product.images[0].split('/').pop()}
+                    </small>
                   )}
                 </td>
                 <td>{product.category}</td>
@@ -215,7 +227,7 @@ const Products = () => {
                   </button>
                 </td>
               </tr>
-            )})}
+            ))}
           </tbody>
         </table>
       </div>
