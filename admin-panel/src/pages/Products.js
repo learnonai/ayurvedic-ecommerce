@@ -174,7 +174,7 @@ const Products = () => {
                   ) : (
                     <div>
                       <img 
-                        src={`https://learnonai.com/${product.images[0]}`}
+                        src={`https://learnonai.com/api/images/${product.images[0].replace('uploads/', '')}`}
                         alt={product.name}
                         style={{width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px'}}
                         onError={(e) => {
