@@ -16,9 +16,6 @@ const policyRoutes = require('./routes/policies');
 
 const app = express();
 
-// Trust proxy for nginx
-app.set('trust proxy', true);
-
 // Security middleware
 app.use(helmet({
   crossOriginResourcePolicy: false,
@@ -32,6 +29,7 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 app.use(express.json({ limit: '10mb' }));
+
 // Serve static files with CORS
 app.use('/uploads', express.static('uploads', {
   setHeaders: (res, path) => {
@@ -42,13 +40,12 @@ app.use('/uploads', express.static('uploads', {
   }
 }));
 
-// Rate limiting with proper trust proxy config
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  trustProxy: false // Disable trust proxy for rate limiting
-});
-app.use('/api', limiter);
+// Rate limiting disabled for development
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 100
+// });
+// app.use('/api', limiter);
 
 // Root route for testing
 app.get('/', (req, res) => {
