@@ -103,7 +103,11 @@ const ProductDetail = ({ onAddToCart, user }) => {
               className="d-flex align-items-center justify-content-center bg-light rounded"
               style={{
                 height: '400px',
-                display: (!product.images || product.images.length === 0) ? 'flex' : 'none'
+                display: (!product.images || product.images.length === 0) ? 'flex' : 'none',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0
               }}
             >
               <div className="text-center">

@@ -86,12 +86,14 @@ const ProductCard = ({ product, onAddToCart, user }) => {
             loading="lazy"
             decoding="async"
           />
-          <div 
-            className="card-img-top d-flex align-items-center justify-content-center bg-light fallback-image"
-            style={{height: '200px', display: 'none'}}
-          >
-            <span style={{fontSize: '60px'}}>🌿</span>
-          </div>
+          {!imageLoading && (
+            <div 
+              className="card-img-top d-flex align-items-center justify-content-center bg-light fallback-image"
+              style={{height: '200px', display: 'none', position: 'absolute', top: 0, left: 0, right: 0}}
+            >
+              <span style={{fontSize: '60px'}}>🌿</span>
+            </div>
+          )}
           
           {product.images && product.images.length > 1 && (
             <>
