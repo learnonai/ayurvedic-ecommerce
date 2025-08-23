@@ -33,8 +33,8 @@ const Home = ({ onAddToCart, user }) => {
       {/* Hero Section */}
       <div className="bg-success text-white py-5">
         <div className="container text-center">
-          <h1 className="display-4">👕 Welcome to Fashion Store</h1>
-          <p className="lead">Discover the latest trends with our premium clothing collection</p>
+          <h1 className="display-4">🌿 Welcome to Herbal Store</h1>
+          <p className="lead">Discover the power of nature with our premium herbal oil collection</p>
           <Link to="/products" className="btn btn-light btn-lg">Shop Now</Link>
         </div>
       </div>
@@ -43,7 +43,7 @@ const Home = ({ onAddToCart, user }) => {
       <div className="container my-5">
         <h2 className="text-center mb-4">Shop by Category</h2>
         <div className="row">
-          {['shirts', 'pants', 'kurtis', 'dresses'].map(category => (
+          {['oils'].map(category => (
             <div key={category} className="col-md-3 mb-3">
               <Link to={`/products?category=${category}`} className="text-decoration-none">
                 <div className="card text-center">

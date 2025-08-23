@@ -72,7 +72,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
           <img 
             src={product.images && product.images.length > 0 
               ? `${BASE_URL}/${product.images[currentImageIndex]}` 
-              : `${BASE_URL}/uploads/shirt-default.jpg`} 
+              : `${BASE_URL}/uploads/herbal-leaf-default.jpg`} 
             className="card-img-top" 
             alt={product.name}
             style={{
@@ -83,7 +83,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
             }}
             onLoad={() => setImageLoading(false)}
             onError={(e) => {
-              e.target.src = `${BASE_URL}/uploads/shirt-default.jpg`;
+              e.target.src = `${BASE_URL}/uploads/herbal-leaf-default.jpg`;
             }}
             loading="lazy"
             decoding="async"
@@ -117,7 +117,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
           className="card-img-top d-flex align-items-center justify-content-center bg-light"
           style={{height: '200px'}}
         >
-          <span style={{fontSize: '60px'}}>👕</span>
+          <span style={{fontSize: '60px'}}>🌿</span>
         </div>
       )}
       <div className="card-body">

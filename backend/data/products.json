@@ -1,201 +1,142 @@
 [
   {
-    "name": "Cotton Casual Shirt",
-    "description": "Premium cotton casual shirt for everyday comfort",
-    "price": "899",
-    "category": "shirts",
-    "stock": "80",
-    "benefits": [
-      "100% Cotton",
-      "Breathable fabric", 
-      "Comfortable fit",
-      "Easy to wash"
-    ],
-    "ingredients": [
-      "100% Pure Cotton"
-    ],
-    "usage": "Perfect for casual and semi-formal occasions",
-    "images": [],
-    "isActive": true,
-    "_id": "CLOTH001"
-  },
-  {
-    "name": "Denim Jeans",
-    "description": "Classic blue denim jeans with perfect fit",
-    "price": "1299",
-    "category": "pants",
+    "name": "Herbal Coconut Oil",
+    "description": "Pure cold-pressed virgin coconut oil enriched with natural herbs for hair and skin care",
+    "price": "299",
+    "category": "oils",
     "stock": "50",
     "benefits": [
-      "Durable denim",
-      "Classic fit",
-      "Versatile style",
-      "Long lasting"
+      "Deep moisturizes hair and skin",
+      "Promotes hair growth",
+      "Anti-bacterial properties",
+      "Natural sun protection",
+      "Reduces inflammation"
     ],
     "ingredients": [
-      "Cotton denim fabric"
+      "100% Virgin Coconut Oil",
+      "Curry leaves extract",
+      "Fenugreek oil"
     ],
-    "usage": "Ideal for casual outings and daily wear",
+    "usage": "Apply to hair and scalp, massage gently. Leave for 30 minutes before washing",
     "images": [],
     "isActive": true,
-    "_id": "CLOTH002"
+    "_id": "HERB001"
   },
   {
-    "name": "Floral Print Kurti",
-    "description": "Beautiful floral print kurti for ethnic wear",
-    "price": "799",
-    "category": "kurtis",
-    "stock": "70",
-    "benefits": [
-      "Elegant design",
-      "Comfortable fabric",
-      "Ethnic style",
-      "Machine washable"
-    ],
-    "ingredients": [
-      "Cotton blend fabric"
-    ],
-    "usage": "Perfect for festivals and casual ethnic wear",
-    "images": [],
-    "isActive": true,
-    "_id": "CLOTH003"
-  },
-  {
-    "name": "Formal Black Trousers",
-    "description": "Premium formal black trousers for office wear",
-    "price": "1199",
-    "category": "pants",
-    "stock": "35",
-    "benefits": [
-      "Professional look",
-      "Wrinkle resistant",
-      "Comfortable fit"
-    ],
-    "ingredients": [
-      "Polyester blend"
-    ],
-    "usage": "Perfect for office and formal occasions",
-    "images": [],
-    "isActive": true,
-    "_id": "CLOTH004"
-  },
-  {
-    "name": "Designer T-Shirt",
-    "description": "Trendy designer t-shirt with modern graphics",
+    "name": "Herbal Argan Oil",
+    "description": "Premium Moroccan argan oil infused with ayurvedic herbs for ultimate nourishment",
     "price": "599",
-    "category": "shirts",
-    "stock": "45",
+    "category": "oils",
+    "stock": "30",
     "benefits": [
-      "Trendy design",
-      "Soft fabric",
-      "Comfortable wear",
-      "Stylish graphics"
+      "Rich in Vitamin E",
+      "Anti-aging properties",
+      "Repairs damaged hair",
+      "Softens skin naturally",
+      "Reduces fine lines"
     ],
     "ingredients": [
-      "Cotton blend"
+      "Pure Moroccan Argan Oil",
+      "Brahmi extract",
+      "Amla oil"
     ],
-    "usage": "Great for casual outings and weekend wear",
+    "usage": "Apply few drops to face and hair. Use daily for best results",
     "images": [],
     "isActive": true,
-    "_id": "CLOTH005"
+    "_id": "HERB002"
   },
   {
-    "name": "Summer Dress",
-    "description": "Light and breezy summer dress for hot weather",
-    "price": "999",
-    "category": "dresses",
-    "stock": "60",
-    "benefits": [
-      "Light fabric",
-      "Breathable material",
-      "Stylish cut",
-      "Perfect for summer"
-    ],
-    "ingredients": [
-      "Cotton voile fabric"
-    ],
-    "usage": "Ideal for summer outings and casual events",
-    "images": [],
-    "isActive": true,
-    "_id": "CLOTH006"
-  },
-  {
-    "name": "Silk Saree",
-    "description": "Elegant silk saree for special occasions",
-    "price": "2999",
-    "category": "sarees",
-    "stock": "25",
-    "benefits": [
-      "Premium silk",
-      "Elegant design",
-      "Traditional wear",
-      "Special occasions"
-    ],
-    "ingredients": [
-      "Pure silk fabric"
-    ],
-    "usage": "Perfect for weddings and festivals",
-    "images": [],
-    "isActive": true,
-    "_id": "CLOTH007"
-  },
-  {
-    "name": "Cargo Shorts",
-    "description": "Comfortable cargo shorts with multiple pockets",
-    "price": "699",
-    "category": "shorts",
-    "stock": "55",
-    "benefits": [
-      "Multiple pockets",
-      "Durable fabric",
-      "Comfortable fit",
-      "Casual style"
-    ],
-    "ingredients": [
-      "Cotton twill fabric"
-    ],
-    "usage": "Great for outdoor activities and casual wear",
-    "images": [],
-    "isActive": true,
-    "_id": "CLOTH008"
-  },
-  {
-    "name": "Polo Shirt",
-    "description": "Classic polo shirt for smart casual look",
-    "price": "799",
-    "category": "shirts",
+    "name": "Herbal Eucalyptus Oil",
+    "description": "Therapeutic eucalyptus oil blended with traditional herbs for respiratory wellness",
+    "price": "249",
+    "category": "oils",
     "stock": "40",
     "benefits": [
-      "Smart casual style",
-      "Collar design",
-      "Comfortable fit",
-      "Versatile wear"
+      "Clears respiratory passages",
+      "Natural decongestant",
+      "Antimicrobial properties",
+      "Relieves muscle pain",
+      "Energizing aroma"
     ],
     "ingredients": [
-      "Cotton pique fabric"
+      "Pure Eucalyptus Oil",
+      "Tulsi extract",
+      "Camphor oil"
     ],
-    "usage": "Perfect for golf and casual business meetings",
+    "usage": "Add 2-3 drops to steam inhalation or diffuser. For topical use, dilute with carrier oil",
     "images": [],
     "isActive": true,
-    "_id": "CLOTH009"
+    "_id": "HERB003"
   },
   {
-    "name": "Maxi Dress",
-    "description": "Elegant maxi dress for special occasions",
-    "price": "1499",
-    "category": "dresses",
-    "stock": "45",
+    "name": "Herbal Face Oil",
+    "description": "Luxurious facial oil blend with precious herbs for radiant and youthful skin",
+    "price": "449",
+    "category": "oils",
+    "stock": "25",
     "benefits": [
-      "Elegant design",
-      "Floor length",
-      "Comfortable fabric",
-      "Special occasions"
+      "Deep skin nourishment",
+      "Reduces dark spots",
+      "Anti-aging formula",
+      "Natural glow enhancer",
+      "Balances skin tone"
     ],
     "ingredients": [
-      "Chiffon fabric"
+      "Jojoba Oil",
+      "Kumkumadi tailam",
+      "Saffron extract",
+      "Rose oil"
     ],
-    "usage": "Perfect for parties and evening events",
+    "usage": "Apply 3-4 drops to clean face before bedtime. Gently massage in upward motions",
     "images": [],
     "isActive": true,
-    "_id": "CLOTH010"
+    "_id": "HERB004"
+  },
+  {
+    "name": "Herbal Lavender Oil",
+    "description": "Calming lavender oil enhanced with stress-relieving ayurvedic herbs",
+    "price": "349",
+    "category": "oils",
+    "stock": "35",
+    "benefits": [
+      "Promotes deep sleep",
+      "Reduces stress and anxiety",
+      "Soothes skin irritation",
+      "Natural aromatherapy",
+      "Calms mind and body"
+    ],
+    "ingredients": [
+      "Pure Lavender Oil",
+      "Shankhpushpi extract",
+      "Jatamansi oil"
+    ],
+    "usage": "Apply to temples and pulse points. Add to diffuser for aromatherapy benefits",
+    "images": [],
+    "isActive": true,
+    "_id": "HERB005"
+  },
+  {
+    "name": "Herbal Rosemary Oil",
+    "description": "Stimulating rosemary oil fortified with hair-growth promoting herbs",
+    "price": "329",
+    "category": "oils",
+    "stock": "45",
+    "benefits": [
+      "Stimulates hair growth",
+      "Improves memory and focus",
+      "Increases blood circulation",
+      "Prevents premature graying",
+      "Strengthens hair roots"
+    ],
+    "ingredients": [
+      "Pure Rosemary Oil",
+      "Bhringraj extract",
+      "Methi oil",
+      "Neem oil"
+    ],
+    "usage": "Massage into scalp and hair roots. Leave for 1 hour before washing with herbal shampoo",
+    "images": [],
+    "isActive": true,
+    "_id": "HERB006"
   }
 ]

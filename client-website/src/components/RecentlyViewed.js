@@ -6,9 +6,8 @@ const RecentlyViewed = () => {
   const [recentProducts, setRecentProducts] = useState([]);
 
   useEffect(() => {
-    // Clear localStorage to force refresh
-    localStorage.removeItem('recentlyViewed');
-    setRecentProducts([]);
+    const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+    setRecentProducts(recent.slice(0, 4));
   }, []);
 
   if (recentProducts.length === 0) return null;
@@ -36,7 +35,7 @@ const RecentlyViewed = () => {
                   className="card-img-top d-flex align-items-center justify-content-center bg-light"
                   style={{height: '100px'}}
                 >
-                  <span style={{fontSize: '40px'}}>👕</span>
+                  <span style={{fontSize: '40px'}}>🌿</span>
                 </div>
                 <div className="card-body p-2">
                   <h6 className="card-title small mb-1" style={{fontSize: '0.8rem'}}>
