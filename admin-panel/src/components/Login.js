@@ -1,32 +1,45 @@
 import React, { useState } from 'react';
 import { auth } from '../utils/api';
+import ApiTest from './ApiTest';
 
 const Login = ({ onLogin }) => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
     try {
+      console.log('Attempting login with:', credentials.email);
       const response = await auth.login(credentials);
+      console.log('Login successful:', response.data);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userToken', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       onLogin(response.data.user);
     } catch (error) {
-      alert('Login failed');
+      console.error('Login error:', error);
+      const errorMsg = error.response?.data?.message || error.message || 'Login failed';
+      setError(errorMsg);
     }
     setLoading(false);
   };
 
   return (
     <div className="container mt-5">
+      <ApiTest />
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
               <h3 className="text-center mb-4">Admin Login</h3>
+              {error && (
+                <div className="alert alert-danger" role="alert">
+                  {error}
+                </div>
+              )}
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <input

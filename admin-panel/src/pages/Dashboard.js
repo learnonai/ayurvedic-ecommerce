@@ -19,34 +19,45 @@ const Dashboard = () => {
     locationStats: {}
   });
   
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
 
   useEffect(() => {
     const fetchStats = async () => {
+      setLoading(true);
+      setError(null);
       try {
+        console.log('Fetching dashboard stats...');
         const [productsRes, ordersRes, usersRes] = await Promise.all([
           products.getAll(),
           orders.getAll(),
           users.getAll().catch(() => ({ data: [] }))
         ]);
         
+        console.log('Data received:', {
+          products: productsRes.data?.length,
+          orders: ordersRes.data?.length,
+          users: usersRes.data?.length
+        });
+        
         // Category stats
         const categoryStats = {};
-        productsRes.data.forEach(product => {
+        (productsRes.data || []).forEach(product => {
           categoryStats[product.category] = (categoryStats[product.category] || 0) + 1;
         });
         
         // Order status stats
         const orderStats = {};
-        ordersRes.data.forEach(order => {
+        (ordersRes.data || []).forEach(order => {
           orderStats[order.status] = (orderStats[order.status] || 0) + 1;
         });
         
         // Location stats from actual orders
         const locationStats = {};
-        ordersRes.data.forEach(order => {
+        (ordersRes.data || []).forEach(order => {
           const city = order.shippingAddress?.city || 'Others';
           locationStats[city] = (locationStats[city] || 0) + 1;
         });
@@ -57,8 +68,8 @@ const Dashboard = () => {
         const adminUsers = userList.filter(u => u.role === 'admin').length;
         
         setStats({
-          products: productsRes.data.length,
-          orders: ordersRes.data.length,
+          products: (productsRes.data || []).length,
+          orders: (ordersRes.data || []).length,
           users: userList.length,
           verifiedUsers,
           pendingUsers: userList.length - verifiedUsers,
@@ -69,10 +80,35 @@ const Dashboard = () => {
         });
       } catch (error) {
         console.error('Error fetching stats:', error);
+        setError(error.message || 'Failed to load dashboard data');
+      } finally {
+        setLoading(false);
       }
     };
     fetchStats();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{height: '400px'}}>
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        <h4 className="alert-heading">Error Loading Dashboard</h4>
+        <p>{error}</p>
+        <button className="btn btn-outline-danger" onClick={() => window.location.reload()}>
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>

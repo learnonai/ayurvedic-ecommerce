@@ -80,7 +80,7 @@ const Header = ({ user, onLogout, cartCount }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
       <div className="container">
-        <Link className="navbar-brand" to="/">🌿 Herbal Store</Link>
+        <Link className="navbar-brand" to="/">👕 Fashion Store</Link>
         
         {/* Amazon-style Search Bar with Filters */}
         <div className="d-flex flex-grow-1 mx-3 d-none d-md-flex position-relative" ref={dropdownRef}>
@@ -89,7 +89,7 @@ const Header = ({ user, onLogout, cartCount }) => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Search for herbal products..."
+                placeholder="Search for clothing products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(sanitizeInput(e.target.value))}
                 style={{ borderRadius: '4px 0 0 0' }}
@@ -122,11 +122,11 @@ const Header = ({ user, onLogout, cartCount }) => {
                       onChange={(e) => handleFilterChange('category', e.target.value)}
                     >
                       <option value="">All Categories</option>
-                      <option value="medicines">Medicines</option>
-                      <option value="jadi-buti">Jadi Buti</option>
-                      <option value="oils">Oils</option>
-                      <option value="powders">Powders</option>
-                      <option value="tablets">Tablets</option>
+                      <option value="shirts">Shirts</option>
+                      <option value="pants">Pants</option>
+                      <option value="kurtis">Kurtis</option>
+                      <option value="dresses">Dresses</option>
+                      <option value="sarees">Sarees</option>
                     </select>
                   </div>
                   
@@ -273,11 +273,11 @@ const Header = ({ user, onLogout, cartCount }) => {
                   onChange={(e) => handleFilterChange('category', e.target.value)}
                 >
                   <option value="">All Categories</option>
-                  <option value="medicines">Medicines</option>
-                  <option value="jadi-buti">Jadi Buti</option>
-                  <option value="oils">Oils</option>
-                  <option value="powders">Powders</option>
-                  <option value="tablets">Tablets</option>
+                  <option value="shirts">Shirts</option>
+                  <option value="pants">Pants</option>
+                  <option value="kurtis">Kurtis</option>
+                  <option value="dresses">Dresses</option>
+                  <option value="sarees">Sarees</option>
                 </select>
               </div>
               <div className="col-6">
