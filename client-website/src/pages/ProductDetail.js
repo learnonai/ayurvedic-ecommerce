@@ -95,7 +95,8 @@ const ProductDetail = ({ onAddToCart, user }) => {
                 style={{width: '100%', height: '400px', objectFit: 'cover'}}
                 onError={(e) => {
                   e.target.style.display = 'none';
-                  e.target.nextSibling.style.display = 'flex';
+                  const fallback = e.target.nextSibling;
+                  if (fallback) fallback.style.display = 'flex';
                 }}
               />
             ) : null}

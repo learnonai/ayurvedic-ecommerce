@@ -81,7 +81,8 @@ const ProductCard = ({ product, onAddToCart, user }) => {
             onLoad={() => setImageLoading(false)}
             onError={(e) => {
               e.target.style.display = 'none';
-              e.target.parentElement.querySelector('.fallback-image').style.display = 'flex';
+              const fallback = e.target.parentElement?.querySelector('.fallback-image');
+              if (fallback) fallback.style.display = 'flex';
             }}
             loading="lazy"
             decoding="async"
