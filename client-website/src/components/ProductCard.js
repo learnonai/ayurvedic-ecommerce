@@ -10,15 +10,11 @@ const ProductCard = ({ product, onAddToCart, user }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate();
 
-  // Track product view
   useEffect(() => {
     if (product) {
       addToRecentlyViewed(product);
     }
   }, [product]);
-  const imageUrl = product.images && product.images.length > 0 
-    ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}` 
-    : null;
   
   const addToWishlist = async () => {
     if (!user) {
@@ -60,6 +56,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
       setCurrentImageIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
     }
   };
+
   return (
     <div className="card h-100" style={{cursor: 'pointer'}}>
       {product.images && product.images.length > 0 ? (
@@ -72,9 +69,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
             </div>
           )}
           <img 
-            src={product.images && product.images.length > 0 
-              ? `${BASE_URL}/${product.images[currentImageIndex]}` 
-              : `${BASE_URL}/uploads/herbal-leaf-default.jpg`} 
+            src={`${BASE_URL}/api/images/${product.images[currentImageIndex].replace('uploads/', '')}`}
             className="card-img-top" 
             alt={product.name}
             style={{
@@ -85,13 +80,19 @@ const ProductCard = ({ product, onAddToCart, user }) => {
             }}
             onLoad={() => setImageLoading(false)}
             onError={(e) => {
-              e.target.src = `${BASE_URL}/uploads/herbal-leaf-default.jpg`;
+              e.target.style.display = 'none';
+              e.target.parentElement.querySelector('.fallback-image').style.display = 'flex';
             }}
             loading="lazy"
             decoding="async"
           />
+          <div 
+            className="card-img-top d-flex align-items-center justify-content-center bg-light fallback-image"
+            style={{height: '200px', display: 'none'}}
+          >
+            <span style={{fontSize: '60px'}}>🌿</span>
+          </div>
           
-          {/* Image Gallery Navigation */}
           {product.images && product.images.length > 1 && (
             <>
               <button 
@@ -118,6 +119,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
         <div 
           className="card-img-top d-flex align-items-center justify-content-center bg-light"
           style={{height: '200px'}}
+          onClick={() => navigate(`/product/${product._id}`)}
         >
           <span style={{fontSize: '60px'}}>🌿</span>
         </div>
@@ -128,7 +130,6 @@ const ProductCard = ({ product, onAddToCart, user }) => {
         <p className="text-success fw-bold">₹{product.price}</p>
         <p className="text-muted small">Category: {product.category}</p>
         
-        {/* Stock Status */}
         <div className="mb-2">
           {(product.stock || 0) > 0 ? (
             <span className="badge bg-success">
@@ -152,7 +153,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
           </div>
         )}
         
-        <div className="d-flex gap-2">
+        <div className="d-flex gap-2" onClick={(e) => e.stopPropagation()}>
           <button 
             className="btn btn-success flex-fill" 
             onClick={handleAddToCart}

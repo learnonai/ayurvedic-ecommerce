@@ -89,7 +89,7 @@ const ProductDetail = ({ onAddToCart, user }) => {
           <div className="product-image-container">
             {product.images && product.images.length > 0 ? (
               <img 
-                src={`${BASE_URL}/${product.images[0]}`}
+                src={`${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}`}
                 alt={product.name}
                 className="img-fluid rounded"
                 style={{width: '100%', height: '400px', objectFit: 'cover'}}
