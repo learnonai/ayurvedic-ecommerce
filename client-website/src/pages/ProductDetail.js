@@ -87,11 +87,29 @@ const ProductDetail = ({ onAddToCart, user }) => {
       <div className="row">
         <div className="col-md-6">
           <div className="product-image-container">
+            {product.images && product.images.length > 0 ? (
+              <img 
+                src={`${BASE_URL}/${product.images[0]}`}
+                alt={product.name}
+                className="img-fluid rounded"
+                style={{width: '100%', height: '400px', objectFit: 'cover'}}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'flex';
+                }}
+              />
+            ) : null}
             <div 
               className="d-flex align-items-center justify-content-center bg-light rounded"
-              style={{height: '400px'}}
+              style={{
+                height: '400px',
+                display: (!product.images || product.images.length === 0) ? 'flex' : 'none'
+              }}
             >
-              <span style={{fontSize: '120px'}}>🌿</span>
+              <div className="text-center">
+                <span style={{fontSize: '120px'}}>🌿</span>
+                <p className="text-muted mt-3">No image available</p>
+              </div>
             </div>
           </div>
         </div>

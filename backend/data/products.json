@@ -19,7 +19,7 @@
       "Fenugreek oil"
     ],
     "usage": "Apply to hair and scalp, massage gently. Leave for 30 minutes before washing",
-    "images": [],
+    "images": ["uploads/coconut-oil-sample.jpg"],
     "isActive": true,
     "_id": "HERB001"
   },
@@ -43,7 +43,7 @@
       "Amla oil"
     ],
     "usage": "Apply few drops to face and hair. Use daily for best results",
-    "images": [],
+    "images": ["uploads/argan-oil-sample.jpg"],
     "isActive": true,
     "_id": "HERB002"
   },
@@ -67,7 +67,7 @@
       "Camphor oil"
     ],
     "usage": "Add 2-3 drops to steam inhalation or diffuser. For topical use, dilute with carrier oil",
-    "images": [],
+    "images": ["uploads/eucalyptus-oil-sample.jpg"],
     "isActive": true,
     "_id": "HERB003"
   },

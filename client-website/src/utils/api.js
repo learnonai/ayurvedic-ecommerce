@@ -8,7 +8,7 @@ const getBaseUrl = () => {
   }
   
   // Production URL
-  return 'https://learnonai.com';
+  return 'http://learnonai.com:8080';
 };
 
 const getApiUrl = () => {
