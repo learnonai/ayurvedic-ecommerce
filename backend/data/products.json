@@ -1,606 +1,201 @@
 [
   {
-    "name": "Herbal Turmeric Powder",
-    "description": "Pure organic turmeric powder for cooking and health",
-    "price": "199",
-    "category": "powders",
+    "name": "Cotton Casual Shirt",
+    "description": "Premium cotton casual shirt for everyday comfort",
+    "price": "899",
+    "category": "shirts",
     "stock": "80",
     "benefits": [
-      "Anti-inflammatory",
-      "Boosts immunity",
-      "Joint health",
-      "Antioxidant properties"
+      "100% Cotton",
+      "Breathable fabric", 
+      "Comfortable fit",
+      "Easy to wash"
     ],
     "ingredients": [
-      "Organic turmeric powder"
+      "100% Pure Cotton"
     ],
-    "usage": "1/2 tsp daily with warm milk or food",
-    "images": [
-      "uploads/1755419865925-Turmeric-Tablets.webp"
-    ],
+    "usage": "Perfect for casual and semi-formal occasions",
+    "images": [],
     "isActive": true,
-    "_id": "HERB001",
-    "createdAt": "2025-08-17T07:00:00.000Z",
-    "updatedAt": "2025-08-17T08:37:45.927Z"
+    "_id": "CLOTH001"
   },
   {
-    "name": "Herbal Amla Juice",
-    "description": "Pure vitamin C rich amla juice for immunity and hair health",
-    "price": "225",
-    "category": "juices",
+    "name": "Denim Jeans",
+    "description": "Classic blue denim jeans with perfect fit",
+    "price": "1299",
+    "category": "pants",
     "stock": "50",
     "benefits": [
-      "High in Vitamin C",
-      "Boosts immunity",
-      "Hair health",
-      "Antioxidant properties"
+      "Durable denim",
+      "Classic fit",
+      "Versatile style",
+      "Long lasting"
     ],
     "ingredients": [
-      "Fresh Amla juice",
-      "Natural preservatives"
+      "Cotton denim fabric"
     ],
-    "usage": "30ml twice daily on empty stomach",
-    "images": [
-      "uploads/1755420048507-Amla-Juice.webp"
-    ],
+    "usage": "Ideal for casual outings and daily wear",
+    "images": [],
     "isActive": true,
-    "_id": "HERB002",
-    "createdAt": "2025-08-17T07:00:00.000Z",
-    "updatedAt": "2025-08-17T08:40:48.509Z"
+    "_id": "CLOTH002"
   },
   {
-    "name": "Herbal Moringa Powder",
-    "description": "Nutrient-dense superfood powder for overall wellness",
-    "price": "199",
-    "category": "powders",
+    "name": "Floral Print Kurti",
+    "description": "Beautiful floral print kurti for ethnic wear",
+    "price": "799",
+    "category": "kurtis",
     "stock": "70",
     "benefits": [
-      "Rich in nutrients",
-      "Boosts energy",
-      "Supports immunity",
-      "Anti-inflammatory"
+      "Elegant design",
+      "Comfortable fabric",
+      "Ethnic style",
+      "Machine washable"
     ],
     "ingredients": [
-      "Moringa oleifera leaf powder"
+      "Cotton blend fabric"
     ],
-    "usage": "1 tsp with water, juice or smoothie daily",
-    "images": [
-      "uploads/1755420069478-Moringa-Powder.jpeg"
-    ],
+    "usage": "Perfect for festivals and casual ethnic wear",
+    "images": [],
     "isActive": true,
-    "_id": "HERB003",
-    "createdAt": "2025-08-17T07:00:00.000Z",
-    "updatedAt": "2025-08-17T08:41:09.482Z"
+    "_id": "CLOTH003"
   },
   {
-    "name": "Herbal Neem Powder",
-    "description": "Pure neem leaf powder for skin and blood purification",
-    "price": "179",
-    "category": "powders",
+    "name": "Formal Black Trousers",
+    "description": "Premium formal black trousers for office wear",
+    "price": "1199",
+    "category": "pants",
     "stock": "35",
     "benefits": [
-      "Blood purification",
-      "Skin health",
-      "Anti-bacterial"
+      "Professional look",
+      "Wrinkle resistant",
+      "Comfortable fit"
     ],
     "ingredients": [
-      "Neem leaves"
+      "Polyester blend"
     ],
-    "usage": "1/2 tsp with water on empty stomach",
-    "images": [
-      "uploads/1755412573642-Neem-powder.webp"
-    ],
-    "isActive": true,
-    "_id": "HERB004",
-    "createdAt": "2025-08-02T04:21:03.744Z",
-    "updatedAt": "2025-08-17T06:36:13.645Z"
-  },
-  {
-    "name": "Herbal Hair Oil",
-    "description": "Natural hair oil blend for hair growth and scalp health",
-    "price": "299",
-    "category": "oils",
-    "stock": "45",
-    "benefits": [
-      "Promotes hair growth",
-      "Reduces hair fall",
-      "Nourishes scalp",
-      "Natural ingredients"
-    ],
-    "ingredients": [
-      "Coconut oil",
-      "Castor oil",
-      "Essential oils"
-    ],
-    "usage": "Massage gently on scalp, leave for 2 hours, wash with mild shampoo",
-    "images": [
-      "uploads/1755419978418-Bhringraj-Oil.webp"
-    ],
-    "isActive": true,
-    "_id": "HERB005",
-    "createdAt": "2025-08-17T07:00:00.000Z",
-    "updatedAt": "2025-08-17T08:39:38.420Z"
-  },
-  {
-    "name": "Herbal Green Tea",
-    "description": "Organic green tea leaves for antioxidants and wellness",
-    "price": "149",
-    "category": "teas",
-    "stock": "60",
-    "benefits": [
-      "Rich in antioxidants",
-      "Boosts metabolism",
-      "Supports weight management",
-      "Natural energy"
-    ],
-    "ingredients": [
-      "Organic green tea leaves"
-    ],
-    "usage": "1 cup twice daily after meals",
-    "images": [
-      "uploads/1755867850616-herbaltea.jpg"
-    ],
-    "isActive": true,
-    "_id": "HERB006",
-    "createdAt": "2025-08-17T07:00:00.000Z",
-    "updatedAt": "2025-08-22T13:04:10.622Z"
-  },
-  {
-    "name": "Herbal Honey",
-    "description": "Pure natural honey with herbal extracts",
-    "price": "299",
-    "category": "honey",
-    "stock": "40",
-    "benefits": [
-      "Natural sweetener",
-      "Boosts immunity",
-      "Soothes throat",
-      "Antioxidant properties"
-    ],
-    "ingredients": [
-      "Pure honey",
-      "Natural herbal extracts"
-    ],
-    "usage": "1-2 tsp daily with warm water or tea",
-    "images": [
-      "uploads/1755412538402-Chawanprash.avif"
-    ],
-    "isActive": true,
-    "_id": "HERB007",
-    "createdAt": "2025-08-02T04:20:28.354Z",
-    "updatedAt": "2025-08-17T06:35:38.404Z"
-  },
-  {
-    "name": "Herbal Face Oil",
-    "description": "Natural facial oil for glowing and healthy skin",
-    "price": "399",
-    "category": "oils",
-    "stock": "25",
-    "benefits": [
-      "Natural moisturizer",
-      "Glowing skin",
-      "Anti-aging",
-      "Reduces dark spots"
-    ],
-    "ingredients": [
-      "Jojoba oil",
-      "Rosehip oil",
-      "Essential oils"
-    ],
-    "usage": "Apply 2-3 drops on face before bedtime",
-    "images": [
-      "uploads/1755420538752-Kumkumadi-Oil.webp"
-    ],
-    "isActive": true,
-    "_id": "HERB008",
-    "createdAt": "2025-08-17T07:00:00.000Z",
-    "updatedAt": "2025-08-17T08:48:58.754Z"
-  },
-  {
-    "name": "Herbal Ginger Powder",
-    "description": "Pure dried ginger powder for digestion and immunity",
-    "price": "159",
-    "category": "powders",
-    "stock": "55",
-    "benefits": [
-      "Improves digestion",
-      "Anti-inflammatory",
-      "Boosts immunity",
-      "Reduces nausea"
-    ],
-    "ingredients": [
-      "Organic ginger root powder"
-    ],
-    "usage": "1/4 tsp with warm water twice daily",
-    "images": [
-      "uploads/1755868007934-herbal-ginger-tea.jpg"
-    ],
-    "isActive": true,
-    "_id": "HERB009",
-    "updatedAt": "2025-08-22T13:06:47.938Z"
-  },
-  {
-    "name": "Herbal Cinnamon Powder",
-    "description": "Pure Ceylon cinnamon powder for blood sugar support",
-    "price": "189",
-    "category": "powders",
-    "stock": "40",
-    "benefits": [
-      "Supports healthy blood sugar",
-      "Antioxidant rich",
-      "Anti-inflammatory",
-      "Digestive aid"
-    ],
-    "ingredients": [
-      "Ceylon cinnamon bark powder"
-    ],
-    "usage": "1/2 tsp daily with food or tea",
+    "usage": "Perfect for office and formal occasions",
     "images": [],
     "isActive": true,
-    "_id": "HERB010"
+    "_id": "CLOTH004"
   },
   {
-    "name": "Herbal Ashwagandha Powder",
-    "description": "Adaptogenic herb powder for stress relief and energy",
-    "price": "299",
-    "category": "powders",
-    "stock": "35",
-    "benefits": [
-      "Reduces stress",
-      "Boosts energy",
-      "Supports sleep",
-      "Adaptogenic properties"
-    ],
-    "ingredients": [
-      "Organic ashwagandha root powder"
-    ],
-    "usage": "1 tsp with warm milk before bed",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB011"
-  },
-  {
-    "name": "Herbal Tulsi Tea",
-    "description": "Sacred basil tea for respiratory health and immunity",
-    "price": "129",
-    "category": "teas",
-    "stock": "70",
-    "benefits": [
-      "Respiratory support",
-      "Stress relief",
-      "Immunity booster",
-      "Natural detox"
-    ],
-    "ingredients": [
-      "Organic tulsi leaves"
-    ],
-    "usage": "1 cup twice daily, hot or cold",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB012"
-  },
-  {
-    "name": "Herbal Fenugreek Powder",
-    "description": "Ground fenugreek seeds for digestive and metabolic health",
-    "price": "149",
-    "category": "powders",
-    "stock": "50",
-    "benefits": [
-      "Digestive health",
-      "Metabolic support",
-      "Hair health",
-      "Lactation support"
-    ],
-    "ingredients": [
-      "Organic fenugreek seed powder"
-    ],
-    "usage": "1 tsp with water before meals",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB013"
-  },
-  {
-    "name": "Herbal Coconut Oil",
-    "description": "Cold-pressed virgin coconut oil for cooking and skincare",
-    "price": "249",
-    "category": "oils",
-    "stock": "60",
-    "benefits": [
-      "Healthy cooking oil",
-      "Skin moisturizer",
-      "Hair conditioner",
-      "Antimicrobial"
-    ],
-    "ingredients": [
-      "100% virgin coconut oil"
-    ],
-    "usage": "For cooking, skincare, or hair care as needed",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB014"
-  },
-  {
-    "name": "Herbal Aloe Vera Gel",
-    "description": "Pure aloe vera gel for skin soothing and healing",
-    "price": "199",
-    "category": "gels",
-    "stock": "45",
-    "benefits": [
-      "Soothes skin",
-      "Healing properties",
-      "Moisturizing",
-      "Anti-inflammatory"
-    ],
-    "ingredients": [
-      "99% pure aloe vera gel"
-    ],
-    "usage": "Apply to skin as needed for soothing relief",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB015"
-  },
-  {
-    "name": "Herbal Hibiscus Tea",
-    "description": "Dried hibiscus flowers for antioxidant-rich herbal tea",
-    "price": "139",
-    "category": "teas",
-    "stock": "55",
-    "benefits": [
-      "Rich in antioxidants",
-      "Supports heart health",
-      "Natural vitamin C",
-      "Refreshing taste"
-    ],
-    "ingredients": [
-      "Organic dried hibiscus flowers"
-    ],
-    "usage": "Steep 1 tsp in hot water for 5-7 minutes",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB016"
-  },
-  {
-    "name": "Herbal Lemon Balm Tea",
-    "description": "Calming lemon balm leaves for relaxation and sleep",
-    "price": "159",
-    "category": "teas",
-    "stock": "40",
-    "benefits": [
-      "Promotes relaxation",
-      "Supports sleep",
-      "Digestive comfort",
-      "Stress relief"
-    ],
-    "ingredients": [
-      "Organic lemon balm leaves"
-    ],
-    "usage": "1 cup before bedtime for best results",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB017"
-  },
-  {
-    "name": "Herbal Rosemary Oil",
-    "description": "Essential rosemary oil for hair growth and mental clarity",
-    "price": "349",
-    "category": "oils",
-    "stock": "30",
-    "benefits": [
-      "Hair growth stimulation",
-      "Mental clarity",
-      "Circulation support",
-      "Aromatherapy"
-    ],
-    "ingredients": [
-      "Pure rosemary essential oil",
-      "Carrier oil blend"
-    ],
-    "usage": "Massage into scalp or use for aromatherapy",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB018"
-  },
-  {
-    "name": "Herbal Chamomile Tea",
-    "description": "Gentle chamomile flowers for relaxation and sleep support",
-    "price": "149",
-    "category": "teas",
-    "stock": "65",
-    "benefits": [
-      "Promotes sleep",
-      "Calming effect",
-      "Digestive support",
-      "Anti-inflammatory"
-    ],
-    "ingredients": [
-      "Organic chamomile flowers"
-    ],
-    "usage": "1 cup 30 minutes before bedtime",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB019"
-  },
-  {
-    "name": "Herbal Peppermint Tea",
-    "description": "Refreshing peppermint leaves for digestion and energy",
-    "price": "129",
-    "category": "teas",
-    "stock": "75",
-    "benefits": [
-      "Digestive aid",
-      "Natural energy",
-      "Refreshing taste",
-      "Breath freshener"
-    ],
-    "ingredients": [
-      "Organic peppermint leaves"
-    ],
-    "usage": "1 cup after meals for digestive support",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB020"
-  },
-  {
-    "name": "Herbal Lavender Oil",
-    "description": "Pure lavender essential oil for relaxation and skincare",
-    "price": "399",
-    "category": "oils",
-    "stock": "25",
-    "benefits": [
-      "Promotes relaxation",
-      "Sleep support",
-      "Skin soothing",
-      "Aromatherapy"
-    ],
-    "ingredients": [
-      "Pure lavender essential oil",
-      "Jojoba carrier oil"
-    ],
-    "usage": "Apply to temples or use in diffuser for aromatherapy",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB021"
-  },
-  {
-    "name": "Herbal Spirulina Powder",
-    "description": "Nutrient-dense blue-green algae superfood powder",
-    "price": "449",
-    "category": "powders",
-    "stock": "35",
-    "benefits": [
-      "Complete protein",
-      "Rich in vitamins",
-      "Energy booster",
-      "Detoxification"
-    ],
-    "ingredients": [
-      "100% pure spirulina powder"
-    ],
-    "usage": "1 tsp in smoothies or juice daily",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB022"
-  },
-  {
-    "name": "Herbal Eucalyptus Oil",
-    "description": "Pure eucalyptus oil for respiratory support and aromatherapy",
-    "price": "279",
-    "category": "oils",
-    "stock": "40",
-    "benefits": [
-      "Respiratory support",
-      "Decongestant",
-      "Antimicrobial",
-      "Energizing aroma"
-    ],
-    "ingredients": [
-      "Pure eucalyptus essential oil",
-      "Coconut carrier oil"
-    ],
-    "usage": "Use in steam inhalation or diffuser",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB023"
-  },
-  {
-    "name": "Herbal Chia Seeds",
-    "description": "Organic chia seeds packed with omega-3 and fiber",
-    "price": "199",
-    "category": "seeds",
-    "stock": "80",
-    "benefits": [
-      "High in omega-3",
-      "Rich in fiber",
-      "Protein source",
-      "Sustained energy"
-    ],
-    "ingredients": [
-      "100% organic chia seeds"
-    ],
-    "usage": "1-2 tbsp daily in water, smoothies, or yogurt",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB024"
-  },
-  {
-    "name": "Herbal Flax Seeds",
-    "description": "Ground flax seeds for omega-3 and digestive health",
-    "price": "159",
-    "category": "seeds",
-    "stock": "60",
-    "benefits": [
-      "Omega-3 fatty acids",
-      "Digestive health",
-      "Heart healthy",
-      "Hormone balance"
-    ],
-    "ingredients": [
-      "Organic ground flax seeds"
-    ],
-    "usage": "1 tbsp daily with meals or in smoothies",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB025"
-  },
-  {
-    "name": "Herbal Tea Tree Oil",
-    "description": "Pure tea tree oil for skin care and antimicrobial use",
-    "price": "329",
-    "category": "oils",
-    "stock": "35",
-    "benefits": [
-      "Antimicrobial",
-      "Acne treatment",
-      "Skin purifying",
-      "Natural antiseptic"
-    ],
-    "ingredients": [
-      "Pure tea tree essential oil",
-      "Grapeseed carrier oil"
-    ],
-    "usage": "Apply diluted to affected skin areas",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB026"
-  },
-  {
-    "name": "Herbal Ginkgo Tea",
-    "description": "Ginkgo biloba leaves for cognitive support and circulation",
-    "price": "189",
-    "category": "teas",
-    "stock": "45",
-    "benefits": [
-      "Cognitive support",
-      "Circulation enhancement",
-      "Antioxidant rich",
-      "Mental clarity"
-    ],
-    "ingredients": [
-      "Organic ginkgo biloba leaves"
-    ],
-    "usage": "1 cup twice daily for cognitive support",
-    "images": [],
-    "isActive": true,
-    "_id": "HERB027"
-  },
-  {
-    "name": "Herbal Argan Oil",
-    "description": "Pure Moroccan argan oil for hair and skin nourishment",
+    "name": "Designer T-Shirt",
+    "description": "Trendy designer t-shirt with modern graphics",
     "price": "599",
-    "category": "oils",
-    "stock": "20",
+    "category": "shirts",
+    "stock": "45",
     "benefits": [
-      "Hair nourishment",
-      "Skin moisturizing",
-      "Anti-aging",
-      "Rich in vitamin E"
+      "Trendy design",
+      "Soft fabric",
+      "Comfortable wear",
+      "Stylish graphics"
     ],
     "ingredients": [
-      "100% pure Moroccan argan oil"
+      "Cotton blend"
     ],
-    "usage": "Apply few drops to hair or skin as needed",
+    "usage": "Great for casual outings and weekend wear",
     "images": [],
     "isActive": true,
-    "_id": "HERB028"
+    "_id": "CLOTH005"
+  },
+  {
+    "name": "Summer Dress",
+    "description": "Light and breezy summer dress for hot weather",
+    "price": "999",
+    "category": "dresses",
+    "stock": "60",
+    "benefits": [
+      "Light fabric",
+      "Breathable material",
+      "Stylish cut",
+      "Perfect for summer"
+    ],
+    "ingredients": [
+      "Cotton voile fabric"
+    ],
+    "usage": "Ideal for summer outings and casual events",
+    "images": [],
+    "isActive": true,
+    "_id": "CLOTH006"
+  },
+  {
+    "name": "Silk Saree",
+    "description": "Elegant silk saree for special occasions",
+    "price": "2999",
+    "category": "sarees",
+    "stock": "25",
+    "benefits": [
+      "Premium silk",
+      "Elegant design",
+      "Traditional wear",
+      "Special occasions"
+    ],
+    "ingredients": [
+      "Pure silk fabric"
+    ],
+    "usage": "Perfect for weddings and festivals",
+    "images": [],
+    "isActive": true,
+    "_id": "CLOTH007"
+  },
+  {
+    "name": "Cargo Shorts",
+    "description": "Comfortable cargo shorts with multiple pockets",
+    "price": "699",
+    "category": "shorts",
+    "stock": "55",
+    "benefits": [
+      "Multiple pockets",
+      "Durable fabric",
+      "Comfortable fit",
+      "Casual style"
+    ],
+    "ingredients": [
+      "Cotton twill fabric"
+    ],
+    "usage": "Great for outdoor activities and casual wear",
+    "images": [],
+    "isActive": true,
+    "_id": "CLOTH008"
+  },
+  {
+    "name": "Polo Shirt",
+    "description": "Classic polo shirt for smart casual look",
+    "price": "799",
+    "category": "shirts",
+    "stock": "40",
+    "benefits": [
+      "Smart casual style",
+      "Collar design",
+      "Comfortable fit",
+      "Versatile wear"
+    ],
+    "ingredients": [
+      "Cotton pique fabric"
+    ],
+    "usage": "Perfect for golf and casual business meetings",
+    "images": [],
+    "isActive": true,
+    "_id": "CLOTH009"
+  },
+  {
+    "name": "Maxi Dress",
+    "description": "Elegant maxi dress for special occasions",
+    "price": "1499",
+    "category": "dresses",
+    "stock": "45",
+    "benefits": [
+      "Elegant design",
+      "Floor length",
+      "Comfortable fabric",
+      "Special occasions"
+    ],
+    "ingredients": [
+      "Chiffon fabric"
+    ],
+    "usage": "Perfect for parties and evening events",
+    "images": [],
+    "isActive": true,
+    "_id": "CLOTH010"
   }
 ]
