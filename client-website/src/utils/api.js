@@ -2,23 +2,22 @@ import axios from 'axios';
 
 // Environment-based URL configuration
 const getBaseUrl = () => {
-  // More reliable detection using hostname
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     return 'http://localhost:5000';
   }
-  
-  // Production URL
   return 'http://learnonai.com:8080';
 };
 
 const getApiUrl = () => {
-  return `${getBaseUrl()}/api`;
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:5000/api';
+  }
+  return 'http://learnonai.com:8080/api';
 };
 
 const BASE_URL = getBaseUrl();
 const API_URL = getApiUrl();
 
-// Export for use in components
 export { BASE_URL };
 
 const api = axios.create({
