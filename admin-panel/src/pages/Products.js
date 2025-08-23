@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { products } from '../utils/api';
-import ImageIndicator from '../components/ImageIndicator';
 
 const Products = () => {
-  // Force rebuild for production - v2.0
   const [productList, setProductList] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
-    name: '', description: '', price: '', category: 'medicines', stock: '', benefits: '', ingredients: '', usage: ''
+    name: '', description: '', price: '', category: 'oils', stock: '', benefits: '', ingredients: '', usage: ''
   });
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [imagePreview, setImagePreview] = useState([]);
 
   useEffect(() => {
     fetchProducts();
@@ -19,12 +18,19 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       const response = await products.getAll();
-      console.log('DEBUG: Products data:', response.data);
-      console.log('DEBUG: First product images:', response.data[0]?.images);
       setProductList(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
+  };
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setSelectedFiles(files);
+    
+    // Create preview URLs
+    const previews = files.map(file => URL.createObjectURL(file));
+    setImagePreview(previews);
   };
 
   const handleSubmit = async (e) => {
@@ -51,8 +57,9 @@ const Products = () => {
       }
       
       setShowForm(false);
-      setFormData({ name: '', description: '', price: '', category: 'medicines', stock: '', benefits: '', ingredients: '', usage: '' });
+      setFormData({ name: '', description: '', price: '', category: 'oils', stock: '', benefits: '', ingredients: '', usage: '' });
       setSelectedFiles([]);
+      setImagePreview([]);
       fetchProducts();
     } catch (error) {
       alert(editingProduct ? 'Error updating product' : 'Error creating product');
@@ -76,9 +83,8 @@ const Products = () => {
 
   return (
     <div>
-
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>Products <span className="badge bg-warning">v2.1 - Image Indicators Active</span></h2>
+        <h2>Products Management</h2>
         <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
           {showForm ? 'Cancel' : 'Add Product'}
         </button>
@@ -94,12 +100,7 @@ const Products = () => {
                 </div>
                 <div className="col-md-6 mb-3">
                   <select className="form-control" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})}>
-                    <option value="medicines">Medicines</option>
-                    <option value="jadi-buti">Jadi Buti</option>
-                    <option value="oils">Oils</option>
-                    <option value="powders">Powders</option>
-                    <option value="tablets">Tablets</option>
-                    <option value="other">Other</option>
+                    <option value="oils">Herbal Oils</option>
                   </select>
                 </div>
               </div>
@@ -130,25 +131,27 @@ const Products = () => {
                   className="form-control" 
                   multiple 
                   accept="image/*"
-                  onChange={(e) => setSelectedFiles(Array.from(e.target.files))}
+                  onChange={handleFileChange}
                 />
+                {imagePreview.length > 0 && (
+                  <div className="mt-2">
+                    <small className="text-muted">Preview:</small>
+                    <div className="d-flex gap-2 mt-1">
+                      {imagePreview.map((preview, index) => (
+                        <img 
+                          key={index}
+                          src={preview} 
+                          alt={`Preview ${index + 1}`}
+                          style={{width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd'}}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               <button type="submit" className="btn btn-success">
                 {editingProduct ? 'Update Product' : 'Add Product'}
               </button>
-              {editingProduct && (
-                <button 
-                  type="button" 
-                  className="btn btn-secondary ms-2"
-                  onClick={() => {
-                    setEditingProduct(null);
-                    setShowForm(false);
-                    setFormData({ name: '', description: '', price: '', category: 'medicines', stock: '', benefits: '', ingredients: '', usage: '' });
-                  }}
-                >
-                  Cancel
-                </button>
-              )}
             </form>
           </div>
         </div>
@@ -158,7 +161,7 @@ const Products = () => {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Image</th>
+              <th>Image Status</th>
               <th>Name</th>
               <th>Category</th>
               <th>Price</th>
@@ -171,57 +174,44 @@ const Products = () => {
               <tr key={product._id}>
                 <td>
                   {(!product.images || product.images.length === 0) ? (
-                    <span style={{backgroundColor: '#dc3545', color: 'white', padding: '4px 8px', borderRadius: '4px', fontSize: '12px'}}>
-                      ❌ NO IMAGE
-                    </span>
+                    <div>
+                      <span className="badge bg-danger">❌ NO IMAGE</span>
+                      <div style={{width: '50px', height: '50px', backgroundColor: '#f8f9fa', border: '1px solid #ddd', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '4px'}}>
+                        <span style={{fontSize: '20px'}}>🌿</span>
+                      </div>
+                    </div>
                   ) : (
-                    <img 
-                      src={`https://learnonai.com/api/images/${product.images[0].replace('uploads/', '')}`}
-                      style={{width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ccc'}}
-                      onError={(e) => {
-                        e.target.outerHTML = '<span style="background-color: #28a745; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">✅ HAS IMAGE</span>';
-                      }}
-                    />
-                  )}
-                </td>
-                <td>
-                  {(!product.images || product.images.length === 0) && (
-                    <span style={{color: '#dc3545', marginRight: '8px'}}>🔴</span>
-                  )}
-                  {product.name}
-                  {product.images && product.images.length > 0 && (
-                    <div style={{fontSize: '12px', color: '#6c757d', marginTop: '4px'}}>
-                      📁 {product.images[0].split('/').pop()}
+                    <div>
+                      <span className="badge bg-success">✅ HAS IMAGE</span>
+                      <img 
+                        src={`http://learnonai.com:8080/api/images/${product.images[0].replace('uploads/', '')}`}
+                        style={{width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd', marginTop: '4px', display: 'block'}}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div style={{width: '50px', height: '50px', backgroundColor: '#f8f9fa', border: '1px solid #ddd', borderRadius: '4px', display: 'none', alignItems: 'center', justifyContent: 'center', marginTop: '4px'}}>
+                        <span style={{fontSize: '20px'}}>🌿</span>
+                      </div>
                     </div>
                   )}
                 </td>
-                <td>{product.category}</td>
-                <td>₹{product.price}</td>
-                <td>{product.stock}</td>
                 <td>
-                  <button 
-                    className="btn btn-sm btn-primary me-2"
-                    onClick={() => handleEdit(product)}
-                  >
-                    Edit
-                  </button>
-                  <button 
-                    className="btn btn-sm btn-danger" 
-                    onClick={async () => {
-                      try {
-                        await products.delete(product._id);
-                        fetchProducts();
-                      } catch (error) {
-                        alert('Error deleting product');
-                      }
-                    }}
-                  >
-                    Delete
-                  </button>
+                  <strong>{product.name}</strong>
+                  {product.images && product.images.length > 0 && (
+                    <div style={{fontSize: '11px', color: '#6c757d', marginTop: '2px'}}>
+                      📁 {product.images.length} image(s)
+                    </div>
+                  )}
                 </td>
-                <td>{product.category}</td>
-                <td>₹{product.price}</td>
-                <td>{product.stock}</td>
+                <td><span className="badge bg-info">{product.category}</span></td>
+                <td><strong>₹{product.price}</strong></td>
+                <td>
+                  <span className={`badge ${product.stock > 10 ? 'bg-success' : product.stock > 0 ? 'bg-warning' : 'bg-danger'}`}>
+                    {product.stock} units
+                  </span>
+                </td>
                 <td>
                   <button 
                     className="btn btn-sm btn-primary me-2"
@@ -232,11 +222,13 @@ const Products = () => {
                   <button 
                     className="btn btn-sm btn-danger" 
                     onClick={async () => {
-                      try {
-                        await products.delete(product._id);
-                        fetchProducts();
-                      } catch (error) {
-                        alert('Error deleting product');
+                      if (window.confirm('Are you sure you want to delete this product?')) {
+                        try {
+                          await products.delete(product._id);
+                          fetchProducts();
+                        } catch (error) {
+                          alert('Error deleting product');
+                        }
                       }
                     }}
                   >
