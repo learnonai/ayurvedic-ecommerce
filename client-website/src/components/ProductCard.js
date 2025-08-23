@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { wishlist, BASE_URL } from '../utils/api';
 import { addToRecentlyViewed } from './RecentlyViewed';
 
@@ -7,6 +8,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
   const [wishlistLoading, setWishlistLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const navigate = useNavigate();
 
   // Track product view
   useEffect(() => {
@@ -20,7 +22,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
   
   const addToWishlist = async () => {
     if (!user) {
-      alert('Please login to add to wishlist');
+      navigate('/register');
       return;
     }
     setWishlistLoading(true);
@@ -59,9 +61,9 @@ const ProductCard = ({ product, onAddToCart, user }) => {
     }
   };
   return (
-    <div className="card h-100">
+    <div className="card h-100" style={{cursor: 'pointer'}}>
       {product.images && product.images.length > 0 ? (
-        <div className="position-relative" style={{height: '200px'}}>
+        <div className="position-relative" style={{height: '200px'}} onClick={() => navigate(`/product/${product._id}`)}>
           {imageLoading && (
             <div className="position-absolute w-100 h-100 d-flex align-items-center justify-content-center bg-light">
               <div className="spinner-border text-success" role="status">
@@ -120,7 +122,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
           <span style={{fontSize: '60px'}}>🌿</span>
         </div>
       )}
-      <div className="card-body">
+      <div className="card-body" onClick={() => navigate(`/product/${product._id}`)}>
         <h5 className="card-title">{product.name}</h5>
         <p className="card-text">{product.description}</p>
         <p className="text-success fw-bold">₹{product.price}</p>

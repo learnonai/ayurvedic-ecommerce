@@ -1,10 +1,11 @@
 [
   {
-    "name": "Herbal Coconut Oil",
-    "description": "Pure cold-pressed virgin coconut oil enriched with natural herbs for hair and skin care",
+    "name": "Herbal Coconut Oil (100ml)",
+    "description": "Pure cold-pressed virgin coconut oil enriched with natural herbs for hair and skin care. This premium quality oil is extracted using traditional methods to preserve all natural nutrients. Perfect for daily hair and skin care routine.",
     "price": "299",
     "category": "oils",
     "stock": "50",
+    "volume": "100ml",
     "benefits": [
       "Deep moisturizes hair and skin",
       "Promotes hair growth",
@@ -23,11 +24,12 @@
     "_id": "HERB001"
   },
   {
-    "name": "Herbal Argan Oil",
-    "description": "Premium Moroccan argan oil infused with ayurvedic herbs for ultimate nourishment",
+    "name": "Herbal Argan Oil (50ml)",
+    "description": "Premium Moroccan argan oil infused with ayurvedic herbs for ultimate nourishment. Known as 'liquid gold', this rare oil provides intensive care for hair and skin. Rich in essential fatty acids and antioxidants.",
     "price": "599",
     "category": "oils",
     "stock": "30",
+    "volume": "50ml",
     "benefits": [
       "Rich in Vitamin E",
       "Anti-aging properties",
@@ -46,11 +48,12 @@
     "_id": "HERB002"
   },
   {
-    "name": "Herbal Eucalyptus Oil",
-    "description": "Therapeutic eucalyptus oil blended with traditional herbs for respiratory wellness",
+    "name": "Herbal Eucalyptus Oil (30ml)",
+    "description": "Therapeutic eucalyptus oil blended with traditional herbs for respiratory wellness. This concentrated formula provides instant relief from congestion and promotes clear breathing. Perfect for aromatherapy and topical application.",
     "price": "249",
     "category": "oils",
     "stock": "40",
+    "volume": "30ml",
     "benefits": [
       "Clears respiratory passages",
       "Natural decongestant",
@@ -69,11 +72,12 @@
     "_id": "HERB003"
   },
   {
-    "name": "Herbal Face Oil",
-    "description": "Luxurious facial oil blend with precious herbs for radiant and youthful skin",
+    "name": "Herbal Face Oil (30ml)",
+    "description": "Luxurious facial oil blend with precious herbs for radiant and youthful skin. This anti-aging formula combines traditional Ayurvedic ingredients with modern skincare science. Suitable for all skin types.",
     "price": "449",
     "category": "oils",
     "stock": "25",
+    "volume": "30ml",
     "benefits": [
       "Deep skin nourishment",
       "Reduces dark spots",
@@ -93,11 +97,12 @@
     "_id": "HERB004"
   },
   {
-    "name": "Herbal Lavender Oil",
-    "description": "Calming lavender oil enhanced with stress-relieving ayurvedic herbs",
+    "name": "Herbal Lavender Oil (50ml)",
+    "description": "Calming lavender oil enhanced with stress-relieving ayurvedic herbs. This therapeutic blend promotes relaxation and peaceful sleep. Perfect for bedtime routine and stress management.",
     "price": "349",
     "category": "oils",
     "stock": "35",
+    "volume": "50ml",
     "benefits": [
       "Promotes deep sleep",
       "Reduces stress and anxiety",
@@ -116,11 +121,12 @@
     "_id": "HERB005"
   },
   {
-    "name": "Herbal Rosemary Oil",
-    "description": "Stimulating rosemary oil fortified with hair-growth promoting herbs",
+    "name": "Herbal Rosemary Oil (100ml)",
+    "description": "Stimulating rosemary oil fortified with hair-growth promoting herbs. This potent formula activates hair follicles and improves scalp circulation. Clinically proven ingredients for stronger, healthier hair.",
     "price": "329",
     "category": "oils",
     "stock": "45",
+    "volume": "100ml",
     "benefits": [
       "Stimulates hair growth",
       "Improves memory and focus",

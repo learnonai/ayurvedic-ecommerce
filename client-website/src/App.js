@@ -13,6 +13,7 @@ import Orders from './pages/Orders';
 import Checkout from './pages/Checkout';
 import Policies from './pages/Policies';
 import Profile from './pages/Profile';
+import ProductDetail from './pages/ProductDetail';
 import { orders, payment } from './utils/api';
 import { sessionManager } from './utils/security';
 import './utils/logger'; // Disable console in production
@@ -92,6 +93,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Home onAddToCart={handleAddToCart} user={user} />} />
         <Route path="/products" element={<Products onAddToCart={handleAddToCart} user={user} />} />
+        <Route path="/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} user={user} />} />
         <Route path="/cart" element={
           <Cart 
             cart={cart}
