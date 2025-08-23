@@ -27,42 +27,55 @@ const RecentlyViewed = () => {
         </button>
       </div>
       <div className="row">
-        {recentProducts.map((product, index) => (
-          <div key={`${product._id}-${index}`} className="col-6 col-md-3 mb-3">
-            <Link to={`/product/${product._id}`} className="text-decoration-none">
-              <div className="card h-100 border-0 shadow-sm">
-                {product.images && product.images.length > 0 ? (
-                  <img 
-                    src={`${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}`}
-                    className="card-img-top" 
-                    alt={product.name}
-                    style={{height: '100px', objectFit: 'cover'}}
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      const fallback = e.target.nextSibling;
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
-                  />
-                ) : null}
-                <div 
-                  className="card-img-top d-flex align-items-center justify-content-center bg-light"
-                  style={{
-                    height: '100px',
-                    display: (!product.images || product.images.length === 0) ? 'flex' : 'none'
-                  }}
-                >
-                  <span style={{fontSize: '40px'}}>🌿</span>
+        {recentProducts.map((product, index) => {
+          const hasImage = product.images && product.images.length > 0;
+          const imageUrl = hasImage ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}` : null;
+          
+          return (
+            <div key={`${product._id}-${index}`} className="col-6 col-md-3 mb-3">
+              <Link to={`/product/${product._id}`} className="text-decoration-none">
+                <div className="card h-100 border-0 shadow-sm">
+                  <div style={{height: '100px', position: 'relative'}}>
+                    {hasImage ? (
+                      <img 
+                        src={imageUrl}
+                        className="card-img-top" 
+                        alt={product.name}
+                        style={{
+                          height: '100px', 
+                          width: '100%',
+                          objectFit: 'cover'
+                        }}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    <div 
+                      className="d-flex align-items-center justify-content-center bg-light"
+                      style={{
+                        height: '100px',
+                        width: '100%',
+                        position: hasImage ? 'absolute' : 'static',
+                        top: 0,
+                        display: hasImage ? 'none' : 'flex'
+                      }}
+                    >
+                      <span style={{fontSize: '40px'}}>🌿</span>
+                    </div>
+                  </div>
+                  <div className="card-body p-2">
+                    <h6 className="card-title small mb-1" style={{fontSize: '0.8rem'}}>
+                      {product.name.length > 20 ? product.name.substring(0, 20) + '...' : product.name}
+                    </h6>
+                    <p className="text-success fw-bold small mb-0">₹{product.price}</p>
+                  </div>
                 </div>
-                <div className="card-body p-2">
-                  <h6 className="card-title small mb-1" style={{fontSize: '0.8rem'}}>
-                    {product.name.length > 20 ? product.name.substring(0, 20) + '...' : product.name}
-                  </h6>
-                  <p className="text-success fw-bold small mb-0">₹{product.price}</p>
-                </div>
-              </div>
-            </Link>
-          </div>
-        ))}
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

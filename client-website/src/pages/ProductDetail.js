@@ -10,6 +10,8 @@ const ProductDetail = ({ onAddToCart, user }) => {
   const [loading, setLoading] = useState(true);
   const [addingToCart, setAddingToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     fetchProduct();
@@ -74,6 +76,9 @@ const ProductDetail = ({ onAddToCart, user }) => {
     );
   }
 
+  const hasImage = product.images && product.images.length > 0;
+  const imageUrl = hasImage ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}` : null;
+
   return (
     <div className="container my-4">
       <nav aria-label="breadcrumb">
@@ -86,36 +91,38 @@ const ProductDetail = ({ onAddToCart, user }) => {
 
       <div className="row">
         <div className="col-md-6">
-          <div className="product-image-container">
-            {product.images && product.images.length > 0 ? (
-              <img 
-                src={`${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}`}
-                alt={product.name}
-                className="img-fluid rounded"
-                style={{width: '100%', height: '400px', objectFit: 'cover'}}
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  const fallback = e.target.nextSibling;
-                  if (fallback) fallback.style.display = 'flex';
-                }}
-              />
-            ) : null}
-            <div 
-              className="d-flex align-items-center justify-content-center bg-light rounded"
-              style={{
-                height: '400px',
-                display: (!product.images || product.images.length === 0) ? 'flex' : 'none',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0
-              }}
-            >
-              <div className="text-center">
-                <span style={{fontSize: '120px'}}>🌿</span>
-                <p className="text-muted mt-3">No image available</p>
+          <div className="position-relative" style={{height: '400px'}}>
+            {hasImage && !imageError ? (
+              <>
+                {!imageLoaded && (
+                  <div className="position-absolute w-100 h-100 d-flex align-items-center justify-content-center bg-light rounded">
+                    <div className="spinner-border text-success" role="status">
+                      <span className="visually-hidden">Loading image...</span>
+                    </div>
+                  </div>
+                )}
+                <img 
+                  src={imageUrl}
+                  alt={product.name}
+                  className="img-fluid rounded"
+                  style={{
+                    width: '100%', 
+                    height: '400px', 
+                    objectFit: 'cover',
+                    display: imageLoaded ? 'block' : 'none'
+                  }}
+                  onLoad={() => setImageLoaded(true)}
+                  onError={() => setImageError(true)}
+                />
+              </>
+            ) : (
+              <div className="d-flex align-items-center justify-content-center bg-light rounded h-100">
+                <div className="text-center">
+                  <span style={{fontSize: '120px'}}>🌿</span>
+                  <p className="text-muted mt-3">No image available</p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
