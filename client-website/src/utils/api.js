@@ -5,14 +5,14 @@ const getBaseUrl = () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     return 'http://localhost:5000';
   }
-  return 'http://learnonai.com:8080';
+  return 'https://learnonai.com';
 };
 
 const getApiUrl = () => {
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     return 'http://localhost:5000/api';
   }
-  return 'http://learnonai.com:8080/api';
+  return 'https://learnonai.com/api';
 };
 
 const BASE_URL = getBaseUrl();
