@@ -56,6 +56,7 @@ Last updated: January 2025
 
 5. DAMAGED OR DEFECTIVE ITEMS
 We will replace or refund damaged/defective items at no cost to you.
+- Replacement products will be delivered within 5-7 business days
 
 6. CONTACT US
 For return inquiries, email us at returns@ayurveda.com or call +91-9876543210`,
