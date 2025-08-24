@@ -5,7 +5,7 @@ A complete ecommerce solution for Ayurvedic medicines and products with admin pa
 ## ✨ Features
 
 ### 🛒 Customer Website
-- **Product Catalog** with categories (Medicines, Jadi Buti, Oils, Powders, Tablets)
+- **Product Catalog** with categories (Herbal Oils)
 - **Search & Filter** products
 - **Shopping Cart** with quantity management
 - **Wishlist** functionality
@@ -14,7 +14,7 @@ A complete ecommerce solution for Ayurvedic medicines and products with admin pa
 - **Order Tracking**
 - **Product Images** display
 
-### 👨‍💼 Admin Panel
+### 👨💼 Admin Panel
 - **Dashboard** with statistics
 - **Product Management** (Add/Edit/Delete with image upload)
 - **Order Management** (Update status)
@@ -28,31 +28,40 @@ A complete ecommerce solution for Ayurvedic medicines and products with admin pa
 - **JSON Database** (easily replaceable with MongoDB)
 - **CORS** enabled
 
-## 🚀 Quick Start
+## 🚀 Deployment & Build Management
 
-### Option 1: Start All Services at Once
+### Quick Deploy
 ```bash
-./start-all.sh
+# Deploy with image persistence and rollback support
+./scripts/deploy.sh
 ```
 
-### Option 2: Manual Start
+### Build Management
 ```bash
-# Terminal 1 - Backend
-cd backend && npm run dev
+# Check current build and available backups
+./scripts/build-info.sh
 
-# Terminal 2 - Admin Panel  
-cd admin-panel && npm install && npm start
+# Rollback to previous build
+./scripts/rollback.sh
 
-# Terminal 3 - Client Website
-cd client-website && npm install && BROWSER=none PORT=3001 npm start
+# Rollback to specific build
+./scripts/rollback.sh 20241201_143022_abc1234
+```
+
+### Manual Deployment
+```bash
+# Traditional method (not recommended)
+cd /home/ec2-user/ayurvedic-ecommerce
+git pull origin main
+pm2 restart all
 ```
 
 ## 🌐 Access Applications
 
 ### 🚀 Live Production URLs
-- **Customer Website**: http://3.91.235.214:3001
-- **Admin Panel**: http://3.91.235.214:3000
-- **Backend API**: http://3.91.235.214:5000
+- **Customer Website**: https://learnonai.com
+- **Admin Panel**: https://learnonai.com:8080
+- **Backend API**: https://learnonai.com/api
 
 ### 💻 Local Development URLs
 - **Customer Website**: http://localhost:3001
@@ -71,12 +80,12 @@ cd client-website && npm install && BROWSER=none PORT=3001 npm start
 
 ## 📦 Sample Products Included
 
-1. **Ashwagandha Powder** - ₹299 (Stress relief)
-2. **Triphala Churna** - ₹199 (Digestion)
-3. **Brahmi Oil** - ₹399 (Hair growth)
-4. **Chyawanprash** - ₹599 (Immunity)
-5. **Giloy Tablets** - ₹249 (Immunity booster)
-6. **Neem Powder** - ₹179 (Blood purification)
+1. **Herbal Coconut Oil (100ml)** - ₹299 (Hair & skin care)
+2. **Herbal Argan Oil (50ml)** - ₹599 (Anti-aging)
+3. **Herbal Eucalyptus Oil (30ml)** - ₹249 (Respiratory wellness)
+4. **Herbal Face Oil (30ml)** - ₹449 (Radiant skin)
+5. **Herbal Lavender Oil (50ml)** - ₹349 (Stress relief)
+6. **Herbal Rosemary Oil (100ml)** - ₹329 (Hair growth)
 
 ## 🛠 Tech Stack
 
@@ -84,10 +93,10 @@ cd client-website && npm install && BROWSER=none PORT=3001 npm start
 - **Backend**: Node.js, Express.js
 - **Database**: JSON files (easily replaceable)
 - **Authentication**: JWT tokens
-- **File Upload**: Multer
+- **File Upload**: Multer with persistence
 - **Payment**: Mock integration (ready for Razorpay)
-- **Deployment**: AWS EC2 (t3.small)
-- **CI/CD**: GitHub Actions + AWS CodeDeploy
+- **Deployment**: AWS EC2 with rollback support
+- **CI/CD**: GitHub Actions + Custom Scripts
 - **Process Manager**: PM2
 
 ## 📁 Project Structure
@@ -97,13 +106,34 @@ Ayurvedic-Ecommerce/
 ├── backend/           # API server
 ├── admin-panel/       # Admin dashboard
 ├── client-website/    # Customer website
-├── start-all.sh      # Quick start script
+├── scripts/           # Deployment & rollback scripts
+│   ├── deploy.sh      # Main deployment script
+│   ├── rollback.sh    # Rollback to previous build
+│   └── build-info.sh  # Show build information
 └── README.md         # This file
 ```
 
+## 🔄 Build Management System
+
+### Build ID Format
+Each deployment gets a unique Build ID: `YYYYMMDD_HHMMSS_GITHASH`
+Example: `20241201_143022_abc1234`
+
+### Features
+- **Image Persistence**: Uploaded images survive deployments
+- **Automatic Backups**: Every deployment creates a backup
+- **Easy Rollback**: Revert to any previous build
+- **Build Tracking**: See all available builds and current status
+- **Health Checks**: Automatic verification after deployment
+
+### Backup Locations
+- **Application Backups**: `/home/ec2-user/backups/app_backup_*.tar.gz`
+- **Image Backups**: `/home/ec2-user/backups/uploads_backup_*`
+- **Deployment Log**: `/home/ec2-user/backups/deployment_log.txt`
+
 ## 🔄 API Endpoints
 
-**Base URL**: http://3.91.235.214:5000
+**Base URL**: https://learnonai.com/api
 
 ### Authentication
 - `POST /api/auth/register` - User registration
@@ -125,9 +155,8 @@ Ayurvedic-Ecommerce/
 - `POST /api/wishlist` - Add to wishlist
 - `DELETE /api/wishlist/:productId` - Remove from wishlist
 
-### Payment
-- `POST /api/payment/create-order` - Create payment order
-- `POST /api/payment/verify` - Verify payment
+### Images
+- `GET /api/images/:filename` - Get uploaded images
 
 ## 🎯 Next Steps
 
@@ -140,7 +169,29 @@ Ayurvedic-Ecommerce/
 
 ## 🐛 Troubleshooting
 
-### Port Already in Use
+### Deployment Issues
+```bash
+# Check build status
+./scripts/build-info.sh
+
+# View deployment logs
+tail -f /home/ec2-user/backups/deployment_log.txt
+
+# Check service status
+pm2 list
+pm2 logs
+```
+
+### Rollback if Issues
+```bash
+# Quick rollback to last working build
+./scripts/rollback.sh
+
+# Check available builds first
+./scripts/build-info.sh
+```
+
+### Port Issues
 ```bash
 # Kill processes on specific ports
 lsof -ti:5000 | xargs kill -9
@@ -148,38 +199,36 @@ lsof -ti:3000 | xargs kill -9
 lsof -ti:3001 | xargs kill -9
 ```
 
-### Dependencies Issues
-```bash
-# Clean install
-rm -rf node_modules package-lock.json
-npm install
-```
-
 ## 🚀 CI/CD Pipeline
 
 ### Automatic Deployment
 - **Trigger**: Every push to `main` branch
-- **Platform**: GitHub Actions + AWS CodeDeploy
-- **Target**: EC2 instance (3.91.235.214)
-- **Zero Downtime**: Rolling deployment with PM2
+- **Platform**: GitHub Actions + Custom Scripts
+- **Target**: EC2 instance (learnonai.com)
+- **Features**: Image persistence, rollback support, build tracking
 
 ### Manual Deployment
 ```bash
 git add .
 git commit -m "Your changes"
 git push origin main
-# Automatic deployment will start!
+# Automatic deployment will start with Build ID tracking!
 ```
 
 ## 💰 Infrastructure Cost
 - **EC2 t3.small**: ~$16-21/month
-- **CodeDeploy**: FREE
 - **GitHub Actions**: FREE (2000 min/month)
+- **Storage**: Minimal cost for backups
 
 ## 📞 Support
 
-For issues or questions, check the console logs in each terminal window for detailed error messages.
+For issues or questions:
+1. Check deployment logs: `./scripts/build-info.sh`
+2. View service status: `pm2 list`
+3. Rollback if needed: `./scripts/rollback.sh`
 
 ---
+
+**Managed by: SOMESH SHIVAJI NAWALE**
 
 **Happy Selling! 🌿**
