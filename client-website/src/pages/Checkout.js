@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { orders, payment } from '../utils/api';
 import { useFormValidation, validateName, validatePhone, validateAddress, validateCity, validateState, validatePincode, FormError } from '../components/FormValidation';
+import PaymentDebug from '../components/PaymentDebug';
 
 const Checkout = ({ cart, user, onOrderComplete }) => {
   const [loading, setLoading] = useState(false);
@@ -40,18 +41,15 @@ const Checkout = ({ cart, user, onOrderComplete }) => {
     setLoading(true);
 
     try {
-      // Create payment order
-      const paymentOrder = await payment.createOrder(totalAmount);
+      console.log('Initiating payment for amount:', totalAmount);
       
-      // Mock payment success
-      const paymentResult = await payment.verify({
-        orderId: paymentOrder.data.id,
-        paymentId: 'pay_' + Date.now(),
-        signature: 'mock_signature'
-      });
+      // Create PhonePe payment
+      const paymentResponse = await payment.createOrder(totalAmount);
       
-      if (paymentResult.data.success) {
-        // Create order after successful payment
+      console.log('Payment response:', paymentResponse.data);
+      
+      if (paymentResponse.data.success) {
+        // Store order data in localStorage for after payment
         const orderData = {
           items: cart.map(item => ({
             product: item._id,
@@ -59,17 +57,23 @@ const Checkout = ({ cart, user, onOrderComplete }) => {
             price: item.price
           })),
           totalAmount,
-          paymentStatus: 'paid',
-          shippingAddress
+          shippingAddress,
+          transactionId: paymentResponse.data.transactionId
         };
         
-        await orders.create(orderData);
-        onOrderComplete();
-        alert('Order placed successfully!');
-        navigate('/orders');
+        localStorage.setItem('pendingOrder', JSON.stringify(orderData));
+        
+        console.log('Redirecting to payment URL:', paymentResponse.data.paymentUrl);
+        
+        // Redirect to PhonePe payment page
+        window.location.href = paymentResponse.data.paymentUrl;
+      } else {
+        throw new Error(paymentResponse.data.message || 'Payment initiation failed');
       }
     } catch (error) {
-      alert('Order failed. Please try again.');
+      console.error('Payment error:', error);
+      const errorMessage = error.response?.data?.message || error.message || 'Order failed. Please try again.';
+      alert(errorMessage);
     }
     setLoading(false);
   };
@@ -87,6 +91,7 @@ const Checkout = ({ cart, user, onOrderComplete }) => {
 
   return (
     <div className="container my-4">
+      <PaymentDebug />
       <h2>Checkout</h2>
       <div className="row">
         <div className="col-md-8">

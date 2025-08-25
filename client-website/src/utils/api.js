@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { sessionManager } from './security';
 
 // Environment-based URL configuration
 const getBaseUrl = () => {
@@ -26,7 +27,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('userToken');
+    const token = sessionManager.get('userToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -39,8 +40,8 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('userToken');
-      localStorage.removeItem('user');
+      sessionManager.remove('userToken');
+      sessionManager.remove('user');
       window.location.href = '/login';
     }
     return Promise.reject(error);

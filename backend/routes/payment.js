@@ -2,74 +2,67 @@ const express = require('express');
 const { auth } = require('../middleware/auth');
 const router = express.Router();
 
-// For production - add Razorpay:
-/*
-const Razorpay = require('razorpay');
-const crypto = require('crypto');
-
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET
-});
-*/
-
-// Create payment order (Mock Razorpay)
+// Create mock payment (PhonePe integration disabled for now)
 router.post('/create-order', auth, async (req, res) => {
   try {
     const { amount } = req.body;
+    const userId = req.user._id;
     
-    // For demo - mock order
-    const order = {
-      id: 'order_' + Date.now(),
-      amount: amount * 100,
-      currency: 'INR',
-      status: 'created'
-    };
+    console.log('Payment request:', { amount, userId, user: req.user });
     
-    // For production - real Razorpay:
-    /*
-    const order = await razorpay.orders.create({
-      amount: amount * 100,
-      currency: 'INR',
-      receipt: 'order_' + Date.now()
+    if (!amount || amount <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid amount'
+      });
+    }
+    
+    // Mock payment for testing
+    const mockTransactionId = `MOCK_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    // Determine the correct base URL
+    const host = req.get('host');
+    const protocol = req.get('x-forwarded-proto') || req.protocol;
+    const baseUrl = host.includes('localhost') ? 'http://localhost:3001' : 'https://learnonai.com';
+    
+    console.log('Payment URL generated:', `${baseUrl}/payment/success?transactionId=${mockTransactionId}&status=success`);
+    
+    res.json({
+      success: true,
+      paymentUrl: `${baseUrl}/payment/success?transactionId=${mockTransactionId}&status=success`,
+      transactionId: mockTransactionId
     });
-    */
     
-    res.json(order);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Payment route error:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Error creating payment order'
+    });
   }
 });
 
-// Verify payment (Mock)
+// Mock payment verification
 router.post('/verify', auth, async (req, res) => {
   try {
-    const { orderId, paymentId, signature } = req.body;
+    const { transactionId } = req.body;
     
-    // For demo - mock verification
-    res.json({ 
-      success: true, 
-      message: 'Payment verified successfully',
-      paymentId 
+    res.json({
+      success: true,
+      status: 'COMPLETED',
+      transactionId: transactionId
     });
-    
-    // For production - real verification:
-    /*
-    const body = orderId + '|' + paymentId;
-    const expectedSignature = crypto
-      .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
-      .update(body.toString())
-      .digest('hex');
-    
-    if (expectedSignature === signature) {
-      res.json({ success: true, message: 'Payment verified' });
-    } else {
-      res.status(400).json({ success: false, message: 'Invalid signature' });
-    }
-    */
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      success: false,
+      message: 'Payment verification failed'
+    });
   }
+});
+
+// Callback endpoint
+router.post('/callback', async (req, res) => {
+  res.json({ success: true });
 });
 
 module.exports = router;

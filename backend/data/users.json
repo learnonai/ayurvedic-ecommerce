@@ -223,5 +223,19 @@
     "_id": "1755442367239",
     "createdAt": "2025-08-17T14:52:47.239Z",
     "updatedAt": "2025-08-17T14:52:58.524Z"
+  },
+  {
+    "name": "ram",
+    "email": "ram@gmail.com",
+    "password": "$2a$10$hb39C9W15mQ/uTuipbdJq.rCJWmv1/l/etOhHzVNvHG2SqS3EmTF.",
+    "phone": "8765342134",
+    "role": "user",
+    "originalPassword": "ram123",
+    "isVerified": true,
+    "verificationCode": null,
+    "verificationExpiry": "2025-08-25T12:14:49.220Z",
+    "_id": "1756123489220",
+    "createdAt": "2025-08-25T12:04:49.220Z",
+    "updatedAt": "2025-08-25T12:04:56.003Z"
   }
 ]
