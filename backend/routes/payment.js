@@ -14,30 +14,40 @@ router.post('/create-order', auth, async (req, res) => {
     const transactionId = `ORDER_${Date.now()}`;
     
     // Step 1: Get OAuth token
-    const tokenResponse = await axios.post('https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token', {
-      clientId: PHONEPE_MERCHANT_ID,
-      clientSecret: PHONEPE_CLIENT_SECRET,
-      clientVersion: '1'
-    }, {
-      headers: { 'Content-Type': 'application/json' }
+    const tokenResponse = await axios({
+      method: 'POST',
+      url: 'https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      data: {
+        clientId: PHONEPE_MERCHANT_ID,
+        clientSecret: PHONEPE_CLIENT_SECRET,
+        clientVersion: '1'
+      }
     });
     
     const token = tokenResponse.data.accessToken;
     
     // Step 2: Create payment
-    const paymentResponse = await axios.post('https://api-preprod.phonepe.com/apis/pg-sandbox/checkout/v2/pay', {
-      merchantOrderId: transactionId,
-      amount: amount * 100,
-      currency: 'INR',
-      redirectUrl: 'https://learnonai.com/payment/success?transactionId=' + transactionId,
-      callbackUrl: 'https://learnonai.com/api/payment/callback',
-      paymentInstrument: {
-        type: 'PAY_PAGE'
-      }
-    }, {
+    const paymentResponse = await axios({
+      method: 'POST',
+      url: 'https://api-preprod.phonepe.com/apis/pg-sandbox/checkout/v2/pay',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
         'Authorization': `O-Bearer ${token}`
+      },
+      data: {
+        merchantOrderId: transactionId,
+        amount: amount * 100,
+        currency: 'INR',
+        redirectUrl: 'https://learnonai.com/payment/success?transactionId=' + transactionId,
+        callbackUrl: 'https://learnonai.com/api/payment/callback',
+        paymentInstrument: {
+          type: 'PAY_PAGE'
+        }
       }
     });
     
