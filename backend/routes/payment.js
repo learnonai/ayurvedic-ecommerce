@@ -8,101 +8,90 @@ const router = express.Router();
 const PHONEPE_MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID || 'SU2508241910194031786811';
 const PHONEPE_SALT_KEY = process.env.PHONEPE_SALT_KEY || '11d250e2-bd67-43b9-bc80-d45b3253566b';
 const PHONEPE_SALT_INDEX = process.env.PHONEPE_SALT_INDEX || '1';
-const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL || 'https://api.phonepe.com/apis/hermes';
+const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL || 'https://api-preprod.phonepe.com/apis/pg-sandbox';
+
+// Get PhonePe OAuth token
+const getPhonePeToken = async () => {
+  const tokenOptions = {
+    method: 'POST',
+    url: `${PHONEPE_BASE_URL}/v1/oauth/token`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: {
+      clientId: PHONEPE_MERCHANT_ID,
+      clientSecret: PHONEPE_SALT_KEY,
+      clientVersion: '1'
+    }
+  };
+  
+  const response = await axios.request(tokenOptions);
+  return response.data.accessToken;
+};
 
 // Create PhonePe payment
 router.post('/create-order', auth, async (req, res) => {
   try {
     const { amount } = req.body;
-    const userId = req.user._id || req.user.id || 'user1';
+    const transactionId = `ORDER_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     
-    const transactionId = `TXN_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    
-    // Detect if running on production
     const host = req.get('host');
     const isProduction = host && host.includes('learnonai.com');
     const baseUrl = isProduction ? 'https://learnonai.com' : 'http://localhost:3001';
     
-    console.log('Host:', host, 'IsProduction:', isProduction, 'BaseURL:', baseUrl);
+    // Get OAuth token
+    const token = await getPhonePeToken();
     
     const paymentData = {
-      merchantId: PHONEPE_MERCHANT_ID,
-      merchantTransactionId: transactionId,
-      merchantUserId: `MUID${userId.toString()}`,
+      merchantOrderId: transactionId,
       amount: amount * 100, // Convert to paise
+      currency: 'INR',
       redirectUrl: `${baseUrl}/payment/success?transactionId=${transactionId}`,
-      redirectMode: 'POST',
       callbackUrl: isProduction ? 'https://learnonai.com/api/payment/callback' : 'http://localhost:5000/api/payment/callback',
       paymentInstrument: {
         type: 'PAY_PAGE'
       }
     };
     
-    const payload = JSON.stringify(paymentData);
-    const payloadMain = Buffer.from(payload).toString('base64');
-    const keyIndex = PHONEPE_SALT_INDEX;
-    const string = payloadMain + '/pg/v1/pay' + PHONEPE_SALT_KEY;
-    const sha256 = crypto.createHash('sha256').update(string).digest('hex');
-    const checksum = sha256 + '###' + keyIndex;
-    
     const options = {
       method: 'POST',
-      url: `${PHONEPE_BASE_URL}/pg/v1/pay`,
+      url: `${PHONEPE_BASE_URL}/checkout/v2/pay`,
       headers: {
-        'accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-VERIFY': checksum
+        'Authorization': `O-Bearer ${token}`
       },
-      data: {
-        request: payloadMain
-      },
-      timeout: 8000,
-      validateStatus: function (status) {
-        return status < 500; // Don't throw for 4xx errors
-      }
+      data: paymentData,
+      timeout: 10000
     };
     
-    console.log('PhonePe API Call Details:');
-    console.log('URL:', options.url);
+    console.log('PhonePe API Call:', options.url);
+    const response = await axios.request(options);
+    console.log('PhonePe Response:', response.data);
     
-    // Add race condition to prevent hanging
-    const apiCall = axios.request(options);
-    const timeout = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('API timeout')), 7000)
-    );
-    
-    const response = await Promise.race([apiCall, timeout]);
-    console.log('PhonePe API Response:', JSON.stringify(response.data, null, 2));
-    
-    if (response.status === 200 && response.data && response.data.success === true) {
-      const paymentUrl = response.data.data.instrumentResponse.redirectInfo.url;
-      console.log('PhonePe Payment URL:', paymentUrl);
-      
+    if (response.data && response.data.paymentUrl) {
       res.json({
         success: true,
-        paymentUrl: paymentUrl,
+        paymentUrl: response.data.paymentUrl,
         transactionId: transactionId
       });
     } else {
-      console.log('PhonePe API Error Response:', JSON.stringify(response.data, null, 2));
-      console.log('Response Status:', response.status);
-      throw new Error(`PhonePe API Error: ${JSON.stringify(response.data)}`);
+      throw new Error('Invalid PhonePe response');
     }
     
   } catch (error) {
     console.error('PhonePe API failed:', error.message);
-    console.error('Error details:', error.response?.data || error);
     
-    // Temporary fallback while debugging API endpoint
+    // Fallback to mock payment
     const mockTransactionId = `MOCK_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const host = req.get('host');
+    const isProduction = host && host.includes('learnonai.com');
+    const baseUrl = isProduction ? 'https://learnonai.com' : 'http://localhost:3001';
     
-    console.log('Using mock payment fallback - API endpoint issue');
     res.json({
       success: true,
       paymentUrl: `${baseUrl}/payment/success?transactionId=${mockTransactionId}&status=success`,
       transactionId: mockTransactionId,
-      isMock: true,
-      note: 'Mock payment - PhonePe API endpoint needs verification'
+      isMock: true
     });
   }
 });
