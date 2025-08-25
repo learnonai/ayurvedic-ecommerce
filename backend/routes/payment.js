@@ -56,7 +56,7 @@ router.post('/create-order', auth, async (req, res) => {
       data: {
         request: payloadMain
       },
-      timeout: 30000,
+      timeout: 8000,
       validateStatus: function (status) {
         return status < 500; // Don't throw for 4xx errors
       }
@@ -64,11 +64,14 @@ router.post('/create-order', auth, async (req, res) => {
     
     console.log('PhonePe API Call Details:');
     console.log('URL:', options.url);
-    console.log('Headers:', options.headers);
-    console.log('Payload:', payloadMain);
-    console.log('Checksum:', checksum);
     
-    const response = await axios.request(options);
+    // Add race condition to prevent hanging
+    const apiCall = axios.request(options);
+    const timeout = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('API timeout')), 7000)
+    );
+    
+    const response = await Promise.race([apiCall, timeout]);
     console.log('PhonePe API Response:', JSON.stringify(response.data, null, 2));
     
     if (response.status === 200 && response.data && response.data.success === true) {
