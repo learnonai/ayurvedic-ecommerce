@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { orders, payment } from '../utils/api';
 
@@ -7,9 +7,13 @@ const PaymentSuccess = ({ onOrderComplete }) => {
   const [status, setStatus] = useState('verifying');
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const verificationDone = useRef(false);
 
   useEffect(() => {
     const verifyPayment = async () => {
+      if (verificationDone.current) return;
+      verificationDone.current = true;
+      
       try {
         const transactionId = searchParams.get('transactionId');
         
@@ -22,7 +26,7 @@ const PaymentSuccess = ({ onOrderComplete }) => {
         // Verify payment with PhonePe
         const verificationResult = await payment.verify({ transactionId });
         
-        if (verificationResult.data.success && verificationResult.data.status === 'COMPLETED') {
+        if (verificationResult.data.success && (verificationResult.data.status === 'COMPLETED' || verificationResult.data.status === 'PAYMENT_SUCCESS')) {
           // Get pending order from localStorage
           const pendingOrder = JSON.parse(localStorage.getItem('pendingOrder') || '{}');
           

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { orders, payment } from '../utils/api';
 import { useFormValidation, validateName, validatePhone, validateAddress, validateCity, validateState, validatePincode, FormError } from '../components/FormValidation';
-import PaymentDebug from '../components/PaymentDebug';
 
 const Checkout = ({ cart, user, onOrderComplete }) => {
   const [loading, setLoading] = useState(false);
@@ -91,7 +90,6 @@ const Checkout = ({ cart, user, onOrderComplete }) => {
 
   return (
     <div className="container my-4">
-      <PaymentDebug />
       <h2>Checkout</h2>
       <div className="row">
         <div className="col-md-8">
@@ -178,7 +176,7 @@ const Checkout = ({ cart, user, onOrderComplete }) => {
                   </div>
                 </div>
                 <button type="submit" className="btn btn-success" disabled={loading}>
-                  {loading ? 'Processing...' : `Pay ₹${totalAmount}`}
+                  {loading ? 'Processing...' : `Pay ₹${totalAmount} with PhonePe`}
                 </button>
               </form>
             </div>
