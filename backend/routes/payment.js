@@ -18,17 +18,18 @@ router.post('/create-order', auth, async (req, res) => {
       method: 'POST',
       url: 'https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json'
       },
-      data: {
-        clientId: PHONEPE_MERCHANT_ID,
-        clientSecret: PHONEPE_CLIENT_SECRET,
-        clientVersion: '1'
-      }
+      data: new URLSearchParams({
+        client_id: PHONEPE_MERCHANT_ID,
+        client_secret: PHONEPE_CLIENT_SECRET,
+        client_version: '1',
+        grant_type: 'client_credentials'
+      })
     });
     
-    const token = tokenResponse.data.accessToken;
+    const token = tokenResponse.data.access_token;
     
     // Step 2: Create payment
     const paymentResponse = await axios({
@@ -43,7 +44,7 @@ router.post('/create-order', auth, async (req, res) => {
         merchantOrderId: transactionId,
         amount: amount * 100,
         currency: 'INR',
-        redirectUrl: 'https://learnonai.com/payment/success?transactionId=' + transactionId,
+        redirectUrl: `https://learnonai.com/payment/success?transactionId=${transactionId}`,
         callbackUrl: 'https://learnonai.com/api/payment/callback',
         paymentInstrument: {
           type: 'PAY_PAGE'
@@ -51,10 +52,15 @@ router.post('/create-order', auth, async (req, res) => {
       }
     });
     
+    // PhonePe returns orderId and state, we need to construct payment URL
+    const phonepeOrderId = paymentResponse.data.orderId;
+    const paymentUrl = `https://mercury-t2.phonepe.com/transact/pg?token=${token}&orderId=${phonepeOrderId}`;
+    
     res.json({
       success: true,
-      paymentUrl: paymentResponse.data.paymentUrl,
-      transactionId: transactionId
+      paymentUrl: paymentUrl,
+      transactionId: transactionId,
+      phonepeOrderId: phonepeOrderId
     });
     
   } catch (error) {
