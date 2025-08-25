@@ -49,27 +49,37 @@ router.post('/create-order', auth, async (req, res) => {
       method: 'POST',
       url: `${PHONEPE_BASE_URL}/pg/v1/pay`,
       headers: {
-        accept: 'application/json',
+        'accept': 'application/json',
         'Content-Type': 'application/json',
         'X-VERIFY': checksum
       },
       data: {
         request: payloadMain
-      }
+      },
+      timeout: 30000
     };
     
-    console.log('Calling PhonePe API...');
-    const response = await axios.request(options);
-    console.log('PhonePe response:', response.data);
+    console.log('PhonePe API Call Details:');
+    console.log('URL:', options.url);
+    console.log('Headers:', options.headers);
+    console.log('Payload:', payloadMain);
+    console.log('Checksum:', checksum);
     
-    if (response.data.success) {
+    const response = await axios.request(options);
+    console.log('PhonePe API Response:', JSON.stringify(response.data, null, 2));
+    
+    if (response.data && response.data.success === true) {
+      const paymentUrl = response.data.data.instrumentResponse.redirectInfo.url;
+      console.log('PhonePe Payment URL:', paymentUrl);
+      
       res.json({
         success: true,
-        paymentUrl: response.data.data.instrumentResponse.redirectInfo.url,
+        paymentUrl: paymentUrl,
         transactionId: transactionId
       });
     } else {
-      throw new Error('PhonePe payment failed');
+      console.log('PhonePe API returned error:', response.data);
+      throw new Error(response.data?.message || 'PhonePe payment initiation failed');
     }
     
   } catch (error) {
@@ -121,11 +131,31 @@ router.post('/verify', auth, async (req, res) => {
   }
 });
 
+// Test PhonePe API connectivity
+router.get('/test-phonepe', async (req, res) => {
+  try {
+    console.log('Testing PhonePe API...');
+    console.log('Merchant ID:', PHONEPE_MERCHANT_ID);
+    console.log('Salt Key:', PHONEPE_SALT_KEY ? 'Present' : 'Missing');
+    console.log('Base URL:', PHONEPE_BASE_URL);
+    
+    res.json({
+      success: true,
+      config: {
+        merchantId: PHONEPE_MERCHANT_ID,
+        baseUrl: PHONEPE_BASE_URL,
+        saltKeyPresent: !!PHONEPE_SALT_KEY
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // PhonePe callback endpoint
 router.post('/callback', async (req, res) => {
   try {
     console.log('PhonePe callback received:', req.body);
-    // Handle callback logic here if needed
     res.json({ success: true });
   } catch (error) {
     console.error('Callback error:', error);
