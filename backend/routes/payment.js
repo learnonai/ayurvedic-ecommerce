@@ -4,11 +4,11 @@ const axios = require('axios');
 const { auth } = require('../middleware/auth');
 const router = express.Router();
 
-// PhonePe configuration - Using your test credentials
-const PHONEPE_MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID || 'TEST-M23KZ1MPAQX3P_25081';
-const PHONEPE_SALT_KEY = process.env.PHONEPE_SALT_KEY || 'OTI3Y2VlOWEtMGE5Zi00Y2IwLWFmMDAtYzdmODQ1NGU1MGE1';
+// PhonePe configuration - Production credentials
+const PHONEPE_MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID || 'SU2508241910194031786811';
+const PHONEPE_SALT_KEY = process.env.PHONEPE_SALT_KEY || '11d250e2-bd67-43b9-bc80-d45b3253566b';
 const PHONEPE_SALT_INDEX = process.env.PHONEPE_SALT_INDEX || '1';
-const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL || 'https://api-preprod.phonepe.com/apis/pg-sandbox';
+const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL || 'https://api.phonepe.com/apis/hermes';
 
 // Create PhonePe payment
 router.post('/create-order', auth, async (req, res) => {
@@ -90,10 +90,10 @@ router.post('/create-order', auth, async (req, res) => {
     console.error('PhonePe API failed:', error.message);
     console.error('Error details:', error.response?.data || error);
     
-    // Return error instead of fallback to see what's wrong
+    // Return error for production - no fallback
     res.status(500).json({
       success: false,
-      message: 'PhonePe API failed: ' + error.message,
+      message: 'PhonePe payment failed: ' + error.message,
       details: error.response?.data || error.message
     });
   }
