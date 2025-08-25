@@ -8,7 +8,7 @@ const router = express.Router();
 const PHONEPE_MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID || 'SU2508241910194031786811';
 const PHONEPE_SALT_KEY = process.env.PHONEPE_SALT_KEY || '11d250e2-bd67-43b9-bc80-d45b3253566b';
 const PHONEPE_SALT_INDEX = process.env.PHONEPE_SALT_INDEX || '1';
-const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL || 'https://api.phonepe.com/apis/hermes';
+const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL || 'https://api.phonepe.com/apis/hermes/pg';
 
 // Create PhonePe payment
 router.post('/create-order', auth, async (req, res) => {
@@ -47,7 +47,7 @@ router.post('/create-order', auth, async (req, res) => {
     
     const options = {
       method: 'POST',
-      url: `${PHONEPE_BASE_URL}/pg/v1/pay`,
+      url: `${PHONEPE_BASE_URL}/v1/pay`,
       headers: {
         'accept': 'application/json',
         'Content-Type': 'application/json',
