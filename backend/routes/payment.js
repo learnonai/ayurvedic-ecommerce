@@ -28,10 +28,10 @@ router.post('/create-order', auth, async (req, res) => {
     const paymentData = {
       merchantId: PHONEPE_MERCHANT_ID,
       merchantTransactionId: transactionId,
-      merchantUserId: userId.toString(),
+      merchantUserId: `MUID${userId.toString()}`,
       amount: amount * 100, // Convert to paise
       redirectUrl: `${baseUrl}/payment/success?transactionId=${transactionId}`,
-      redirectMode: 'REDIRECT',
+      redirectMode: 'POST',
       callbackUrl: isProduction ? 'https://learnonai.com/api/payment/callback' : 'http://localhost:5000/api/payment/callback',
       paymentInstrument: {
         type: 'PAY_PAGE'
@@ -56,7 +56,10 @@ router.post('/create-order', auth, async (req, res) => {
       data: {
         request: payloadMain
       },
-      timeout: 30000
+      timeout: 30000,
+      validateStatus: function (status) {
+        return status < 500; // Don't throw for 4xx errors
+      }
     };
     
     console.log('PhonePe API Call Details:');
@@ -68,7 +71,7 @@ router.post('/create-order', auth, async (req, res) => {
     const response = await axios.request(options);
     console.log('PhonePe API Response:', JSON.stringify(response.data, null, 2));
     
-    if (response.data && response.data.success === true) {
+    if (response.status === 200 && response.data && response.data.success === true) {
       const paymentUrl = response.data.data.instrumentResponse.redirectInfo.url;
       console.log('PhonePe Payment URL:', paymentUrl);
       
@@ -78,8 +81,9 @@ router.post('/create-order', auth, async (req, res) => {
         transactionId: transactionId
       });
     } else {
-      console.log('PhonePe API returned error:', response.data);
-      throw new Error(response.data?.message || 'PhonePe payment initiation failed');
+      console.log('PhonePe API Error Response:', JSON.stringify(response.data, null, 2));
+      console.log('Response Status:', response.status);
+      throw new Error(`PhonePe API Error: ${JSON.stringify(response.data)}`);
     }
     
   } catch (error) {
