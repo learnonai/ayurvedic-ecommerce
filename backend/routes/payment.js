@@ -22,10 +22,16 @@ const getPhonePeToken = async () => {
       clientId: PHONEPE_MERCHANT_ID,
       clientSecret: PHONEPE_SALT_KEY,
       clientVersion: '1'
-    }
+    },
+    timeout: 10000
   };
   
+  console.log('Getting PhonePe token...');
+  console.log('Token URL:', tokenOptions.url);
+  console.log('Credentials:', { clientId: PHONEPE_MERCHANT_ID, clientSecret: PHONEPE_SALT_KEY ? 'Present' : 'Missing' });
+  
   const response = await axios.request(tokenOptions);
+  console.log('Token response:', response.data);
   return response.data.accessToken;
 };
 
@@ -64,9 +70,10 @@ router.post('/create-order', auth, async (req, res) => {
       timeout: 10000
     };
     
-    console.log('PhonePe API Call:', options.url);
+    console.log('PhonePe Payment API Call:', options.url);
+    console.log('Payment payload:', paymentData);
     const response = await axios.request(options);
-    console.log('PhonePe Response:', response.data);
+    console.log('PhonePe Payment Response:', response.data);
     
     if (response.data && response.data.paymentUrl) {
       res.json({
