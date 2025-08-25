@@ -80,18 +80,12 @@ router.post('/create-order', auth, async (req, res) => {
     
   } catch (error) {
     console.error('PhonePe API failed:', error.message);
+    console.error('Full error:', error.response?.data || error);
     
-    // Fallback to mock payment
-    const mockTransactionId = `MOCK_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    const host = req.get('host');
-    const isProduction = host && host.includes('learnonai.com');
-    const baseUrl = isProduction ? 'https://learnonai.com' : 'http://localhost:3001';
-    
-    res.json({
-      success: true,
-      paymentUrl: `${baseUrl}/payment/success?transactionId=${mockTransactionId}&status=success`,
-      transactionId: mockTransactionId,
-      isMock: true
+    res.status(500).json({
+      success: false,
+      message: 'PhonePe payment failed: ' + error.message,
+      details: error.response?.data || error.message
     });
   }
 });
