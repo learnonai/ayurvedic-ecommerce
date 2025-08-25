@@ -4,9 +4,9 @@ const axios = require('axios');
 const { auth } = require('../middleware/auth');
 const router = express.Router();
 
-// PhonePe configuration
-const PHONEPE_MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID || 'PGTESTPAYUAT';
-const PHONEPE_SALT_KEY = process.env.PHONEPE_SALT_KEY || '099eb0cd-02cf-4e2a-8aca-3e6c6aff0399';
+// PhonePe configuration - Using your test credentials
+const PHONEPE_MERCHANT_ID = process.env.PHONEPE_MERCHANT_ID || 'TEST-M23KZ1MPAQX3P_25081';
+const PHONEPE_SALT_KEY = process.env.PHONEPE_SALT_KEY || 'OTI3Y2VlOWEtMGE5Zi00Y2IwLWFmMDAtYzdmODQ1NGU1MGE1';
 const PHONEPE_SALT_INDEX = process.env.PHONEPE_SALT_INDEX || '1';
 const PHONEPE_BASE_URL = process.env.PHONEPE_BASE_URL || 'https://api-preprod.phonepe.com/apis/pg-sandbox';
 
@@ -84,19 +84,13 @@ router.post('/create-order', auth, async (req, res) => {
     
   } catch (error) {
     console.error('PhonePe API failed:', error.message);
+    console.error('Error details:', error.response?.data || error);
     
-    // Fallback to mock payment for testing
-    const mockTransactionId = `MOCK_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    const host = req.get('host');
-    const isProduction = host && host.includes('learnonai.com');
-    const baseUrl = isProduction ? 'https://learnonai.com' : 'http://localhost:3001';
-    
-    console.log('Using mock payment as fallback');
-    res.json({
-      success: true,
-      paymentUrl: `${baseUrl}/payment/success?transactionId=${mockTransactionId}&status=success`,
-      transactionId: mockTransactionId,
-      isMock: true
+    // Return error instead of fallback to see what's wrong
+    res.status(500).json({
+      success: false,
+      message: 'PhonePe API failed: ' + error.message,
+      details: error.response?.data || error.message
     });
   }
 });
