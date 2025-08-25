@@ -17,7 +17,13 @@ router.post('/create-order', auth, async (req, res) => {
     const userId = req.user._id || req.user.id || 'user1';
     
     const transactionId = `TXN_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    const baseUrl = 'http://localhost:3001';
+    
+    // Detect if running on production
+    const host = req.get('host');
+    const isProduction = host && host.includes('learnonai.com');
+    const baseUrl = isProduction ? 'https://learnonai.com' : 'http://localhost:3001';
+    
+    console.log('Host:', host, 'IsProduction:', isProduction, 'BaseURL:', baseUrl);
     
     const paymentData = {
       merchantId: PHONEPE_MERCHANT_ID,
@@ -26,7 +32,7 @@ router.post('/create-order', auth, async (req, res) => {
       amount: amount * 100, // Convert to paise
       redirectUrl: `${baseUrl}/payment/success?transactionId=${transactionId}`,
       redirectMode: 'REDIRECT',
-      callbackUrl: `http://localhost:5000/api/payment/callback`,
+      callbackUrl: isProduction ? 'https://learnonai.com/api/payment/callback' : 'http://localhost:5000/api/payment/callback',
       paymentInstrument: {
         type: 'PAY_PAGE'
       }
@@ -71,7 +77,9 @@ router.post('/create-order', auth, async (req, res) => {
     
     // Fallback to mock payment for testing
     const mockTransactionId = `MOCK_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    const baseUrl = 'http://localhost:3001';
+    const host = req.get('host');
+    const isProduction = host && host.includes('learnonai.com');
+    const baseUrl = isProduction ? 'https://learnonai.com' : 'http://localhost:3001';
     
     console.log('Using mock payment as fallback');
     res.json({
