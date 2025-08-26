@@ -6,7 +6,8 @@ class PhonePeService {
     this.merchantId = 'SU2508241910194031786811';
     this.saltKey = '11d250e2-bd67-43b9-bc80-d45b3253566b';
     this.keyIndex = 1;
-    this.apiUrl = 'https://api.phonepe.com/apis/hermes/pg/v1';
+    this.prodURL = "https://api.phonepe.com/apis/hermes/pg/v1/pay";
+    this.statusURL = "https://api.phonepe.com/apis/hermes/pg/v1/status";
   }
 
   async createPayment(orderData) {
@@ -18,7 +19,7 @@ class PhonePeService {
         merchantTransactionId: merchantTransactionId,
         merchantUserId: orderData.userId || 'USER_' + Date.now(),
         name: orderData.name || 'Customer',
-        amount: orderData.amount * 100, // Convert to paise
+        amount: orderData.amount * 100,
         redirectUrl: `${process.env.NODE_ENV === 'production' ? 'https://learnonai.com' : 'http://localhost:5000'}/api/payment/status/${merchantTransactionId}`,
         redirectMode: 'POST',
         mobileNumber: orderData.phone || '9999999999',
@@ -35,7 +36,7 @@ class PhonePeService {
 
       const options = {
         method: 'POST',
-        url: `${this.apiUrl}/pay`,
+        url: this.prodURL,
         headers: {
           accept: 'application/json',
           'Content-Type': 'application/json',
@@ -48,15 +49,11 @@ class PhonePeService {
 
       const response = await axios.request(options);
       
-      if (response.data.success) {
-        return {
-          success: true,
-          transactionId: merchantTransactionId,
-          paymentUrl: response.data.data.instrumentResponse.redirectInfo.url
-        };
-      } else {
-        throw new Error(response.data.message || 'Payment initiation failed');
-      }
+      return {
+        success: true,
+        transactionId: merchantTransactionId,
+        paymentUrl: response.data.data.instrumentResponse.redirectInfo.url
+      };
 
     } catch (error) {
       console.error('PhonePe Error:', error.response?.data || error.message);
@@ -75,7 +72,7 @@ class PhonePeService {
 
       const options = {
         method: 'GET',
-        url: `${this.apiUrl}/status/${this.merchantId}/${merchantTransactionId}`,
+        url: `${this.statusURL}/${this.merchantId}/${merchantTransactionId}`,
         headers: {
           accept: 'application/json',
           'Content-Type': 'application/json',
@@ -94,7 +91,6 @@ class PhonePeService {
       };
 
     } catch (error) {
-      console.error('Status Check Error:', error.response?.data || error.message);
       return {
         success: false,
         error: error.message
