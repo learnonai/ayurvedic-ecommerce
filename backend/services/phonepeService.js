@@ -3,10 +3,10 @@ const axios = require('axios');
 
 class PhonePeService {
   constructor() {
-    this.merchantId = 'TEST-M23KZ1MPAQX3P_25081';
-    this.saltKey = 'OTI3Y2VlOWEtMGE5Zi00Y2IwLWFmMDAtYzdmODQ1NGU1MGE1';
+    this.merchantId = 'SU2508241910194031786811';
+    this.saltKey = '11d250e2-bd67-43b9-bc80-d45b3253566b';
     this.keyIndex = 1;
-    this.apiUrl = 'https://api-preprod.phonepe.com/apis/pg-sandbox';
+    this.apiUrl = 'https://api.phonepe.com/apis/hermes';
   }
 
   async createPayment(orderData) {
