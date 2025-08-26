@@ -1,38 +1,64 @@
 const express = require('express');
 const { auth } = require('../middleware/auth');
+const phonepeService = require('../services/phonepeService');
 const router = express.Router();
 
-// Mock payment for demo
+// Create PhonePe payment
 router.post('/create-order', auth, async (req, res) => {
   try {
     const { amount } = req.body;
+    const userId = req.user.id;
+    const phone = req.user.phone || '9999999999';
     
-    // Mock order creation
-    const order = {
-      id: 'order_' + Date.now(),
-      amount: amount * 100,
-      currency: 'INR',
-      status: 'created'
-    };
+    const result = await phonepeService.createPayment({
+      amount,
+      userId,
+      phone
+    });
     
-    res.json(order);
+    if (result.success) {
+      res.json({
+        success: true,
+        paymentUrl: result.paymentUrl,
+        transactionId: result.transactionId
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: result.error
+      });
+    }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      success: false,
+      message: 'Payment creation failed'
+    });
   }
 });
 
-// Mock payment verification
+// PhonePe callback
+router.post('/callback', async (req, res) => {
+  console.log('PhonePe Callback:', req.body);
+  res.json({ success: true });
+});
+
+// Verify payment
 router.post('/verify', auth, async (req, res) => {
   try {
-    const { orderId, paymentId, signature } = req.body;
+    const { transactionId } = req.body;
     
-    res.json({ 
-      success: true, 
-      message: 'Payment verified successfully',
-      paymentId 
+    const result = await phonepeService.verifyPayment(transactionId);
+    
+    res.json({
+      success: result.success,
+      status: result.status,
+      transactionId: result.transactionId
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      success: false,
+      message: 'Verification failed'
+    });
   }
 });
 

@@ -15,6 +15,7 @@ import Checkout from './pages/Checkout';
 import Policies from './pages/Policies';
 import Profile from './pages/Profile';
 import ProductDetail from './pages/ProductDetail';
+import PaymentSuccess from './pages/PaymentSuccess';
 
 import { orders, payment } from './utils/api';
 import { sessionManager } from './utils/security';
@@ -117,6 +118,7 @@ function App() {
         <Route path="/orders" element={<Orders user={user} />} />
         <Route path="/policies" element={<Policies />} />
         <Route path="/profile" element={<Profile user={user} onLogin={handleLogin} />} />
+        <Route path="/payment/success" element={<PaymentSuccess onOrderComplete={() => setCart([])} />} />
 
         </Routes>
         <Footer />

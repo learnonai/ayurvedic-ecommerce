@@ -40,38 +40,31 @@ const Checkout = ({ cart, user, onOrderComplete }) => {
     setLoading(true);
 
     try {
-      // Create order
-      const orderResponse = await payment.createOrder(totalAmount);
+      // Create PhonePe payment
+      const paymentResponse = await payment.createOrder(totalAmount);
       
-      // Mock payment success
-      const paymentResult = {
-        orderId: orderResponse.data.id,
-        paymentId: 'pay_' + Date.now(),
-        signature: 'mock_signature'
-      };
-      
-      // Verify payment
-      await payment.verify(paymentResult);
-      
-      // Create order in database
-      const orderData = {
-        items: cart.map(item => ({
-          product: item._id,
-          quantity: item.quantity,
-          price: item.price
-        })),
-        totalAmount,
-        paymentStatus: 'paid',
-        shippingAddress
-      };
-      
-      await orders.create(orderData);
-      
-      alert('Order placed successfully!');
-      onOrderComplete();
-      navigate('/orders');
+      if (paymentResponse.data.success) {
+        // Store order data for after payment
+        const orderData = {
+          items: cart.map(item => ({
+            product: item._id,
+            quantity: item.quantity,
+            price: item.price
+          })),
+          totalAmount,
+          shippingAddress,
+          transactionId: paymentResponse.data.transactionId
+        };
+        
+        localStorage.setItem('pendingOrder', JSON.stringify(orderData));
+        
+        // Redirect to PhonePe
+        window.location.href = paymentResponse.data.paymentUrl;
+      } else {
+        throw new Error(paymentResponse.data.message || 'Payment failed');
+      }
     } catch (error) {
-      alert('Order failed. Please try again.');
+      alert('Payment failed. Please try again.');
     }
     setLoading(false);
   };
@@ -175,7 +168,7 @@ const Checkout = ({ cart, user, onOrderComplete }) => {
                   </div>
                 </div>
                 <button type="submit" className="btn btn-success" disabled={loading}>
-                  {loading ? 'Processing...' : `Pay ₹${totalAmount}`}
+                  {loading ? 'Processing...' : `Pay ₹${totalAmount} with PhonePe`}
                 </button>
               </form>
             </div>
