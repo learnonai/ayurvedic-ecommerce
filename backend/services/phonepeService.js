@@ -15,6 +15,8 @@ class PhonePeService {
     try {
       const transactionId = `TXN_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       
+      console.log('Creating PhonePe payment for:', orderData);
+      
       const payload = {
         merchantId: this.merchantId,
         merchantTransactionId: transactionId,
@@ -59,6 +61,11 @@ class PhonePeService {
         throw new Error(response.data.message || 'Payment failed');
       }
     } catch (error) {
+      console.error('PhonePe API Error:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
       return {
         success: false,
         error: error.response?.data?.message || error.message

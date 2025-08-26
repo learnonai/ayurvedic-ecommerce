@@ -10,11 +10,22 @@ router.post('/create-order', auth, async (req, res) => {
     const userId = req.user.id;
     const phone = req.user.phone || '9999999999';
     
+    console.log('Payment request:', { amount, userId, phone });
+    
+    if (!amount || amount <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid amount'
+      });
+    }
+    
     const result = await phonepeService.createPayment({
       amount,
       userId,
       phone
     });
+    
+    console.log('PhonePe result:', result);
     
     if (result.success) {
       res.json({
@@ -29,9 +40,10 @@ router.post('/create-order', auth, async (req, res) => {
       });
     }
   } catch (error) {
+    console.error('Payment route error:', error);
     res.status(500).json({
       success: false,
-      message: 'Payment creation failed'
+      message: error.message || 'Payment creation failed'
     });
   }
 });
