@@ -6,7 +6,7 @@ class PhonePeService {
     this.merchantId = 'SU2508241910194031786811';
     this.saltKey = '11d250e2-bd67-43b9-bc80-d45b3253566b';
     this.keyIndex = 1;
-    this.apiUrl = 'https://api.phonepe.com/apis/hermes';
+    this.apiUrl = 'https://api.phonepe.com/apis/hermes/pg/v1';
   }
 
   async createPayment(orderData) {
@@ -35,7 +35,7 @@ class PhonePeService {
 
       const options = {
         method: 'POST',
-        url: `${this.apiUrl}/pg/v1/pay`,
+        url: `${this.apiUrl}/pay`,
         headers: {
           accept: 'application/json',
           'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ class PhonePeService {
 
       const options = {
         method: 'GET',
-        url: `${this.apiUrl}/pg/v1/status/${this.merchantId}/${merchantTransactionId}`,
+        url: `${this.apiUrl}/status/${this.merchantId}/${merchantTransactionId}`,
         headers: {
           accept: 'application/json',
           'Content-Type': 'application/json',
