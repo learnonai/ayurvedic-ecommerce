@@ -16,12 +16,13 @@ class PhonePeService {
       const transactionId = `TXN_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       
       console.log('Creating PhonePe payment for:', orderData);
+      console.log('Using config:', { merchantId: this.merchantId, baseUrl: this.baseUrl });
       
       const payload = {
         merchantId: this.merchantId,
         merchantTransactionId: transactionId,
         merchantUserId: orderData.userId || 'USER_' + Date.now(),
-        amount: orderData.amount * 100,
+        amount: Math.round(orderData.amount * 100),
         redirectUrl: process.env.NODE_ENV === 'production' 
           ? 'https://learnonai.com/payment-success' 
           : 'http://localhost:3000/payment-success',
@@ -35,9 +36,14 @@ class PhonePeService {
         }
       };
 
+      console.log('Payment payload:', payload);
+      
       const base64Payload = Buffer.from(JSON.stringify(payload)).toString('base64');
       const string = base64Payload + '/pg/v1/pay' + this.saltKey;
       const checksum = crypto.createHash('sha256').update(string).digest('hex') + '###' + this.keyIndex;
+
+      console.log('Making request to:', `${this.baseUrl}/pg/v1/pay`);
+      console.log('Checksum generated:', checksum);
 
       const response = await axios.post(
         `${this.baseUrl}/pg/v1/pay`,

@@ -3,6 +3,11 @@ cd /home/ec2-user/ayurvedic-ecommerce && git stash && git pull origin main && pm
 admin panel ==
  cd /home/ec2-user/ayurvedic-ecommerce && git pull origin main && cd admin-panel && npm run build && pm2 restart admin-panel
 
+correct command:
+cd backend && npm ci && pm2 start server.js --name "api" && cd ../client-website && rm -rf node_modules/.cache build && npm ci && GENERATE_SOURCEMAP=false npm run build && pm2 serve build 3001 --name "client" --spa && cd ../admin-panel && rm -rf node_modules/.cache build && npm ci && GENERATE_SOURCEMAP=false npm run build && pm2 serve build 3000 --name "admin-panel" --spa && sudo systemctl reload nginx && pm2 save
+
+after this:
+rm package-lock.json && npm install && npm run build && pm2 serve build 3000 --name "admin-panel" --spa && sudo systemctl reload nginx && pm2 save
 
 
 # After uploading images via admin panel, run:
