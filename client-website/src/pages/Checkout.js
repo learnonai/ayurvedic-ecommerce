@@ -40,39 +40,38 @@ const Checkout = ({ cart, user, onOrderComplete }) => {
     setLoading(true);
 
     try {
-      console.log('Initiating payment for amount:', totalAmount);
+      // Create order
+      const orderResponse = await payment.createOrder(totalAmount);
       
-      // Create PhonePe payment
-      const paymentResponse = await payment.createOrder(totalAmount);
+      // Mock payment success
+      const paymentResult = {
+        orderId: orderResponse.data.id,
+        paymentId: 'pay_' + Date.now(),
+        signature: 'mock_signature'
+      };
       
-      console.log('Payment response:', paymentResponse.data);
+      // Verify payment
+      await payment.verify(paymentResult);
       
-      if (paymentResponse.data.success) {
-        // Store order data in localStorage for after payment
-        const orderData = {
-          items: cart.map(item => ({
-            product: item._id,
-            quantity: item.quantity,
-            price: item.price
-          })),
-          totalAmount,
-          shippingAddress,
-          transactionId: paymentResponse.data.transactionId
-        };
-        
-        localStorage.setItem('pendingOrder', JSON.stringify(orderData));
-        
-        console.log('Redirecting to payment URL:', paymentResponse.data.paymentUrl);
-        
-        // Redirect to PhonePe payment page
-        window.location.href = paymentResponse.data.paymentUrl;
-      } else {
-        throw new Error(paymentResponse.data.message || 'Payment initiation failed');
-      }
+      // Create order in database
+      const orderData = {
+        items: cart.map(item => ({
+          product: item._id,
+          quantity: item.quantity,
+          price: item.price
+        })),
+        totalAmount,
+        paymentStatus: 'paid',
+        shippingAddress
+      };
+      
+      await orders.create(orderData);
+      
+      alert('Order placed successfully!');
+      onOrderComplete();
+      navigate('/orders');
     } catch (error) {
-      console.error('Payment error:', error);
-      const errorMessage = error.response?.data?.message || error.message || 'Order failed. Please try again.';
-      alert(errorMessage);
+      alert('Order failed. Please try again.');
     }
     setLoading(false);
   };
@@ -176,7 +175,7 @@ const Checkout = ({ cart, user, onOrderComplete }) => {
                   </div>
                 </div>
                 <button type="submit" className="btn btn-success" disabled={loading}>
-                  {loading ? 'Processing...' : `Pay ₹${totalAmount} with PhonePe`}
+                  {loading ? 'Processing...' : `Pay ₹${totalAmount}`}
                 </button>
               </form>
             </div>

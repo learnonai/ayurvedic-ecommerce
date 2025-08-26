@@ -15,8 +15,7 @@ import Checkout from './pages/Checkout';
 import Policies from './pages/Policies';
 import Profile from './pages/Profile';
 import ProductDetail from './pages/ProductDetail';
-import PaymentSuccess from './pages/PaymentSuccess';
-import PaymentFailure from './pages/PaymentFailure';
+
 import { orders, payment } from './utils/api';
 import { sessionManager } from './utils/security';
 import './utils/logger'; // Disable console in production
@@ -118,8 +117,7 @@ function App() {
         <Route path="/orders" element={<Orders user={user} />} />
         <Route path="/policies" element={<Policies />} />
         <Route path="/profile" element={<Profile user={user} onLogin={handleLogin} />} />
-        <Route path="/payment/success" element={<PaymentSuccess onOrderComplete={() => setCart([])} />} />
-        <Route path="/payment/failure" element={<PaymentFailure />} />
+
         </Routes>
         <Footer />
         <ToastContainer />
