@@ -13,7 +13,7 @@ router.post('/create-order', auth, async (req, res) => {
     
     console.log('Payment Request:', { amount, userId, phone, name });
     
-    const paymentResult = await phonepeService.createPayment({
+    const paymentResult = await phonepeService.initiatePayment({
       amount,
       userId,
       phone,
@@ -41,13 +41,13 @@ router.post('/create-order', auth, async (req, res) => {
   }
 });
 
-// PhonePe status callback
-router.post('/status/:txnId', async (req, res) => {
+// PhonePe callback
+router.post('/callback/:txnId', async (req, res) => {
   try {
     const merchantTransactionId = req.params.txnId;
     console.log('Status Check for:', merchantTransactionId);
     
-    const statusResult = await phonepeService.checkStatus(merchantTransactionId);
+    const statusResult = await phonepeService.checkPaymentStatus(merchantTransactionId);
     
     if (statusResult.success && statusResult.status === 'COMPLETED') {
       // Redirect to success page
@@ -76,7 +76,7 @@ router.post('/verify', auth, async (req, res) => {
   try {
     const { transactionId } = req.body;
     
-    const result = await phonepeService.checkStatus(transactionId);
+    const result = await phonepeService.checkPaymentStatus(transactionId);
     
     res.json({
       success: result.success,
