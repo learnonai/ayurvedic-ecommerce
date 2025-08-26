@@ -9,11 +9,15 @@ router.post('/create-order', auth, async (req, res) => {
     const { amount } = req.body;
     const userId = req.user.id;
     const phone = req.user.phone || '9999999999';
+    const name = req.user.name || 'Customer';
+    
+    console.log('Payment Request:', { amount, userId, phone, name });
     
     const paymentResult = await phonepeService.createPayment({
       amount,
       userId,
-      phone
+      phone,
+      name
     });
     
     if (paymentResult.success) {
@@ -29,6 +33,7 @@ router.post('/create-order', auth, async (req, res) => {
       });
     }
   } catch (error) {
+    console.error('Payment Route Error:', error);
     res.status(500).json({
       success: false,
       message: 'Payment creation failed'
@@ -36,12 +41,42 @@ router.post('/create-order', auth, async (req, res) => {
   }
 });
 
-// Verify payment
+// PhonePe status callback
+router.post('/status/:txnId', async (req, res) => {
+  try {
+    const merchantTransactionId = req.params.txnId;
+    console.log('Status Check for:', merchantTransactionId);
+    
+    const statusResult = await phonepeService.checkStatus(merchantTransactionId);
+    
+    if (statusResult.success && statusResult.status === 'COMPLETED') {
+      // Redirect to success page
+      const successUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://learnonai.com/payment/success' 
+        : 'http://localhost:3001/payment/success';
+      return res.redirect(`${successUrl}?transactionId=${merchantTransactionId}&status=success`);
+    } else {
+      // Redirect to failure page
+      const failureUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://learnonai.com/payment/failure' 
+        : 'http://localhost:3001/payment/failure';
+      return res.redirect(`${failureUrl}?transactionId=${merchantTransactionId}&status=failed`);
+    }
+  } catch (error) {
+    console.error('Status Check Error:', error);
+    const failureUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://learnonai.com/payment/failure' 
+      : 'http://localhost:3001/payment/failure';
+    return res.redirect(failureUrl);
+  }
+});
+
+// Verify payment (for frontend)
 router.post('/verify', auth, async (req, res) => {
   try {
     const { transactionId } = req.body;
     
-    const result = await phonepeService.verifyPayment(transactionId);
+    const result = await phonepeService.checkStatus(transactionId);
     
     res.json({
       success: result.success,
@@ -54,12 +89,6 @@ router.post('/verify', auth, async (req, res) => {
       message: 'Verification failed'
     });
   }
-});
-
-// Callback endpoint
-router.post('/callback', async (req, res) => {
-  console.log('PhonePe Callback:', req.body);
-  res.json({ success: true });
 });
 
 module.exports = router;
