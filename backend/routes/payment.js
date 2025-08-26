@@ -38,8 +38,25 @@ router.post('/create-order', auth, async (req, res) => {
 
 // PhonePe callback
 router.post('/callback', async (req, res) => {
-  console.log('PhonePe Callback:', req.body);
-  res.json({ success: true });
+  try {
+    console.log('PhonePe Callback:', req.body);
+    
+    const { transactionId, code, merchantId } = req.body;
+    
+    if (code === 'PAYMENT_SUCCESS') {
+      // Verify payment status
+      const verifyResult = await phonepeService.verifyPayment(transactionId);
+      
+      if (verifyResult.success && verifyResult.status === 'COMPLETED') {
+        console.log('Payment verified successfully:', transactionId);
+      }
+    }
+    
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Callback processing error:', error);
+    res.json({ success: false });
+  }
 });
 
 // Verify payment

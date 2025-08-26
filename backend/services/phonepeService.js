@@ -3,10 +3,12 @@ const axios = require('axios');
 
 class PhonePeService {
   constructor() {
-    this.merchantId = 'TEST-M23KZ1MPAQX3P_25081';
-    this.saltKey = 'OTI3Y2VlOWEtMGE5Zi00Y2IwLWFmMDAtYzdmODQ1NGU1MGE1';
+    this.merchantId = process.env.PHONEPE_MERCHANT_ID || 'PGTESTPAYUAT';
+    this.saltKey = process.env.PHONEPE_SALT_KEY || '099eb0cd-02cf-4e2a-8aca-3e6c6aff0399';
     this.keyIndex = 1;
-    this.baseUrl = 'https://api-preprod.phonepe.com/apis/pg-sandbox';
+    this.baseUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://api.phonepe.com/apis/hermes' 
+      : 'https://api-preprod.phonepe.com/apis/pg-sandbox';
   }
 
   async createPayment(orderData) {
@@ -18,9 +20,13 @@ class PhonePeService {
         merchantTransactionId: transactionId,
         merchantUserId: orderData.userId || 'USER_' + Date.now(),
         amount: orderData.amount * 100,
-        redirectUrl: 'https://learnonai.com/payment/success',
+        redirectUrl: process.env.NODE_ENV === 'production' 
+          ? 'https://learnonai.com/payment-success' 
+          : 'http://localhost:3000/payment-success',
         redirectMode: 'REDIRECT',
-        callbackUrl: 'https://learnonai.com/api/payment/callback',
+        callbackUrl: process.env.NODE_ENV === 'production' 
+          ? 'https://learnonai.com/api/payment/callback' 
+          : 'http://localhost:5000/api/payment/callback',
         mobileNumber: orderData.phone || '9999999999',
         paymentInstrument: {
           type: 'PAY_PAGE'

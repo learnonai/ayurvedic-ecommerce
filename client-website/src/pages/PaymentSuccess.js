@@ -1,104 +1,118 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { orders } from '../utils/api';
+import { payment, orders } from '../utils/api';
 
-const PaymentSuccess = ({ onOrderComplete }) => {
-  const [loading, setLoading] = useState(true);
-  const [status, setStatus] = useState('processing');
+const PaymentSuccess = () => {
+  const [status, setStatus] = useState('verifying');
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-    const processOrder = async () => {
+    const verifyPaymentAndCreateOrder = async () => {
       try {
-        // Get pending order from localStorage
-        const pendingOrder = JSON.parse(localStorage.getItem('pendingOrder') || '{}');
+        const transactionId = searchParams.get('id');
         
-        if (pendingOrder.items) {
-          // Create order in database
-          const orderData = {
-            ...pendingOrder,
-            paymentStatus: 'paid'
-          };
-          
-          await orders.create(orderData);
-          
-          // Clear pending order
-          localStorage.removeItem('pendingOrder');
-          
-          if (onOrderComplete) {
-            onOrderComplete();
-          }
-          
-          setStatus('success');
-        } else {
+        if (!transactionId) {
           setStatus('error');
+          return;
+        }
+        
+        // Verify payment with PhonePe
+        const verifyResponse = await payment.verify({ transactionId });
+        
+        if (verifyResponse.data.success && verifyResponse.data.status === 'COMPLETED') {
+          // Get pending order from localStorage
+          const pendingOrderStr = localStorage.getItem('pendingOrder');
+          
+          if (pendingOrderStr) {
+            const orderData = JSON.parse(pendingOrderStr);
+            
+            // Create order in database
+            const orderResponse = await orders.create({
+              ...orderData,
+              paymentStatus: 'completed',
+              paymentId: transactionId
+            });
+            
+            if (orderResponse.data.success) {
+              localStorage.removeItem('pendingOrder');
+              setStatus('success');
+            } else {
+              setStatus('error');
+            }
+          } else {
+            setStatus('error');
+          }
+        } else {
+          setStatus('failed');
         }
       } catch (error) {
+        console.error('Payment verification error:', error);
         setStatus('error');
       }
-      
-      setLoading(false);
     };
-
-    processOrder();
-  }, [onOrderComplete]);
-
-  if (loading) {
-    return (
-      <div className="container my-5 text-center">
-        <div className="spinner-border text-success" role="status">
-          <span className="visually-hidden">Processing...</span>
-        </div>
-        <p className="mt-3">Processing your order...</p>
-      </div>
-    );
-  }
-
-  if (status === 'success') {
-    return (
-      <div className="container my-5 text-center">
-        <div className="card mx-auto" style={{maxWidth: '500px'}}>
-          <div className="card-body">
-            <div className="text-success mb-3">
-              <i className="fas fa-check-circle" style={{fontSize: '4rem'}}></i>
-            </div>
-            <h2 className="text-success">Payment Successful!</h2>
-            <p className="text-muted">Your order has been placed successfully.</p>
-            <div className="d-flex gap-2 justify-content-center">
-              <button 
-                className="btn btn-success"
-                onClick={() => navigate('/orders')}
-              >
-                View Orders
-              </button>
-              <button 
-                className="btn btn-outline-success"
-                onClick={() => navigate('/products')}
-              >
-                Continue Shopping
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+    
+    verifyPaymentAndCreateOrder();
+  }, [searchParams]);
+  
+  const handleContinue = () => {
+    if (status === 'success') {
+      navigate('/orders');
+    } else {
+      navigate('/cart');
+    }
+  };
+  
   return (
-    <div className="container my-5 text-center">
-      <div className="card mx-auto" style={{maxWidth: '500px'}}>
-        <div className="card-body">
-          <div className="text-danger mb-3">
-            <i className="fas fa-times-circle" style={{fontSize: '4rem'}}></i>
+    <div className="container my-5">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card text-center">
+            <div className="card-body">
+              {status === 'verifying' && (
+                <>
+                  <div className="spinner-border text-primary mb-3" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  <h4>Verifying Payment...</h4>
+                  <p>Please wait while we confirm your payment.</p>
+                </>
+              )}
+              
+              {status === 'success' && (
+                <>
+                  <i className="fas fa-check-circle text-success mb-3" style={{ fontSize: '3rem' }}></i>
+                  <h4 className="text-success">Payment Successful!</h4>
+                  <p>Your order has been placed successfully.</p>
+                  <button className="btn btn-success" onClick={handleContinue}>
+                    View Orders
+                  </button>
+                </>
+              )}
+              
+              {status === 'failed' && (
+                <>
+                  <i className="fas fa-times-circle text-warning mb-3" style={{ fontSize: '3rem' }}></i>
+                  <h4 className="text-warning">Payment Failed</h4>
+                  <p>Your payment was not completed. Please try again.</p>
+                  <button className="btn btn-primary" onClick={handleContinue}>
+                    Return to Cart
+                  </button>
+                </>
+              )}
+              
+              {status === 'error' && (
+                <>
+                  <i className="fas fa-exclamation-triangle text-danger mb-3" style={{ fontSize: '3rem' }}></i>
+                  <h4 className="text-danger">Something Went Wrong</h4>
+                  <p>There was an error processing your payment. Please contact support.</p>
+                  <button className="btn btn-secondary" onClick={handleContinue}>
+                    Return to Cart
+                  </button>
+                </>
+              )}
+            </div>
           </div>
-          <h2 className="text-danger">Payment Failed</h2>
-          <p className="text-muted">There was an issue processing your order.</p>
-          <button 
-            className="btn btn-danger"
-            onClick={() => navigate('/checkout')}
-          >
-            Try Again
-          </button>
         </div>
       </div>
     </div>

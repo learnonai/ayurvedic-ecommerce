@@ -118,7 +118,7 @@ function App() {
         <Route path="/orders" element={<Orders user={user} />} />
         <Route path="/policies" element={<Policies />} />
         <Route path="/profile" element={<Profile user={user} onLogin={handleLogin} />} />
-        <Route path="/payment/success" element={<PaymentSuccess onOrderComplete={() => setCart([])} />} />
+        <Route path="/payment-success" element={<PaymentSuccess onOrderComplete={() => setCart([])} />} />
 
         </Routes>
         <Footer />
