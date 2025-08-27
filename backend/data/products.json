@@ -2,7 +2,7 @@
   {
     "name": "Herbal Coconut Oil (100ml)",
     "description": "Pure cold-pressed virgin coconut oil enriched with natural herbs for hair and skin care. This premium quality oil is extracted using traditional methods to preserve all natural nutrients. Perfect for daily hair and skin care routine.",
-    "price": "299",
+    "price": "1",
     "category": "oils",
     "stock": "50",
     "volume": "100ml",
@@ -20,11 +20,11 @@
     ],
     "usage": "Apply to hair and scalp, massage gently. Leave for 30 minutes before washing",
     "images": [
-      "uploads/1755947201642-shio.jpg"
+      "uploads/1756310639470-image.png"
     ],
     "isActive": true,
     "_id": "HERB001",
-    "updatedAt": "2025-08-23T11:06:41.651Z"
+    "updatedAt": "2025-08-27T16:03:59.472Z"
   },
   {
     "name": "Herbal Argan Oil (50ml)",

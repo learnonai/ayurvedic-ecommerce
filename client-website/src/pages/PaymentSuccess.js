@@ -10,7 +10,7 @@ const PaymentSuccess = () => {
   useEffect(() => {
     const verifyPaymentAndCreateOrder = async () => {
       try {
-        const transactionId = searchParams.get('id');
+        const transactionId = searchParams.get('merchantOrderId') || searchParams.get('id') || searchParams.get('transactionId');
         
         if (!transactionId) {
           setStatus('error');

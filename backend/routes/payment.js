@@ -19,6 +19,13 @@ router.post('/create-order', auth, async (req, res) => {
       });
     }
     
+    if (amount < 1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Minimum amount is ₹1'
+      });
+    }
+    
     const result = await phonepeService.createPayment({
       amount,
       userId,
@@ -80,7 +87,7 @@ router.post('/verify', auth, async (req, res) => {
     
     res.json({
       success: result.success,
-      status: result.status,
+      status: result.status === 'SUCCESS' ? 'COMPLETED' : result.status,
       transactionId: result.transactionId
     });
   } catch (error) {
