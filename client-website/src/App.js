@@ -16,6 +16,7 @@ import Policies from './pages/Policies';
 import Profile from './pages/Profile';
 import ProductDetail from './pages/ProductDetail';
 import PaymentSuccess from './pages/PaymentSuccess';
+import PaymentTest from './pages/PaymentTest';
 
 import { orders, payment } from './utils/api';
 import { sessionManager } from './utils/security';
@@ -119,6 +120,7 @@ function App() {
         <Route path="/policies" element={<Policies />} />
         <Route path="/profile" element={<Profile user={user} onLogin={handleLogin} />} />
         <Route path="/payment-success" element={<PaymentSuccess onOrderComplete={() => setCart([])} />} />
+        <Route path="/payment-test" element={<PaymentTest />} />
 
         </Routes>
         <Footer />

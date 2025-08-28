@@ -1,88 +1,66 @@
 const axios = require('axios');
+const crypto = require('crypto');
 
 class PhonePeService {
   constructor() {
-    this.clientId = process.env.PHONEPE_MERCHANT_ID || 'SU2508241910194031786811';
-    this.clientSecret = process.env.PHONEPE_SALT_KEY || '11d250e2-bd67-43b9-bc80-d45b3253566b';
-    this.baseUrl = 'https://api.phonepe.com/apis';
-    this.accessToken = null;
-    this.tokenExpiry = null;
+    // Production PhonePe credentials
+    this.merchantId = 'M23KZ1MPAQX3P';
+    this.saltKey = process.env.PHONEPE_SALT_KEY || '11d250e2-bd67-43b9-bc80-d45b3253566b';
+    this.baseUrl = 'https://api.phonepe.com/apis/hermes';
+    this.keyIndex = 1;
   }
 
-  async getAccessToken() {
-    try {
-      if (this.accessToken && this.tokenExpiry && Date.now() < this.tokenExpiry) {
-        return this.accessToken;
-      }
-
-      const response = await axios.post(
-        `${this.baseUrl}/identity-manager/v1/oauth/token`,
-        new URLSearchParams({
-          client_id: this.clientId,
-          client_version: '1',
-          client_secret: this.clientSecret,
-          grant_type: 'client_credentials'
-        }),
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }
-      );
-
-      this.accessToken = response.data.access_token;
-      this.tokenExpiry = Date.now() + (response.data.expires_in * 1000) - 60000; // 1 min buffer
-      
-      return this.accessToken;
-    } catch (error) {
-      console.error('Token generation error:', error.response?.data || error.message);
-      throw new Error('Failed to generate access token');
-    }
+  generateChecksum(payload, endpoint) {
+    const string = payload + endpoint + this.saltKey;
+    const sha256 = crypto.createHash('sha256').update(string).digest('hex');
+    return sha256 + '###' + this.keyIndex;
   }
 
   async createPayment(orderData) {
     try {
-      const token = await this.getAccessToken();
-      const merchantOrderId = `TX${Date.now()}`;
+      const merchantTransactionId = `TX${Date.now()}`;
       
-      const payload = {
-        merchantOrderId,
+      const data = {
+        merchantId: this.merchantId,
+        merchantTransactionId: merchantTransactionId,
+        merchantUserId: `USER_${orderData.userId}`,
         amount: Math.round(orderData.amount * 100),
-        expireAfter: 1200,
-        metaInfo: {
-          udf1: `Order for user ${orderData.userId}`,
-          udf2: 'Ayurvedic Ecommerce',
-          udf3: orderData.phone || '9999999999'
-        },
-        paymentFlow: {
-          type: 'PG_CHECKOUT',
-          message: 'Payment for Ayurvedic products',
-          merchantUrls: {
-            redirectUrl: 'https://learnonai.com/payment-success'
-          }
+        redirectUrl: `https://learnonai.com/payment-success?transactionId=${merchantTransactionId}`,
+        redirectMode: 'GET',
+        callbackUrl: `https://learnonai.com/api/payment/callback`,
+        mobileNumber: orderData.phone || '9999999999',
+        paymentInstrument: {
+          type: 'PAY_PAGE'
         }
       };
 
+      const payload = JSON.stringify(data);
+      const payloadMain = Buffer.from(payload).toString('base64');
+      const checksum = this.generateChecksum(payloadMain, '/pg/v1/pay');
+
+      console.log('PhonePe Production Request:', { merchantTransactionId, amount: data.amount });
+
       const response = await axios.post(
-        `${this.baseUrl}/pg/checkout/v2/pay`,
-        payload,
+        `${this.baseUrl}/pg/v1/pay`,
+        {
+          request: payloadMain
+        },
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `O-Bearer ${token}`
+            'X-VERIFY': checksum
           }
         }
       );
 
-      if (response.data.orderId) {
+      if (response.data.success && response.data.data?.instrumentResponse?.redirectInfo?.url) {
         return {
           success: true,
-          transactionId: merchantOrderId,
-          paymentUrl: response.data.redirectUrl,
-          orderId: response.data.orderId
+          transactionId: merchantTransactionId,
+          paymentUrl: response.data.data.instrumentResponse.redirectInfo.url
         };
       } else {
-        throw new Error('Payment creation failed - no order ID received');
+        throw new Error('Payment URL not received from PhonePe');
       }
     } catch (error) {
       console.error('PhonePe Payment Error:', {
@@ -99,21 +77,24 @@ class PhonePeService {
 
   async verifyPayment(transactionId) {
     try {
-      const token = await this.getAccessToken();
+      const endpoint = `/pg/v1/status/${this.merchantId}/${transactionId}`;
+      const checksum = this.generateChecksum('', endpoint);
       
       const response = await axios.get(
-        `${this.baseUrl}/pg/checkout/v2/status/${transactionId}`,
+        `${this.baseUrl}${endpoint}`,
         {
           headers: {
-            'Authorization': `O-Bearer ${token}`
+            'Content-Type': 'application/json',
+            'X-VERIFY': checksum,
+            'X-MERCHANT-ID': this.merchantId
           }
         }
       );
 
       return {
         success: response.data.success,
-        status: response.data.data?.status,
-        transactionId: response.data.data?.merchantOrderId
+        status: response.data.data?.state,
+        transactionId: response.data.data?.merchantTransactionId
       };
     } catch (error) {
       console.error('Payment verification error:', error.response?.data || error.message);

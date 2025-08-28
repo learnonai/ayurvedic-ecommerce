@@ -10,14 +10,21 @@ const PaymentSuccess = () => {
   useEffect(() => {
     const verifyPaymentAndCreateOrder = async () => {
       try {
-        const transactionId = searchParams.get('merchantOrderId') || searchParams.get('id') || searchParams.get('transactionId');
+        const transactionId = searchParams.get('transactionId');
+        const paymentStatus = searchParams.get('status');
         
         if (!transactionId) {
           setStatus('error');
           return;
         }
         
-        // Verify payment with PhonePe
+        // Check URL status parameter first
+        if (paymentStatus === 'failed') {
+          setStatus('failed');
+          return;
+        }
+        
+        // For success or no status, verify with backend
         const verifyResponse = await payment.verify({ transactionId });
         
         if (verifyResponse.data.success && verifyResponse.data.status === 'COMPLETED') {
