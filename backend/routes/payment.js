@@ -7,10 +7,10 @@ const router = express.Router();
 router.post('/create-order', auth, async (req, res) => {
   try {
     const { amount } = req.body;
-    const userId = req.user._id;
+    const userId = req.user._id || req.user.id || 'user1';
     const phone = '9999999999';
     
-    console.log('Payment request:', { amount, userId, phone });
+    console.log('Payment request:', { amount, userId, phone, user: req.user });
     
     if (!amount || amount <= 0) {
       return res.status(400).json({
@@ -38,8 +38,7 @@ router.post('/create-order', auth, async (req, res) => {
       res.json({
         success: true,
         paymentUrl: result.paymentUrl,
-        transactionId: result.transactionId,
-        orderId: result.orderId
+        transactionId: result.transactionId
       });
     } else {
       res.status(400).json({
