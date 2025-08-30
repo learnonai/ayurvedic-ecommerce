@@ -2,7 +2,11 @@ const db = require('../db');
 
 class Order {
   static create(orderData) {
-    return db.create('orders', { ...orderData, status: 'pending', paymentStatus: 'pending' });
+    return db.create('orders', { 
+      status: 'pending',
+      paymentStatus: 'pending',
+      ...orderData
+    });
   }
   
   static find(query = {}) {
