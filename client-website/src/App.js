@@ -18,9 +18,7 @@ import ProductDetail from './pages/ProductDetail';
 import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentTest from './pages/PaymentTest';
 
-import { orders, payment } from './utils/api';
 import { sessionManager } from './utils/security';
-import './utils/logger'; // Disable console in production
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './styles/mobile.css';

@@ -1,17 +1,4 @@
-const nodemailer = require('nodemailer');
-
-// Real email service (uncomment for production)
-// const nodemailer = require('nodemailer');
-
-/*
-const transporter = nodemailer.createTransporter({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER, // your-email@gmail.com
-    pass: process.env.EMAIL_PASS  // your-app-password
-  }
-});
-*/
+// Mock email service for development
 
 const sendVerificationEmail = async (email, verificationCode, name) => {
   console.log('\n=================================');

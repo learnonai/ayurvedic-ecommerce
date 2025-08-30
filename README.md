@@ -2,6 +2,23 @@
 
 A complete ecommerce solution for Ayurvedic medicines and products with admin panel and customer website.
 
+## 🧹 Recently Cleaned & Optimized
+
+**Removed unnecessary files and dependencies:**
+- Removed `ftn-cht/` directory (separate payment testing project)
+- Removed test files: `test-phonepe.js`, `test-phonepe-new.js`, `backend/test-phonepe-integration.js`
+- Removed documentation files: `CLEANUP_GUIDE.md`, `LOCAL_VS_PROD_ANALYSIS.md`, etc.
+- Removed log files and AWS deployment configs
+- Removed duplicate images in `backend/sample-images/`
+- Removed unused components: `GoogleSignIn.js`, `PaymentDebug.js`, `EmailVerification.js`
+- Removed unused utilities: complex security, encryption, and logger files
+- Removed unused dependencies: `helmet`, `joi`, `mongoose`, `nodemailer`, etc.
+- Removed production environment files and GitHub Actions
+- Simplified email utility to console-only mock
+- Streamlined security utilities to minimal required functions
+
+**Project is now cleaner and more maintainable!**
+
 ## ✨ Features
 
 ### 🛒 Customer Website
@@ -99,17 +116,24 @@ pm2 restart all
 - **CI/CD**: GitHub Actions + Custom Scripts
 - **Process Manager**: PM2
 
-## 📁 Project Structure
+## 📁 Project Structure (Cleaned)
 
 ```
 Ayurvedic-Ecommerce/
-├── backend/           # API server
-├── admin-panel/       # Admin dashboard
-├── client-website/    # Customer website
-├── scripts/           # Deployment & rollback scripts
-│   ├── deploy.sh      # Main deployment script
-│   ├── rollback.sh    # Rollback to previous build
-│   └── build-info.sh  # Show build information
+├── backend/           # API server (simplified)
+│   ├── data/          # JSON database files
+│   ├── middleware/    # Auth middleware
+│   ├── models/        # Data models
+│   ├── routes/        # API routes
+│   ├── services/      # PhonePe service
+│   ├── uploads/       # Product images
+│   └── utils/         # Minimal utilities
+├── admin-panel/       # Admin dashboard (React)
+├── client-website/    # Customer website (React)
+│   ├── src/components/ # Essential components only
+│   ├── src/pages/     # All main pages
+│   └── src/utils/     # Minimal utilities
+├── scripts/           # Deployment scripts (kept for production)
 └── README.md         # This file
 ```
 
