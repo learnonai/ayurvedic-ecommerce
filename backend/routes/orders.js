@@ -43,10 +43,21 @@ router.get('/', auth, adminAuth, async (req, res) => {
 // Admin: Update order status
 router.put('/:id/status', auth, adminAuth, async (req, res) => {
   try {
-    const order = Order.findByIdAndUpdate(req.params.id, { status: req.body.status });
-    res.json(order);
+    console.log('Updating order:', req.params.id, 'with:', req.body);
+    
+    const updates = {};
+    if (req.body.status) updates.status = req.body.status;
+    if (req.body.archived !== undefined) updates.archived = req.body.archived;
+    
+    console.log('Updates to apply:', updates);
+    
+    const order = Order.findByIdAndUpdate(req.params.id, updates);
+    console.log('Updated order:', order);
+    
+    res.json({ success: true, order });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Order update error:', error);
+    res.status(500).json({ success: false, message: error.message });
   }
 });
 

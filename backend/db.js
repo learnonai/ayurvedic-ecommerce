@@ -62,7 +62,12 @@ const db = {
     const index = data.findIndex(item => item._id === id);
     if (index === -1) return null;
     
-    data[index] = { ...data[index], ...updates, updatedAt: new Date() };
+    // Ensure the updates are properly merged
+    Object.keys(updates).forEach(key => {
+      data[index][key] = updates[key];
+    });
+    data[index].updatedAt = new Date();
+    
     db.write(collection, data);
     return data[index];
   },

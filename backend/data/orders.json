@@ -279,10 +279,10 @@
     "paymentStatus": "pending",
     "paymentId": "MOCK_1756126928462_z6lks5mw2",
     "user": "user1",
-    "status": "pending",
+    "status": null,
     "_id": "1756126928596",
     "createdAt": "2025-08-25T13:02:08.596Z",
-    "updatedAt": "2025-08-25T13:02:08.596Z"
+    "updatedAt": "2025-08-30T18:37:42.008Z"
   },
   {
     "items": [
@@ -516,7 +516,8 @@
     "status": "pending",
     "_id": "1756129868522",
     "createdAt": "2025-08-25T13:51:08.522Z",
-    "updatedAt": "2025-08-25T13:51:08.522Z"
+    "updatedAt": "2025-08-30T18:43:58.149Z",
+    "archived": true
   },
   {
     "items": [
@@ -539,9 +540,9 @@
     "paymentStatus": "pending",
     "paymentId": "MOCK_1756130005479_r18ak9egy",
     "user": "user1",
-    "status": "pending",
     "_id": "1756130005594",
     "createdAt": "2025-08-25T13:53:25.594Z",
-    "updatedAt": "2025-08-25T13:53:25.594Z"
+    "updatedAt": "2025-08-30T18:43:55.862Z",
+    "archived": true
   }
 ]

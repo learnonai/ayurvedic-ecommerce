@@ -60,7 +60,12 @@ export const products = {
 
 export const orders = {
   getAll: () => api.get('/orders'),
-  updateStatus: (id, status) => api.put(`/orders/${id}/status`, { status }),
+  updateStatus: (id, status, extraData = {}) => {
+    const payload = {};
+    if (status) payload.status = status;
+    if (extraData.archived !== undefined) payload.archived = extraData.archived;
+    return api.put(`/orders/${id}/status`, payload);
+  },
 };
 
 export const users = {

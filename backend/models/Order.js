@@ -5,6 +5,9 @@ class Order {
     return db.create('orders', { 
       status: 'pending',
       paymentStatus: 'pending',
+      archived: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       ...orderData
     });
   }
@@ -18,7 +21,10 @@ class Order {
   }
   
   static findByIdAndUpdate(id, updates) {
-    return db.update('orders', id, updates);
+    return db.update('orders', id, {
+      ...updates,
+      updatedAt: new Date().toISOString()
+    });
   }
 }
 
