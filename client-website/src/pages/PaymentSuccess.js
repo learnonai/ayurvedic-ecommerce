@@ -13,33 +13,25 @@ const PaymentSuccess = () => {
         const transactionId = searchParams.get('transactionId');
         const paymentStatus = searchParams.get('status');
         
-        console.log('Payment Success Page - URL params:', { transactionId, paymentStatus });
-        
         if (!transactionId) {
-          console.log('No transaction ID found');
           setStatus('error');
           return;
         }
         
         // Check URL status parameter first
         if (paymentStatus === 'failed' || paymentStatus === 'error') {
-          console.log('Payment failed based on URL status');
           setStatus('failed');
           return;
         }
         
         // For success status, verify with backend
         if (paymentStatus === 'success') {
-          console.log('Verifying payment with backend...');
-          
           try {
             const verifyResponse = await payment.verify({ transactionId });
-            console.log('Verification response:', verifyResponse.data);
             
             if (verifyResponse.data.success && verifyResponse.data.status === 'COMPLETED') {
               // Get pending order from localStorage
               const pendingOrderStr = localStorage.getItem('pendingOrder');
-              console.log('Pending order data:', pendingOrderStr ? 'Found' : 'Not found');
               
               if (pendingOrderStr) {
                 const orderData = JSON.parse(pendingOrderStr);
@@ -51,30 +43,23 @@ const PaymentSuccess = () => {
                   paymentId: transactionId
                 });
                 
-                console.log('Order creation response:', orderResponse.data);
-                
                 if (orderResponse.data.success) {
                   localStorage.removeItem('pendingOrder');
                   setStatus('success');
                 } else {
-                  console.log('Order creation failed');
                   setStatus('error');
                 }
               } else {
-                console.log('No pending order found in localStorage');
                 setStatus('error');
               }
             } else {
-              console.log('Payment verification failed');
               setStatus('failed');
             }
           } catch (verifyError) {
-            console.error('Payment verification API error:', verifyError);
             setStatus('failed');
           }
         } else {
           // No status parameter, assume success and verify
-          console.log('No status parameter, verifying payment...');
           const verifyResponse = await payment.verify({ transactionId });
           
           if (verifyResponse.data.success && verifyResponse.data.status === 'COMPLETED') {

@@ -25,7 +25,7 @@ router.post('/register', async (req, res) => {
     const token = jwt.sign({ id: user._id }, 'secret');
     res.status(201).json({ 
       token, 
-      user: { id: user._id, name, email, role: user.role, isVerified: user.isVerified },
+      user: { id: user._id, name, email, phone, role: user.role, isVerified: user.isVerified },
       message: `Registration successful! For demo purposes, your verification code is: ${user.verificationCode}. In production, this would be sent to your email.`
     });
   } catch (error) {
@@ -70,7 +70,7 @@ router.post('/login', async (req, res) => {
       const token = jwt.sign({ id: 'admin1' }, 'secret');
       return res.json({ 
         token, 
-        user: { id: 'admin1', name: 'Admin User', email, role: 'admin', isVerified: true }
+        user: { id: 'admin1', name: 'Admin User', email, phone: '9876543210', role: 'admin', isVerified: true }
       });
     }
     
@@ -79,7 +79,7 @@ router.post('/login', async (req, res) => {
       const token = jwt.sign({ id: 'user1' }, 'secret');
       return res.json({ 
         token, 
-        user: { id: 'user1', name: 'Test User', email, role: 'user', isVerified: true }
+        user: { id: 'user1', name: 'Test User', email, phone: '9999999999', role: 'user', isVerified: true }
       });
     }
     
@@ -103,6 +103,7 @@ router.post('/login', async (req, res) => {
         id: user._id, 
         name: user.name, 
         email: user.email, 
+        phone: user.phone,
         role: user.role, 
         isVerified: user.isVerified,
         originalPassword: user.originalPassword // Include original password for sharing

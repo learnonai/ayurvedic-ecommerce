@@ -19,7 +19,7 @@ const Checkout = ({ cart, user, onOrderComplete }) => {
   const { values: shippingAddress, errors, touched, handleChange, handleBlur, validateAll } = useFormValidation(
     {
       name: user?.name || '',
-      phone: '',
+      phone: user?.phone || '',
       address: '',
       city: '',
       state: '',
