@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../utils/api';
-import EmailVerification from './EmailVerification';
 import { useFormValidation, validateEmail, validatePhone, validatePassword, validateName, FormError } from '../components/FormValidation';
 import { sanitizeEmail, sanitizeInput, rateLimiter, sessionManager } from '../utils/security';
 
@@ -87,13 +86,16 @@ const Register = ({ onLogin }) => {
               <h3 className="text-center mb-4">Register</h3>
               
               {showVerification ? (
-                <EmailVerification 
-                  email={userEmail} 
-                  onVerified={() => {
+                <div className="alert alert-success">
+                  <h4>Registration Successful!</h4>
+                  <p>Please check your email for verification code.</p>
+                  <button className="btn btn-primary" onClick={() => {
                     setShowVerification(false);
                     navigate('/login');
-                  }} 
-                />
+                  }}>
+                    Continue to Login
+                  </button>
+                </div>
               ) : (
                 <>
                   <form onSubmit={handleSubmit}>

@@ -43,14 +43,14 @@ router.post('/create-order', auth, async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        message: result.error
+        message: result.error || 'Payment creation failed'
       });
     }
   } catch (error) {
     console.error('Payment route error:', error);
     res.status(500).json({
       success: false,
-      message: error.message || 'Payment creation failed'
+      message: 'Internal server error'
     });
   }
 });

@@ -3,9 +3,9 @@ const crypto = require('crypto');
 
 class PhonePeService {
   constructor() {
-    // Production PhonePe credentials
+    // Working PhonePe Production credentials
     this.merchantId = 'M23KZ1MPAQX3P';
-    this.saltKey = process.env.PHONEPE_SALT_KEY || '11d250e2-bd67-43b9-bc80-d45b3253566b';
+    this.saltKey = '11d250e2-bd67-43b9-bc80-d45b3253566b';
     this.baseUrl = 'https://api.phonepe.com/apis/hermes';
     this.keyIndex = 1;
   }
@@ -49,7 +49,8 @@ class PhonePeService {
           headers: {
             'Content-Type': 'application/json',
             'X-VERIFY': checksum
-          }
+          },
+          timeout: 30000
         }
       );
 
@@ -87,7 +88,8 @@ class PhonePeService {
             'Content-Type': 'application/json',
             'X-VERIFY': checksum,
             'X-MERCHANT-ID': this.merchantId
-          }
+          },
+          timeout: 30000
         }
       );
 
