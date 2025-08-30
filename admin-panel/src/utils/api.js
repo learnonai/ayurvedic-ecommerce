@@ -8,7 +8,7 @@ const getApiUrl = () => {
   }
   
   // Production URL
-  return 'http://learnonai.com:8080/api';
+  return 'https://learnonai.com/api';
 };
 
 const API_URL = getApiUrl();
