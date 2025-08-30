@@ -1,0 +1,22 @@
+{
+  "name": "ayurvedic-ecommerce-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "client-website", 
+    "admin-panel"
+  ],
+  "scripts": {
+    "install-all": "npm install",
+    "build-all": "npm run build --workspaces",
+    "start-backend": "npm run start --workspace=backend",
+    "start-client": "npm run start --workspace=client-website",
+    "start-admin": "npm run start --workspace=admin-panel",
+    "build-client": "npm run build --workspace=client-website",
+    "build-admin": "npm run build --workspace=admin-panel"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
