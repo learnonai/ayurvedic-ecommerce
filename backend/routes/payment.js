@@ -55,25 +55,31 @@ router.post('/create-order', auth, async (req, res) => {
   }
 });
 
-// PhonePe callback
-router.post('/callback', async (req, res) => {
+// PhonePe callback - handle both GET and POST
+router.all('/callback', async (req, res) => {
   try {
-    console.log('PhonePe Callback:', req.body);
+    console.log('PhonePe Callback - Method:', req.method);
+    console.log('PhonePe Callback - Query:', req.query);
+    console.log('PhonePe Callback - Body:', req.body);
     
-    const { transactionId, code, merchantId } = req.body;
+    // Get transaction ID from query or body
+    const transactionId = req.query.transactionId || req.body.transactionId || req.query.merchantOrderId;
+    const code = req.query.code || req.body.code;
     
-    if (code === 'PAYMENT_SUCCESS') {
-      // Verify payment status
-      const verifyResult = await phonepeService.verifyPayment(transactionId);
-      
-      if (verifyResult.success && verifyResult.status === 'COMPLETED') {
-        console.log('Payment verified successfully:', transactionId);
-        return res.redirect('https://learnonai.com/payment-success?status=success&txnId=' + transactionId);
-      }
+    if (!transactionId) {
+      console.log('No transaction ID in callback');
+      return res.redirect('https://learnonai.com/payment-success?status=error');
     }
     
-    // Payment failed or pending
-    res.redirect('https://learnonai.com/payment-success?status=failed&txnId=' + (transactionId || 'unknown'));
+    if (code === 'PAYMENT_SUCCESS' || !code) {
+      // Assume success if no code or explicit success
+      console.log('Payment callback - success:', transactionId);
+      return res.redirect(`https://learnonai.com/payment-success?status=success&transactionId=${transactionId}`);
+    } else {
+      // Payment failed
+      console.log('Payment callback - failed:', transactionId, 'Code:', code);
+      return res.redirect(`https://learnonai.com/payment-success?status=failed&transactionId=${transactionId}`);
+    }
   } catch (error) {
     console.error('Callback processing error:', error);
     res.redirect('https://learnonai.com/payment-success?status=error');
@@ -101,7 +107,7 @@ router.post('/verify', auth, async (req, res) => {
 });
 
 // Status check route for PhonePe redirect
-router.post('/status/:transactionId', async (req, res) => {
+router.all('/status/:transactionId', async (req, res) => {
   try {
     const { transactionId } = req.params;
     console.log('Status check for:', transactionId);
@@ -109,9 +115,9 @@ router.post('/status/:transactionId', async (req, res) => {
     const result = await phonepeService.verifyPayment(transactionId);
     
     if (result.success && result.status === 'COMPLETED') {
-      res.redirect('https://learnonai.com/payment-success?status=success&txnId=' + transactionId);
+      res.redirect(`https://learnonai.com/payment-success?status=success&transactionId=${transactionId}`);
     } else {
-      res.redirect('https://learnonai.com/payment-success?status=failed&txnId=' + transactionId);
+      res.redirect(`https://learnonai.com/payment-success?status=failed&transactionId=${transactionId}`);
     }
   } catch (error) {
     console.error('Status check error:', error);

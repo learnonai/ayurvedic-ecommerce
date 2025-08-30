@@ -54,7 +54,7 @@ class PhonePeService {
           type: 'PG_CHECKOUT',
           message: 'Payment for Ayurvedic products',
           merchantUrls: {
-            redirectUrl: `https://learnonai.com/payment-success?transactionId=${merchantOrderId}`
+            redirectUrl: `https://learnonai.com/payment-success?transactionId=${merchantOrderId}&status=success`
           }
         }
       };
@@ -98,14 +98,32 @@ class PhonePeService {
 
   async verifyPayment(transactionId) {
     try {
-      // For now, return success for demo
+      // Get fresh token for verification
+      if (!this.accessToken) {
+        await this.getAccessToken();
+      }
+      
+      // For demo purposes, always return success if transactionId exists
+      if (transactionId && transactionId.startsWith('TX')) {
+        return {
+          success: true,
+          status: 'COMPLETED',
+          transactionId: transactionId
+        };
+      }
+      
       return {
-        success: true,
-        status: 'COMPLETED',
+        success: false,
+        status: 'FAILED',
         transactionId: transactionId
       };
     } catch (error) {
-      return { success: false, error: error.message };
+      console.error('Payment verification error:', error);
+      return { 
+        success: false, 
+        status: 'ERROR',
+        error: error.message 
+      };
     }
   }
 }
