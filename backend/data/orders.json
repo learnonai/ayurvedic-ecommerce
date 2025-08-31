@@ -204,7 +204,8 @@
     "status": "pending",
     "_id": "1756126890201",
     "createdAt": "2025-08-25T13:01:30.201Z",
-    "updatedAt": "2025-08-25T13:01:30.201Z"
+    "updatedAt": "2025-08-30T19:15:37.402Z",
+    "archived": true
   },
   {
     "items": [

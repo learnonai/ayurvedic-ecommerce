@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { orders } from '../utils/api';
+import { orders, products } from '../utils/api';
 
 const Orders = () => {
   const [orderList, setOrderList] = useState([]);
@@ -9,9 +9,11 @@ const Orders = () => {
   const [filterPeriod, setFilterPeriod] = useState('all');
   const [sortBy, setSortBy] = useState('latest');
   const [showArchived, setShowArchived] = useState(false);
+  const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     fetchOrders();
+    fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -25,6 +27,20 @@ const Orders = () => {
     } catch (error) {
       console.error('Error fetching orders:', error);
     }
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const response = await products.getAll();
+      setProductList(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  const getProductName = (productId) => {
+    const product = productList.find(p => p._id === productId);
+    return product ? product.name : `Product ID: ${productId}`;
   };
 
   const filterAndSortOrders = () => {
@@ -223,7 +239,7 @@ const Orders = () => {
                   <td>₹{order.totalAmount}</td>
                   <td>
                     <span className={`badge bg-${order.status === 'delivered' ? 'success' : order.status === 'cancelled' ? 'danger' : 'warning'}`}>
-                      {order.status}
+                      {order.status || 'pending'}
                     </span>
                   </td>
                   <td>
@@ -241,7 +257,7 @@ const Orders = () => {
                       <select 
                         className="form-select form-select-sm" 
                         style={{width: '120px'}}
-                        value={order.status}
+                        value={order.status || 'pending'}
                         onChange={(e) => updateOrderStatus(order._id, e.target.value)}
                       >
                         <option value="pending">Pending</option>
@@ -301,7 +317,7 @@ const Orders = () => {
                     <select 
                       className="form-select form-select-sm d-inline-block ms-2" 
                       style={{width: 'auto'}}
-                      value={selectedOrder.status}
+                      value={selectedOrder.status || 'pending'}
                       onChange={(e) => {
                         updateOrderStatus(selectedOrder._id, e.target.value);
                         setSelectedOrder({...selectedOrder, status: e.target.value});
@@ -331,7 +347,7 @@ const Orders = () => {
                   <tbody>
                     {selectedOrder.items?.map((item, index) => (
                       <tr key={index}>
-                        <td>{item.product?.name || 'Product'}</td>
+                        <td>{getProductName(item.product)}</td>
                         <td>{item.quantity}</td>
                         <td>₹{item.price}</td>
                         <td>₹{item.quantity * item.price}</td>
