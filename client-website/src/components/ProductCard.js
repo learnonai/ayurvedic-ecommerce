@@ -67,7 +67,7 @@ const ProductCard = ({ product, onAddToCart, user }) => {
   const imageUrl = hasImage ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '').replace('pdt-img/', '')}` : null;
 
   return (
-    <div className="card h-100 shadow-sm" style={{cursor: 'pointer', transition: 'transform 0.2s, box-shadow 0.2s'}} onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'} onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}>
+    <div className="card h-100 shadow-sm d-flex flex-column" style={{cursor: 'pointer', transition: 'transform 0.2s'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
       <div className="position-relative" style={{height: '200px'}} onClick={() => navigate(`/product/${product._id}`)}>
         {hasImage && !imageError ? (
           <>
@@ -99,63 +99,52 @@ const ProductCard = ({ product, onAddToCart, user }) => {
         )}
       </div>
 
-      <div className="card-body" onClick={() => navigate(`/product/${product._id}`)}>
-        <h5 className="card-title">{product.name}</h5>
-        <p className="card-text">{product.description}</p>
-        <p className="text-success fw-bold">₹{product.price}</p>
-        <p className="text-muted small">Category: {product.category}</p>
-        
-        <div className="mb-2">
-          {(product.stock || 0) > 0 ? (
-            <span className="badge bg-success">
-              ✓ In Stock ({product.stock || 0} available)
-            </span>
-          ) : (
-            <span className="badge bg-danger">
-              ✗ Out of Stock
-            </span>
-          )}
+      <div className="card-body d-flex flex-column" onClick={() => navigate(`/product/${product._id}`)}>
+        <div className="flex-grow-1">
+          <h6 className="card-title fw-bold">{product.name}</h6>
+          <p className="card-text small text-muted" style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>
+            {product.description}
+          </p>
+          <div className="d-flex justify-content-between align-items-center mb-2">
+            <span className="text-success fw-bold h6 mb-0">₹{product.price}</span>
+            {(product.stock || 0) > 0 ? (
+              <span className="badge bg-success small">In Stock</span>
+            ) : (
+              <span className="badge bg-danger small">Out of Stock</span>
+            )}
+          </div>
         </div>
         
-        {product.benefits && (
-          <div className="mb-2">
-            <small className="text-muted">Benefits:</small>
-            <ul className="small">
-              {product.benefits.map((benefit, index) => (
-                <li key={index}>{benefit}</li>
-              ))}
-            </ul>
+        <div className="mt-auto">
+          <div className="d-grid gap-1" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="btn btn-warning btn-sm fw-bold" 
+              onClick={handleBuyNow}
+              disabled={(product.stock || 0) === 0 || loading}
+            >
+              {loading ? 'Processing...' : (product.stock || 0) === 0 ? 'Out of Stock' : 'Buy Now'}
+            </button>
+            <div className="d-flex gap-1">
+              <button 
+                className="btn btn-success btn-sm flex-fill" 
+                onClick={handleAddToCart}
+                disabled={(product.stock || 0) === 0 || loading}
+              >
+                {loading ? 'Adding...' : 'Add to Cart'}
+              </button>
+              <button 
+                className="btn btn-outline-danger btn-sm"
+                onClick={addToWishlist}
+                disabled={wishlistLoading}
+                title="Wishlist"
+                style={{minWidth: '45px'}}
+              >
+                {wishlistLoading ? (
+                  <span className="spinner-border spinner-border-sm" role="status"></span>
+                ) : '❤️'}
+              </button>
+            </div>
           </div>
-        )}
-        
-        <div className="d-flex gap-1" onClick={(e) => e.stopPropagation()}>
-          <button 
-            className="btn btn-warning btn-sm flex-fill fw-bold" 
-            onClick={handleBuyNow}
-            disabled={(product.stock || 0) === 0 || loading}
-            style={{fontSize: '0.8rem'}}
-          >
-            {loading ? 'Processing...' : (product.stock || 0) === 0 ? 'Out of Stock' : 'Buy Now'}
-          </button>
-          <button 
-            className="btn btn-success btn-sm flex-fill" 
-            onClick={handleAddToCart}
-            disabled={(product.stock || 0) === 0 || loading}
-            style={{fontSize: '0.8rem'}}
-          >
-            {loading ? 'Adding...' : 'Add to Cart'}
-          </button>
-          <button 
-            className="btn btn-outline-danger btn-sm"
-            onClick={addToWishlist}
-            disabled={wishlistLoading}
-            title="Add to Wishlist"
-            style={{minWidth: '40px'}}
-          >
-            {wishlistLoading ? (
-              <span className="spinner-border spinner-border-sm" role="status"></span>
-            ) : '❤️'}
-          </button>
         </div>
       </div>
     </div>

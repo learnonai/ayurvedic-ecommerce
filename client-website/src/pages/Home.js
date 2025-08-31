@@ -9,12 +9,23 @@ const Home = ({ onAddToCart, user }) => {
   const [loading, setLoading] = useState(true);
 
   const categories = [
-    { name: 'oils', icon: '🛢️', title: 'Herbal Oils', desc: 'Pure & Natural' },
-    { name: 'capsules', icon: '💊', title: 'Capsules', desc: 'Health Supplements' },
-    { name: 'skincare', icon: '✨', title: 'Skincare', desc: 'Natural Beauty' },
-    { name: 'powders', icon: '🥄', title: 'Powders', desc: 'Superfood Blends' },
-    { name: 'teas', icon: '🍵', title: 'Herbal Teas', desc: 'Wellness Drinks' }
+    { name: 'oils', title: 'Herbal Oils' },
+    { name: 'capsules', title: 'Capsules' },
+    { name: 'skincare', title: 'Skincare' },
+    { name: 'powders', title: 'Powders' },
+    { name: 'teas', title: 'Herbal Teas' }
   ];
+
+  const getAyurvedicSymbol = (category) => {
+    const symbols = {
+      oils: 'ॐ', // Om symbol
+      capsules: '☯', // Yin Yang
+      skincare: '☘', // Shamrock
+      powders: '⚜', // Fleur-de-lis
+      teas: '⚕' // Medical symbol
+    };
+    return symbols[category] || 'ॐ';
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -41,82 +52,29 @@ const Home = ({ onAddToCart, user }) => {
 
   return (
     <div>
-      {/* Hero Section */}
-      <div className="bg-gradient" style={{background: 'linear-gradient(135deg, #2d5016 0%, #4a7c59 100%)', minHeight: '500px'}}>
-        <div className="container text-white py-5">
-          <div className="row align-items-center min-vh-50">
-            <div className="col-lg-6" style={{minWidth: '400px'}}>
-              <h1 className="display-4 fw-bold mb-3" style={{fontSize: 'clamp(2rem, 5vw, 3.5rem)'}}>🌿 Pure Ayurvedic Wellness</h1>
-              <p className="lead mb-4" style={{fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', lineHeight: '1.6'}}>Discover nature's healing power with our premium collection of authentic Ayurvedic products. All items under ₹199!</p>
-              <div className="d-flex gap-3 flex-wrap">
-                <Link to="/products" className="btn btn-light btn-lg px-4">Shop Now</Link>
-                <Link to="/products?category=oils" className="btn btn-outline-light btn-lg px-4">Best Sellers</Link>
-              </div>
-            </div>
-            <div className="col-lg-6 text-center">
-              <div className="bg-white bg-opacity-10 rounded-circle p-5 d-inline-block">
-                <span style={{fontSize: '120px', filter: 'hue-rotate(90deg) saturate(1.5)'}}>🌿</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Special Offers Banner */}
-      <div className="bg-warning py-3">
+      <div className="bg-warning py-4">
         <div className="container text-center">
-          <h5 className="mb-0">🎉 Special Launch Offer: All Products Under ₹199 | Free Shipping Above ₹299 🚚</h5>
+          <h3 className="mb-0 fw-bold">🎉 Special Launch Offer: All Products Under ₹199 | Free Shipping Above ₹299 🚚</h3>
         </div>
       </div>
 
       {/* Categories */}
       <div className="container my-5">
-        <div className="text-center mb-5">
+        <div className="text-center mb-4">
           <h2 className="fw-bold">Shop by Category</h2>
-          <p className="text-muted">Explore our complete range of natural wellness products</p>
         </div>
-        <div className="row g-4">
+        <div className="row g-3 justify-content-center">
           {categories.map(category => (
-            <div key={category.name} className="col-lg-2 col-md-4 col-6">
+            <div key={category.name} className="col-lg-2 col-md-3 col-4">
               <Link to={`/products?category=${category.name}`} className="text-decoration-none">
-                <div className="card h-100 border-0 shadow-sm hover-card" style={{transition: 'transform 0.2s'}}>
-                  <div className="card-body text-center p-4">
-                    <div className="mb-3" style={{fontSize: '3rem'}}>{category.icon}</div>
-                    <h6 className="card-title fw-bold">{category.title}</h6>
-                    <small className="text-muted">{category.desc}</small>
-                  </div>
+                <div className="card h-100 border-0 shadow-sm text-center p-3" style={{transition: 'transform 0.2s'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                  <div className="mb-2" style={{fontSize: '2.5rem', color: '#2d5016'}}>{getAyurvedicSymbol(category.name)}</div>
+                  <h6 className="fw-bold mb-0">{category.title}</h6>
                 </div>
               </Link>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Why Choose Us */}
-      <div className="bg-light py-5">
-        <div className="container">
-          <div className="row text-center">
-            <div className="col-md-3 mb-4">
-              <div className="mb-3" style={{fontSize: '3rem'}}>✅</div>
-              <h5>100% Natural</h5>
-              <p className="text-muted">Pure herbal ingredients</p>
-            </div>
-            <div className="col-md-3 mb-4">
-              <div className="mb-3" style={{fontSize: '3rem'}}>🚚</div>
-              <h5>Free Shipping</h5>
-              <p className="text-muted">On orders above ₹299</p>
-            </div>
-            <div className="col-md-3 mb-4">
-              <div className="mb-3" style={{fontSize: '3rem'}}>💰</div>
-              <h5>Best Prices</h5>
-              <p className="text-muted">All under ₹199</p>
-            </div>
-            <div className="col-md-3 mb-4">
-              <div className="mb-3" style={{fontSize: '3rem'}}>⭐</div>
-              <h5>Quality Assured</h5>
-              <p className="text-muted">Lab tested products</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -149,11 +107,7 @@ const Home = ({ onAddToCart, user }) => {
         </div>
       </div>
 
-      <style jsx>{`
-        .hover-card:hover {
-          transform: translateY(-5px);
-        }
-      `}</style>
+
     </div>
   );
 };
