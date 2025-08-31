@@ -202,15 +202,16 @@ const Orders = () => {
       {!showDetails ? (
         <div>
           {/* Filter and Sort Controls */}
-          <div className="card mb-3">
+          <div className="card mb-3" style={{backgroundColor: '#f8f9fa', border: '1px solid #dee2e6'}}>
             <div className="card-body">
-              <div className="row">
+              <div className="row g-3">
                 <div className="col-md-3">
-                  <label><strong>Filter by Period:</strong></label>
+                  <label className="form-label fw-bold">Filter by Period:</label>
                   <select 
-                    className="form-control"
+                    className="form-select"
                     value={filterPeriod}
                     onChange={(e) => setFilterPeriod(e.target.value)}
+                    style={{border: '1px solid #ced4da'}}
                   >
                     <option value="all">All Orders</option>
                     <option value="today">Today</option>
@@ -222,11 +223,12 @@ const Orders = () => {
                   </select>
                 </div>
                 <div className="col-md-3">
-                  <label><strong>Sort by:</strong></label>
+                  <label className="form-label fw-bold">Sort by:</label>
                   <select 
-                    className="form-control"
+                    className="form-select"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
+                    style={{border: '1px solid #ced4da'}}
                   >
                     <option value="latest">Latest First</option>
                     <option value="oldest">Oldest First</option>
@@ -236,22 +238,25 @@ const Orders = () => {
                   </select>
                 </div>
                 <div className="col-md-3">
-                  <label><strong>View:</strong></label>
-                  <div>
+                  <label className="form-label fw-bold">View:</label>
+                  <div className="form-check form-switch">
                     <input 
+                      className="form-check-input"
                       type="checkbox" 
                       checked={showArchived}
                       onChange={(e) => setShowArchived(e.target.checked)}
                     />
-                    <span className="ml-2">
+                    <label className="form-check-label ms-2">
                       {showArchived ? 'Archived Orders' : 'Active Orders'}
-                    </span>
+                    </label>
                   </div>
                 </div>
                 <div className="col-md-3">
-                  <label><strong>Total Orders:</strong></label>
-                  <div className="badge badge-primary" style={{fontSize: '14px', padding: '5px 10px'}}>
-                    {filteredOrders.length}
+                  <label className="form-label fw-bold">Total Orders:</label>
+                  <div>
+                    <span className="badge bg-primary fs-6" style={{padding: '8px 12px'}}>
+                      {filteredOrders.length}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -294,7 +299,7 @@ const Orders = () => {
                     </button>
                     <div className="d-flex gap-1">
                       <select 
-                        className="form-control form-control-sm" 
+                        className="form-select form-select-sm" 
                         style={{width: '120px'}}
                         value={order.status || 'pending'}
                         onChange={(e) => updateOrderStatus(order._id, e.target.value)}
@@ -354,7 +359,7 @@ const Orders = () => {
                   </p>
                   <p><strong>Order Status:</strong>
                     <select 
-                      className="form-control form-control-sm d-inline-block ml-2" 
+                      className="form-select form-select-sm d-inline-block ms-2" 
                       style={{width: 'auto'}}
                       value={selectedOrder.status || 'pending'}
                       onChange={(e) => {
