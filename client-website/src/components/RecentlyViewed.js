@@ -8,34 +8,35 @@ const RecentlyViewed = () => {
 
   const loadFreshRecentProducts = async () => {
     try {
-      const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-      if (recent.length === 0) {
+      // Get recent product IDs from localStorage
+      const recentIds = JSON.parse(localStorage.getItem('recentlyViewed') || '[]').map(p => p._id);
+      
+      if (recentIds.length === 0) {
         setLoading(false);
         return;
       }
 
-      // Get ALL products from API to get fresh data
+      // ALWAYS fetch ALL products from API to get fresh data
       const response = await products.getAll();
       const allProducts = response.data;
       
-      // Map recent product IDs to fresh product data
-      const freshRecentProducts = recent.map(recentProduct => {
-        const freshProduct = allProducts.find(p => p._id === recentProduct._id);
-        return freshProduct || recentProduct; // Use fresh data if available
-      }).slice(0, 4);
+      // Filter products that are in recently viewed
+      const freshRecentProducts = recentIds.map(id => 
+        allProducts.find(p => p._id === id)
+      ).filter(Boolean).slice(0, 4);
       
       setRecentProducts(freshRecentProducts);
       
-      // Update localStorage with fresh data
-      localStorage.setItem('recentlyViewed', JSON.stringify(recent.map(recentProduct => {
-        const freshProduct = allProducts.find(p => p._id === recentProduct._id);
-        return freshProduct || recentProduct;
-      })));
+      // Update localStorage with fresh product data
+      const updatedRecent = recentIds.map(id => 
+        allProducts.find(p => p._id === id)
+      ).filter(Boolean);
+      
+      localStorage.setItem('recentlyViewed', JSON.stringify(updatedRecent));
       
     } catch (error) {
       console.error('Error loading recent products:', error);
-      const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-      setRecentProducts(recent.slice(0, 4));
+      setRecentProducts([]);
     }
     setLoading(false);
   };
@@ -43,8 +44,8 @@ const RecentlyViewed = () => {
   useEffect(() => {
     loadFreshRecentProducts();
     
-    // Refresh every 3 seconds to get updated images
-    const interval = setInterval(loadFreshRecentProducts, 3000);
+    // Refresh every 2 seconds to get updated images
+    const interval = setInterval(loadFreshRecentProducts, 2000);
     
     return () => clearInterval(interval);
   }, []);
@@ -95,13 +96,13 @@ const RecentlyViewed = () => {
           const imageUrl = hasImage ? `${BASE_URL}/api/images/${imagePath}` : null;
           
           return (
-            <div key={`${product._id}-${index}`} className="col-6 col-md-3 mb-3">
+            <div key={`${product._id}-${index}-${Date.now()}`} className="col-6 col-md-3 mb-3">
               <Link to={`/product/${product._id}`} className="text-decoration-none">
                 <div className="card h-100 border-0 shadow-sm">
                   <div style={{height: '100px', position: 'relative'}}>
                     {hasImage ? (
                       <img 
-                        src={imageUrl}
+                        src={`${imageUrl}?t=${Date.now()}`}
                         className="card-img-top" 
                         alt={product.name}
                         style={{
@@ -110,7 +111,6 @@ const RecentlyViewed = () => {
                           objectFit: 'cover'
                         }}
                         onError={(e) => {
-                          console.log('Image failed to load:', imageUrl);
                           e.target.style.display = 'none';
                           e.target.nextSibling.style.display = 'flex';
                         }}
@@ -145,24 +145,30 @@ const RecentlyViewed = () => {
   );
 };
 
-// Helper function to add product to recently viewed - FORCE FRESH DATA
+// Helper function to add product to recently viewed - ALWAYS GET FRESH DATA
 export const addToRecentlyViewed = async (product) => {
   try {
-    // Get fresh product data from API
+    // Get fresh product data from API first
     const response = await products.getAll();
     const allProducts = response.data;
     const freshProduct = allProducts.find(p => p._id === product._id) || product;
     
-    const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+    // Get existing recent products (just IDs)
+    const existingRecent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+    const existingIds = existingRecent.map(p => p._id);
     
     // Remove if already exists
-    const filtered = recent.filter(item => item._id !== freshProduct._id);
+    const filteredIds = existingIds.filter(id => id !== freshProduct._id);
     
-    // Add fresh product to beginning
-    const updated = [freshProduct, ...filtered].slice(0, 10);
+    // Add fresh product ID to beginning and get fresh data for all
+    const updatedIds = [freshProduct._id, ...filteredIds].slice(0, 10);
+    const updatedProducts = updatedIds.map(id => 
+      allProducts.find(p => p._id === id)
+    ).filter(Boolean);
     
-    localStorage.setItem('recentlyViewed', JSON.stringify(updated));
+    localStorage.setItem('recentlyViewed', JSON.stringify(updatedProducts));
   } catch (error) {
+    console.error('Error updating recently viewed:', error);
     // Fallback to original method
     const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
     const filtered = recent.filter(item => item._id !== product._id);
