@@ -174,27 +174,9 @@ const Products = () => {
               <tr key={product._id}>
                 <td>
                   {(!product.images || product.images.length === 0) ? (
-                    <div>
-                      <span className="badge bg-danger">❌ NO IMAGE</span>
-                      <div style={{width: '50px', height: '50px', backgroundColor: '#f8f9fa', border: '1px solid #ddd', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '4px'}}>
-                        <span style={{fontSize: '20px'}}>🌿</span>
-                      </div>
-                    </div>
+                    <span className="badge bg-danger">❌ NO IMAGE</span>
                   ) : (
-                    <div>
-                      <span className="badge bg-success">✅ HAS IMAGE</span>
-                      <img 
-                        src={`http://learnonai.com:8080/api/images/${product.images[0].replace('uploads/', '')}`}
-                        style={{width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd', marginTop: '4px', display: 'block'}}
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.nextSibling.style.display = 'flex';
-                        }}
-                      />
-                      <div style={{width: '50px', height: '50px', backgroundColor: '#f8f9fa', border: '1px solid #ddd', borderRadius: '4px', display: 'none', alignItems: 'center', justifyContent: 'center', marginTop: '4px'}}>
-                        <span style={{fontSize: '20px'}}>🌿</span>
-                      </div>
-                    </div>
+                    <span className="badge bg-success">✅ HAS IMAGE</span>
                   )}
                 </td>
                 <td>

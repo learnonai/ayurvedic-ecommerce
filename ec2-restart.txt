@@ -1,0 +1,132 @@
+client site ==
+
+cd /home/ec2-user/ayurvedic-ecommerce && git stash && git pull origin main && pm2 delete all && mkdir -p backend/uploads && cp backend/sample-images/* backend/uploads/ && cd backend && npm install && pm2 start server.js --name "api" && cd ../client-website && npm install && npm run build && rm -rf build/policies/ build/uploads/ && pm2 serve build 3001 --name "client" --spa && cd ../admin-panel && npm install && npm run build && pm2 serve build 3000 --name "admin-panel" --spa && sudo systemctl reload nginx && pm2 save
+
+
+admin panel ==
+ cd /home/ec2-user/ayurvedic-ecommerce && git pull origin main && cd admin-panel && npm run build && pm2 restart admin-panel
+
+correct command:
+cd backend && npm ci && pm2 start server.js --name "api" && cd ../client-website && rm -rf node_modules/.cache build && npm ci && GENERATE_SOURCEMAP=false npm run build && pm2 serve build 3001 --name "client" --spa && cd ../admin-panel && rm -rf node_modules/.cache build && npm ci && GENERATE_SOURCEMAP=false npm run build && pm2 serve build 3000 --name "admin-panel" --spa && sudo systemctl reload nginx && pm2 save
+
+after this:
+rm package-lock.json && npm install && npm run build && pm2 serve build 3000 --name "admin-panel" --spa && sudo systemctl reload nginx && pm2 save
+
+
+=============================Major problem facing the issue for the cache not refreshing and build not updating =====================
+
+You're absolutely right! Disabling all caching will hurt performance. Let me give you a smart caching strategy that ensures fresh builds while maintaining good performance:
+
+🎯 Smart Caching Strategy (Best of Both Worlds)
+Step 1: Smart Nginx Configuration
+# Edit nginx config with smart caching
+sudo nano /etc/nginx/conf.d/learnonai.conf
+
+Copy
+bash
+Replace the admin panel section with:
+
+# Admin Panel on port 8080 with SMART CACHING
+server {
+    listen 8080 ssl;
+    http2 on;
+    server_name learnonai.com www.learnonai.com;
+    
+    ssl_certificate /etc/letsencrypt/live/learnonai.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/learnonai.com/privkey.pem;
+    
+    # Main HTML - Always fresh (small file, no caching)
+    location = / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        add_header Cache-Control "no-cache, must-revalidate" always;
+    }
+    
+    location = /index.html {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        add_header Cache-Control "no-cache, must-revalidate" always;
+    }
+    
+    # JS/CSS files - Cache with version hash (React auto-generates unique names)
+    location ~* \.(js|css)$ {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        add_header Cache-Control "public, max-age=31536000, immutable" always; # 1 year cache
+    }
+    
+    # Images - Cache for 1 week
+    location ~* \.(png|jpg|jpeg|gif|ico|svg)$ {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        add_header Cache-Control "public, max-age=604800" always; # 1 week
+    }
+    
+    # Everything else
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+
+Copy
+nginx
+Step 2: Simple Deployment Script
+# Create smart deployment script
+cat > /home/ec2-user/deploy-smart.sh << 'EOF'
+#!/bin/bash
+
+echo "🚀 Smart Deployment (with performance)..."
+
+cd /home/ec2-user/ayurvedic-ecommerce/admin-panel
+
+# Build (React automatically creates unique filenames)
+npm run build
+
+# Restart admin panel (this forces new index.html)
+pm2 restart admin-panel
+
+echo "✅ Deployment complete!"
+echo "🌐 Test: https://learnonai.com:8080"
+echo "📝 React's built-in cache busting will handle the rest!"
+EOF
+
+chmod +x /home/ec2-user/deploy-smart.sh
+
+Copy
+bash
+Step 3: Apply Smart Configuration
+# Test and restart nginx
+sudo nginx -t
+sudo systemctl restart nginx
+
+# Run smart deployment
+/home/ec2-user/deploy-smart.sh
+
+Copy
+bash
+🎯 How This Works (Best Performance):
+HTML files (index.html) - No cache → Always fresh
+
+JS/CSS files - Long cache (1 year) → But React creates unique names like main.abc123.js
+
+Images - Medium cache (1 week) → Good performance
+
+When you deploy - New JS file gets new name → Browser automatically fetches it
+
+✅ Benefits:
+🚀 Fast loading - Static files cached for long time
+
+🔄 Always fresh - New builds get new filenames automatically
+
+📱 Good UX - No need for users to clear cache
+
+⚡ Best performance - Only HTML is not cached (tiny file)
+
+This is the industry standard approach used by all major websites!
+
+Run the smart deployment and you'll get both performance AND fresh builds!
