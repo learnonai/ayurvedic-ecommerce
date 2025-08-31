@@ -28,7 +28,7 @@ const Header = ({ user, onLogout, cartCount }) => {
   }, []);
 
   const handleSearch = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     
     // Rate limiting for search
     if (!rateLimiter.isAllowed('search', 10, 60000)) { // 10 searches per minute
@@ -46,6 +46,28 @@ const Header = ({ user, onLogout, cartCount }) => {
       params.set('category', filters.category);
     }
     navigate(`/products?${params.toString()}`);
+  };
+  
+  // Real-time search function
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+    
+    // Debounced real-time search
+    clearTimeout(window.searchTimeout);
+    window.searchTimeout = setTimeout(() => {
+      if (value.trim().length >= 2 || value.trim().length === 0) {
+        const sanitizedQuery = sanitizeInput(value.trim());
+        const params = new URLSearchParams();
+        
+        if (sanitizedQuery) {
+          params.set('search', sanitizedQuery);
+        }
+        if (filters.category) {
+          params.set('category', filters.category);
+        }
+        navigate(`/products?${params.toString()}`);
+      }
+    }, 500); // 500ms delay for real-time search
   };
 
   const handleFilterChange = (key, value) => {
@@ -91,19 +113,27 @@ const Header = ({ user, onLogout, cartCount }) => {
                 className="form-control"
                 placeholder="Search for herbal products..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(sanitizeInput(e.target.value))}
+                onChange={(e) => handleSearchChange(sanitizeInput(e.target.value)))
                 style={{ borderRadius: '4px 0 0 0' }}
               />
               <button 
-                className="btn btn-outline-secondary d-flex align-items-center"
+                className="btn btn-light border d-flex align-items-center"
                 type="button"
                 onClick={toggleFilters}
-                style={{ borderRadius: '0', borderLeft: 'none', borderRight: 'none', padding: '0.375rem 0.75rem' }}
-                title="Advanced Filters"
+                style={{ 
+                  borderRadius: '0', 
+                  borderLeft: 'none', 
+                  borderRight: 'none', 
+                  padding: '0.375rem 0.75rem',
+                  backgroundColor: '#f8f9fa',
+                  borderColor: '#ced4da'
+                }}
+                title="Advanced Filters & Sort"
               >
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                <svg width="18" height="18" fill="#495057" viewBox="0 0 16 16" style={{marginRight: '4px'}}>
+                  <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
                 </svg>
+                <small style={{fontSize: '11px', color: '#495057'}}>Filter</small>
               </button>
               {showFilters && (
                 <div 
@@ -197,12 +227,12 @@ const Header = ({ user, onLogout, cartCount }) => {
                 </div>
               )}
               <button 
-                className="btn btn-warning d-flex align-items-center justify-content-center" 
+                className="btn btn-primary d-flex align-items-center justify-content-center" 
                 type="submit"
-                style={{ borderRadius: '0 4px 4px 0', minWidth: '50px' }}
-                title="Search"
+                style={{ borderRadius: '0 4px 4px 0', minWidth: '60px', backgroundColor: '#0d6efd' }}
+                title="Search Products"
               >
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <svg width="18" height="18" fill="white" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
               </button>
@@ -247,21 +277,22 @@ const Header = ({ user, onLogout, cartCount }) => {
               className="form-control"
               placeholder="Search products..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(sanitizeInput(e.target.value))}
+              onChange={(e) => handleSearchChange(sanitizeInput(e.target.value))}
             />
             <button 
-              className="btn btn-outline-secondary d-flex align-items-center justify-content-center"
+              className="btn btn-light border d-flex align-items-center justify-content-center"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#mobileFilters"
-              title="Filters"
+              title="Filters & Sort"
+              style={{backgroundColor: '#f8f9fa', borderColor: '#ced4da'}}
             >
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+              <svg width="18" height="18" fill="#495057" viewBox="0 0 16 16">
+                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
               </svg>
             </button>
-            <button className="btn btn-warning d-flex align-items-center justify-content-center" type="submit" title="Search">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <button className="btn btn-primary d-flex align-items-center justify-content-center" type="submit" title="Search Products" style={{backgroundColor: '#0d6efd'}}>
+              <svg width="18" height="18" fill="white" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
               </svg>
             </button>
