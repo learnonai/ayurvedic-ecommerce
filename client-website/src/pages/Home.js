@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { products } from '../utils/api';
+import { products, BASE_URL } from '../utils/api';
 import ProductCard from '../components/ProductCard';
 import RecentlyViewed from '../components/RecentlyViewed';
 
@@ -11,34 +11,31 @@ const Home = ({ onAddToCart, user }) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const loadCategories = () => {
+    const fetchCategories = async () => {
       try {
-        const savedCategories = localStorage.getItem('categories');
-        if (savedCategories) {
-          const parsedCategories = JSON.parse(savedCategories);
-          console.log('Loaded categories:', parsedCategories);
-          setCategories(parsedCategories);
-        } else {
-          // Default categories if none exist
-          const defaultCategories = [
-            { id: 'oils', name: 'Herbal Oils', icon: '⚜️', description: 'Natural herbal oils' },
-            { id: 'capsules', name: 'Capsules', icon: '⚕️', description: 'Health supplements' },
-            { id: 'skincare', name: 'Skincare', icon: '🌿', description: 'Natural skincare' },
-            { id: 'powders', name: 'Powders', icon: '⚰️', description: 'Herbal powders' },
-            { id: 'teas', name: 'Herbal Teas', icon: '🌱', description: 'Wellness teas' }
-          ];
-          setCategories(defaultCategories);
-          localStorage.setItem('categories', JSON.stringify(defaultCategories));
+        const response = await fetch(`${BASE_URL}/api/categories`);
+        const data = await response.json();
+        if (data.success) {
+          setCategories(data.data);
         }
       } catch (error) {
-        console.error('Error loading categories:', error);
+        console.error('Error fetching categories:', error);
+        // Fallback to default categories
+        const defaultCategories = [
+          { id: 'oils', name: 'Herbal Oils', icon: '⚜️', description: 'Natural herbal oils' },
+          { id: 'capsules', name: 'Capsules', icon: '⚕️', description: 'Health supplements' },
+          { id: 'skincare', name: 'Skincare', icon: '🌿', description: 'Natural skincare' },
+          { id: 'powders', name: 'Powders', icon: '🥄', description: 'Herbal powders' },
+          { id: 'teas', name: 'Herbal Teas', icon: '🌱', description: 'Wellness teas' }
+        ];
+        setCategories(defaultCategories);
       }
     };
     
-    loadCategories();
+    fetchCategories();
     
-    // Force refresh every 1 second
-    const interval = setInterval(loadCategories, 1000);
+    // Refresh every 5 seconds to get updates
+    const interval = setInterval(fetchCategories, 5000);
     
     return () => clearInterval(interval);
   }, []);

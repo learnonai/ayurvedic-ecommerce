@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import { BASE_URL } from '../utils/api';
 
 const Categories = () => {
-  const [categories, setCategories] = useState([
-    { id: 'oils', name: 'Herbal Oils', icon: '⚜️', description: 'Natural herbal oils for health and wellness' },
-    { id: 'capsules', name: 'Capsules', icon: '⚕️', description: 'Health supplements in capsule form' },
-    { id: 'skincare', name: 'Skincare', icon: '🌿', description: 'Natural skincare products' },
-    { id: 'powders', name: 'Powders', icon: '⚰️', description: 'Herbal powders and supplements' },
-    { id: 'teas', name: 'Herbal Teas', icon: '🌱', description: 'Wellness teas and beverages' }
-  ]);
-  
+  const [categories, setCategories] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
   const [formData, setFormData] = useState({ id: '', name: '', icon: '', description: '', image: '' });
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/categories`);
+      const data = await response.json();
+      if (data.success) {
+        setCategories(data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -28,31 +38,40 @@ const Categories = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    let updatedCategories;
-    if (editingCategory) {
-      updatedCategories = categories.map(cat => 
-        cat.id === editingCategory.id ? { ...formData } : cat
-      );
-      setEditingCategory(null);
-    } else {
-      if (categories.find(cat => cat.id === formData.id)) {
-        alert('Category ID already exists!');
-        return;
+    try {
+      let response;
+      if (editingCategory) {
+        response = await fetch(`${BASE_URL}/api/categories/${editingCategory.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+      } else {
+        response = await fetch(`${BASE_URL}/api/categories`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
       }
-      updatedCategories = [...categories, { ...formData }];
+      
+      const data = await response.json();
+      if (data.success) {
+        fetchCategories();
+        setShowForm(false);
+        setFormData({ id: '', name: '', icon: '', description: '', image: '' });
+        setSelectedFile(null);
+        setImagePreview('');
+        setEditingCategory(null);
+        alert(editingCategory ? 'Category updated successfully!' : 'Category added successfully!');
+      } else {
+        alert(data.message || 'Error saving category');
+      }
+    } catch (error) {
+      alert('Error saving category');
     }
-    
-    setCategories(updatedCategories);
-    setShowForm(false);
-    setFormData({ id: '', name: '', icon: '', description: '', image: '' });
-    setSelectedFile(null);
-    setImagePreview('');
-    
-    // Save to localStorage for persistence
-    localStorage.setItem('categories', JSON.stringify(updatedCategories));
   };
 
   const handleEdit = (category) => {
@@ -62,20 +81,24 @@ const Categories = () => {
     setShowForm(true);
   };
 
-  const handleDelete = (categoryId) => {
+  const handleDelete = async (categoryId) => {
     if (window.confirm('Are you sure you want to delete this category?')) {
-      const updatedCategories = categories.filter(cat => cat.id !== categoryId);
-      setCategories(updatedCategories);
-      localStorage.setItem('categories', JSON.stringify(updatedCategories));
+      try {
+        const response = await fetch(`${BASE_URL}/api/categories/${categoryId}`, {
+          method: 'DELETE'
+        });
+        const data = await response.json();
+        if (data.success) {
+          fetchCategories();
+          alert('Category deleted successfully!');
+        } else {
+          alert('Error deleting category');
+        }
+      } catch (error) {
+        alert('Error deleting category');
+      }
     }
   };
-
-  useEffect(() => {
-    const savedCategories = localStorage.getItem('categories');
-    if (savedCategories) {
-      setCategories(JSON.parse(savedCategories));
-    }
-  }, []);
 
   return (
     <div>
@@ -201,11 +224,6 @@ const Categories = () => {
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="alert alert-info mt-4">
-        <strong>Note:</strong> Categories are stored locally and will be used across the application. 
-        Make sure to backup your categories before making major changes.
       </div>
     </div>
   );
