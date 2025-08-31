@@ -97,13 +97,20 @@ const RecentlyViewed = () => {
   );
 };
 
-// Add to recently viewed - keep last 4 different items
+// Add to recently viewed - only add if not already present
 export const addToRecentlyViewed = (product) => {
   const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-  // Remove if already exists to avoid duplicates
-  const filtered = recent.filter(item => (item._id || item.id) !== product._id);
-  // Add new product to beginning
-  const updated = [product, ...filtered].slice(0, 4); // Keep only 4 items
+  
+  // Check if product already exists
+  const exists = recent.some(item => (item._id || item.id) === product._id);
+  
+  // If already exists, don't change anything
+  if (exists) {
+    return;
+  }
+  
+  // Add new product to beginning and keep only 4 items
+  const updated = [product, ...recent].slice(0, 4);
   localStorage.setItem('recentlyViewed', JSON.stringify(updated));
 };
 
