@@ -36,6 +36,25 @@ const ProductDetail = ({ onAddToCart, user }) => {
       for (let i = 0; i < quantity; i++) {
         await onAddToCart(product);
       }
+      alert(`${quantity} item(s) added to cart!`);
+    } finally {
+      setAddingToCart(false);
+    }
+  };
+
+  const handleBuyNow = async () => {
+    if (!user) {
+      navigate('/register');
+      return;
+    }
+    if (!product || product.stock === 0) return;
+    
+    setAddingToCart(true);
+    try {
+      for (let i = 0; i < quantity; i++) {
+        await onAddToCart(product);
+      }
+      navigate('/cart');
     } finally {
       setAddingToCart(false);
     }
@@ -197,27 +216,36 @@ const ProductDetail = ({ onAddToCart, user }) => {
             </div>
           </div>
 
-          <div className="d-flex gap-3 mb-4">
+          <div className="d-grid gap-2 mb-4">
             <button 
-              className="btn btn-success btn-lg flex-fill"
-              onClick={handleAddToCart}
+              className="btn btn-warning btn-lg fw-bold"
+              onClick={handleBuyNow}
               disabled={product.stock === 0 || addingToCart}
             >
-              {addingToCart ? (
-                <>
-                  <span className="spinner-border spinner-border-sm me-2"></span>
-                  Adding...
-                </>
-              ) : product.stock === 0 ? 'Out of Stock' : `Add to Cart - ₹${product.price * quantity}`}
+              {addingToCart ? 'Processing...' : product.stock === 0 ? 'Out of Stock' : `Buy Now - ₹${product.price * quantity}`}
             </button>
-            
-            <button 
-              className="btn btn-outline-danger btn-lg"
-              onClick={addToWishlist}
-              title="Add to Wishlist"
-            >
-              ❤️
-            </button>
+            <div className="d-flex gap-3">
+              <button 
+                className="btn btn-success btn-lg flex-fill"
+                onClick={handleAddToCart}
+                disabled={product.stock === 0 || addingToCart}
+              >
+                {addingToCart ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2"></span>
+                    Adding...
+                  </>
+                ) : product.stock === 0 ? 'Out of Stock' : `Add to Cart - ₹${product.price * quantity}`}
+              </button>
+              
+              <button 
+                className="btn btn-outline-danger btn-lg"
+                onClick={addToWishlist}
+                title="Add to Wishlist"
+              >
+                ❤️
+              </button>
+            </div>
           </div>
 
           <div className="border-top pt-3">

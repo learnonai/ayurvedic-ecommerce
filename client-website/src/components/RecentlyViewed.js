@@ -9,6 +9,9 @@ const RecentlyViewed = () => {
   useEffect(() => {
     const fetchRecentProducts = async () => {
       try {
+        // Clear old localStorage data first
+        localStorage.removeItem('recentlyViewed');
+        
         const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
         if (recent.length === 0) {
           setLoading(false);
@@ -27,10 +30,8 @@ const RecentlyViewed = () => {
         
         setRecentProducts(freshRecentProducts);
       } catch (error) {
-        console.error('Error fetching recent products:', error);
-        // Fallback to localStorage data
-        const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-        setRecentProducts(recent.slice(0, 4));
+        // Silent error handling
+        setRecentProducts([]);
       }
       setLoading(false);
     };
@@ -38,6 +39,9 @@ const RecentlyViewed = () => {
     fetchRecentProducts();
   }, []);
 
+  // Temporarily disable recently viewed to fix image issues
+  return null;
+  
   if (loading) {
     return (
       <div className="container my-4">
@@ -122,7 +126,6 @@ const RecentlyViewed = () => {
                           objectFit: 'cover'
                         }}
                         onError={(e) => {
-                          console.log('Image failed to load:', imageUrl);
                           e.target.style.display = 'none';
                           e.target.nextSibling.style.display = 'flex';
                         }}

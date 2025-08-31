@@ -10,8 +10,6 @@ router.post('/create-order', auth, async (req, res) => {
     const userId = req.user._id || req.user.id || 'user1';
     const phone = '9999999999';
     
-    console.log('Payment request:', { amount, userId, phone, user: req.user });
-    
     if (!amount || amount <= 0) {
       return res.status(400).json({
         success: false,
@@ -32,8 +30,6 @@ router.post('/create-order', auth, async (req, res) => {
       phone
     });
     
-    console.log('PhonePe result:', result);
-    
     if (result.success) {
       res.json({
         success: true,
@@ -47,7 +43,6 @@ router.post('/create-order', auth, async (req, res) => {
       });
     }
   } catch (error) {
-    console.error('Payment route error:', error);
     res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -58,30 +53,19 @@ router.post('/create-order', auth, async (req, res) => {
 // PhonePe callback - handle both GET and POST
 router.all('/callback', async (req, res) => {
   try {
-    console.log('PhonePe Callback - Method:', req.method);
-    console.log('PhonePe Callback - Query:', req.query);
-    console.log('PhonePe Callback - Body:', req.body);
-    
-    // Get transaction ID from query or body
     const transactionId = req.query.transactionId || req.body.transactionId || req.query.merchantOrderId;
     const code = req.query.code || req.body.code;
     
     if (!transactionId) {
-      console.log('No transaction ID in callback');
       return res.redirect('https://learnonai.com/payment-success?status=error');
     }
     
     if (code === 'PAYMENT_SUCCESS') {
-      // Only success if explicitly successful
-      console.log('Payment callback - success:', transactionId);
       return res.redirect(`https://learnonai.com/payment-success?status=success&transactionId=${transactionId}`);
     } else {
-      // Payment failed, cancelled, or any other status
-      console.log('Payment callback - failed/cancelled:', transactionId, 'Code:', code);
       return res.redirect(`https://learnonai.com/payment-success?status=failed&transactionId=${transactionId}`);
     }
   } catch (error) {
-    console.error('Callback processing error:', error);
     res.redirect('https://learnonai.com/payment-success?status=error');
   }
 });
@@ -110,7 +94,6 @@ router.post('/verify', auth, async (req, res) => {
 router.all('/status/:transactionId', async (req, res) => {
   try {
     const { transactionId } = req.params;
-    console.log('Status check for:', transactionId);
     
     const result = await phonepeService.verifyPayment(transactionId);
     
@@ -120,7 +103,6 @@ router.all('/status/:transactionId', async (req, res) => {
       res.redirect(`https://learnonai.com/payment-success?status=failed&transactionId=${transactionId}`);
     }
   } catch (error) {
-    console.error('Status check error:', error);
     res.redirect('https://learnonai.com/payment-success?status=error');
   }
 });
