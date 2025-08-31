@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { orders, products } from '../utils/api';
+import DebugInfo from '../components/DebugInfo';
 
 const Orders = () => {
   const [orderList, setOrderList] = useState([]);
@@ -22,10 +23,22 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
+      console.log('Fetching orders...');
       const response = await orders.getAll();
-      setOrderList(response.data);
+      console.log('Orders response:', response.data);
+      
+      // Ensure all orders have required fields
+      const ordersWithDefaults = response.data.map(order => ({
+        ...order,
+        archived: order.archived || false,
+        status: order.status || 'pending',
+        createdAt: order.createdAt || new Date().toISOString()
+      }));
+      
+      setOrderList(ordersWithDefaults);
     } catch (error) {
       console.error('Error fetching orders:', error);
+      alert('Failed to fetch orders. Please check if the backend is running.');
     }
   };
 
@@ -124,18 +137,40 @@ const Orders = () => {
 
   const updateOrderStatus = async (orderId, status) => {
     try {
-      await orders.updateStatus(orderId, status);
-      fetchOrders();
+      console.log('Updating order status:', orderId, 'to:', status);
+      const response = await orders.updateStatus(orderId, status);
+      console.log('Status update response:', response);
+      
+      // Update local state immediately
+      setOrderList(prevOrders => 
+        prevOrders.map(order => 
+          order._id === orderId ? { ...order, status } : order
+        )
+      );
+      
+      // Also fetch fresh data
+      setTimeout(() => fetchOrders(), 500);
     } catch (error) {
-      alert('Error updating order status');
+      console.error('Status update error:', error);
+      alert('Error updating order status: ' + (error.response?.data?.message || error.message));
     }
   };
 
   const toggleArchiveOrder = async (orderId, archived) => {
     try {
       console.log('Archiving order:', orderId, 'archived:', archived);
-      await orders.updateStatus(orderId, null, { archived });
-      fetchOrders();
+      const response = await orders.updateStatus(orderId, null, { archived });
+      console.log('Archive response:', response);
+      
+      // Update local state immediately for better UX
+      setOrderList(prevOrders => 
+        prevOrders.map(order => 
+          order._id === orderId ? { ...order, archived } : order
+        )
+      );
+      
+      // Also fetch fresh data
+      setTimeout(() => fetchOrders(), 500);
     } catch (error) {
       console.error('Archive error:', error);
       alert('Error archiving order: ' + (error.response?.data?.message || error.message));
@@ -164,6 +199,7 @@ const Orders = () => {
   return (
     <div>
       <h2>Orders Management</h2>
+      <DebugInfo />
       
       {!showDetails ? (
         <div>

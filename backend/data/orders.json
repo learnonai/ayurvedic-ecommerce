@@ -19,7 +19,8 @@
     "status": "delivered",
     "_id": "1754111558522",
     "createdAt": "2025-08-02T05:12:38.522Z",
-    "updatedAt": "2025-08-13T15:17:26.420Z"
+    "updatedAt": "2025-08-13T15:17:26.420Z",
+    "archived": false
   },
   {
     "items": [
@@ -53,7 +54,8 @@
     "status": "pending",
     "_id": "1754112400355",
     "createdAt": "2025-08-02T05:26:40.355Z",
-    "updatedAt": "2025-08-02T05:26:40.355Z"
+    "updatedAt": "2025-08-02T05:26:40.355Z",
+    "archived": false
   },
   {
     "items": [
@@ -77,7 +79,8 @@
     "status": "pending",
     "_id": "1754112468364",
     "createdAt": "2025-08-02T05:27:48.364Z",
-    "updatedAt": "2025-08-02T05:27:48.364Z"
+    "updatedAt": "2025-08-02T05:27:48.364Z",
+    "archived": false
   },
   {
     "items": [
@@ -106,7 +109,8 @@
     "status": "pending",
     "_id": "1754124065227",
     "createdAt": "2025-08-02T08:41:05.227Z",
-    "updatedAt": "2025-08-02T08:41:05.227Z"
+    "updatedAt": "2025-08-02T08:41:05.227Z",
+    "archived": false
   },
   {
     "items": [
@@ -130,7 +134,8 @@
     "status": "pending",
     "_id": "1754124447433",
     "createdAt": "2025-08-02T08:47:27.433Z",
-    "updatedAt": "2025-08-02T08:47:27.433Z"
+    "updatedAt": "2025-08-02T08:47:27.433Z",
+    "archived": false
   },
   {
     "items": [
@@ -154,7 +159,8 @@
     "status": "delivered",
     "_id": "1755098466675",
     "createdAt": "2025-08-13T15:21:06.675Z",
-    "updatedAt": "2025-08-13T15:22:01.961Z"
+    "updatedAt": "2025-08-13T15:22:01.961Z",
+    "archived": false
   },
   {
     "items": [
@@ -178,7 +184,8 @@
     "status": "pending",
     "_id": "1755438639832",
     "createdAt": "2025-08-17T13:50:39.832Z",
-    "updatedAt": "2025-08-17T13:50:39.832Z"
+    "updatedAt": "2025-08-17T13:50:39.832Z",
+    "archived": false
   },
   {
     "items": [
@@ -231,7 +238,8 @@
     "status": "pending",
     "_id": "1756126890203",
     "createdAt": "2025-08-25T13:01:30.203Z",
-    "updatedAt": "2025-08-25T13:01:30.203Z"
+    "updatedAt": "2025-08-25T13:01:30.203Z",
+    "archived": false
   },
   {
     "items": [
@@ -257,7 +265,8 @@
     "status": "pending",
     "_id": "1756126928594",
     "createdAt": "2025-08-25T13:02:08.594Z",
-    "updatedAt": "2025-08-25T13:02:08.594Z"
+    "updatedAt": "2025-08-25T13:02:08.594Z",
+    "archived": false
   },
   {
     "items": [
@@ -283,7 +292,8 @@
     "status": null,
     "_id": "1756126928596",
     "createdAt": "2025-08-25T13:02:08.596Z",
-    "updatedAt": "2025-08-30T18:37:42.008Z"
+    "updatedAt": "2025-08-30T18:37:42.008Z",
+    "archived": false
   },
   {
     "items": [
@@ -309,7 +319,8 @@
     "status": "pending",
     "_id": "1756127100190",
     "createdAt": "2025-08-25T13:05:00.190Z",
-    "updatedAt": "2025-08-25T13:05:00.190Z"
+    "updatedAt": "2025-08-25T13:05:00.190Z",
+    "archived": false
   },
   {
     "items": [
@@ -335,7 +346,8 @@
     "status": "pending",
     "_id": "1756127100192",
     "createdAt": "2025-08-25T13:05:00.192Z",
-    "updatedAt": "2025-08-25T13:05:00.192Z"
+    "updatedAt": "2025-08-25T13:05:00.192Z",
+    "archived": false
   },
   {
     "items": [
@@ -361,7 +373,8 @@
     "status": "pending",
     "_id": "1756127317470",
     "createdAt": "2025-08-25T13:08:37.470Z",
-    "updatedAt": "2025-08-25T13:08:37.470Z"
+    "updatedAt": "2025-08-25T13:08:37.470Z",
+    "archived": false
   },
   {
     "items": [
@@ -387,7 +400,8 @@
     "status": "pending",
     "_id": "1756127317473",
     "createdAt": "2025-08-25T13:08:37.473Z",
-    "updatedAt": "2025-08-25T13:08:37.473Z"
+    "updatedAt": "2025-08-25T13:08:37.473Z",
+    "archived": false
   },
   {
     "items": [
@@ -413,7 +427,8 @@
     "status": "pending",
     "_id": "1756127481649",
     "createdAt": "2025-08-25T13:11:21.649Z",
-    "updatedAt": "2025-08-25T13:11:21.649Z"
+    "updatedAt": "2025-08-25T13:11:21.649Z",
+    "archived": false
   },
   {
     "items": [
@@ -439,7 +454,8 @@
     "status": "pending",
     "_id": "1756127481660",
     "createdAt": "2025-08-25T13:11:21.660Z",
-    "updatedAt": "2025-08-25T13:11:21.660Z"
+    "updatedAt": "2025-08-25T13:11:21.660Z",
+    "archived": false
   },
   {
     "items": [
@@ -465,7 +481,8 @@
     "status": "pending",
     "_id": "1756127541356",
     "createdAt": "2025-08-25T13:12:21.356Z",
-    "updatedAt": "2025-08-25T13:12:21.356Z"
+    "updatedAt": "2025-08-25T13:12:21.356Z",
+    "archived": false
   },
   {
     "items": [
@@ -491,7 +508,8 @@
     "status": "pending",
     "_id": "1756127709174",
     "createdAt": "2025-08-25T13:15:09.174Z",
-    "updatedAt": "2025-08-25T13:15:09.174Z"
+    "updatedAt": "2025-08-25T13:15:09.174Z",
+    "archived": false
   },
   {
     "items": [

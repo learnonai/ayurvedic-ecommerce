@@ -7,8 +7,14 @@ const getApiUrl = () => {
     return 'http://localhost:5000/api';
   }
   
-  // Production URL
-  return 'https://learnonai.com/api';
+  // Production URL - try different approaches
+  const hostname = window.location.hostname;
+  if (hostname === 'learnonai.com') {
+    return 'https://learnonai.com/api';
+  }
+  
+  // Fallback for production
+  return '/api';
 };
 
 const API_URL = getApiUrl();
@@ -22,6 +28,13 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  
+  // Add cache busting for production
+  if (process.env.NODE_ENV !== 'development') {
+    config.headers['Cache-Control'] = 'no-cache';
+    config.headers['Pragma'] = 'no-cache';
+  }
+  
   console.log('API Request:', config.method?.toUpperCase(), config.url, 'Base:', config.baseURL);
   return config;
 });
@@ -33,6 +46,12 @@ api.interceptors.response.use(
   },
   (error) => {
     console.error('API Error:', error.config?.url, error.response?.status, error.message);
+    
+    // Handle network errors in production
+    if (!error.response && error.code === 'ERR_NETWORK') {
+      console.error('Network error - check if backend is running');
+    }
+    
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('userToken');
@@ -59,11 +78,15 @@ export const products = {
 };
 
 export const orders = {
-  getAll: () => api.get('/orders'),
+  getAll: () => {
+    console.log('Fetching orders from:', API_URL + '/orders');
+    return api.get('/orders');
+  },
   updateStatus: (id, status, extraData = {}) => {
     const payload = {};
     if (status) payload.status = status;
     if (extraData.archived !== undefined) payload.archived = extraData.archived;
+    console.log('Updating order:', id, 'with payload:', payload);
     return api.put(`/orders/${id}/status`, payload);
   },
 };
