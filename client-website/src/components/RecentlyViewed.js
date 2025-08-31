@@ -1,43 +1,104 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BASE_URL } from '../utils/api';
+import { BASE_URL, products } from '../utils/api';
 
 const RecentlyViewed = () => {
   const [recentProducts, setRecentProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-    // Filter out products with invalid image paths
-    const validRecent = recent.filter(product => {
-      if (!product.images || product.images.length === 0) return true;
-      const imagePath = product.images[0];
-      // Keep products with valid image extensions and current naming
-      return imagePath.includes('.jpg') || imagePath.includes('.png') || imagePath.includes('.jpeg');
-    });
+    const fetchRecentProducts = async () => {
+      try {
+        const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+        if (recent.length === 0) {
+          setLoading(false);
+          return;
+        }
+
+        // Fetch fresh product data to get updated images
+        const productIds = recent.slice(0, 4).map(p => p._id);
+        const allProductsResponse = await products.getAll();
+        const allProducts = allProductsResponse.data;
+        
+        // Match recent products with fresh data
+        const freshRecentProducts = productIds.map(id => 
+          allProducts.find(p => p._id === id)
+        ).filter(Boolean);
+        
+        setRecentProducts(freshRecentProducts);
+      } catch (error) {
+        console.error('Error fetching recent products:', error);
+        // Fallback to localStorage data
+        const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+        setRecentProducts(recent.slice(0, 4));
+      }
+      setLoading(false);
+    };
     
-    // Update localStorage if we filtered out invalid products
-    if (validRecent.length !== recent.length) {
-      localStorage.setItem('recentlyViewed', JSON.stringify(validRecent));
-    }
-    
-    setRecentProducts(validRecent.slice(0, 4));
+    fetchRecentProducts();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="container my-4">
+        <div className="d-flex justify-content-center">
+          <div className="spinner-border spinner-border-sm text-success" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
   if (recentProducts.length === 0) return null;
 
   return (
     <div className="container my-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="mb-0">👁️ Recently Viewed</h5>
-        <button 
-          className="btn btn-sm btn-outline-secondary"
-          onClick={() => {
-            localStorage.removeItem('recentlyViewed');
-            setRecentProducts([]);
-          }}
-        >
-          Clear
-        </button>
+        <div className="d-flex gap-2">
+          <button 
+            className="btn btn-sm btn-outline-secondary"
+            onClick={() => {
+              localStorage.removeItem('recentlyViewed');
+              setRecentProducts([]);
+            }}
+          >
+            Clear
+          </button>
+          <button 
+            className="btn btn-sm btn-outline-primary"
+            onClick={() => {
+              setLoading(true);
+              // Force refresh by re-running the effect
+              const fetchRecentProducts = async () => {
+                try {
+                  const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+                  if (recent.length === 0) {
+                    setLoading(false);
+                    return;
+                  }
+          
+                  const productIds = recent.slice(0, 4).map(p => p._id);
+                  const allProductsResponse = await products.getAll();
+                  const allProducts = allProductsResponse.data;
+                  
+                  const freshRecentProducts = productIds.map(id => 
+                    allProducts.find(p => p._id === id)
+                  ).filter(Boolean);
+                  
+                  setRecentProducts(freshRecentProducts);
+                } catch (error) {
+                  console.error('Error refreshing recent products:', error);
+                }
+                setLoading(false);
+              };
+              fetchRecentProducts();
+            }}
+          >
+            Refresh
+          </button>
+        </div>
       </div>
       <div className="row">
         {recentProducts.map((product, index) => {
