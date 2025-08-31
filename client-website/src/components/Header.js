@@ -95,13 +95,15 @@ const Header = ({ user, onLogout, cartCount }) => {
                 style={{ borderRadius: '4px 0 0 0' }}
               />
               <button 
-                className="btn btn-outline-secondary"
+                className="btn btn-outline-secondary d-flex align-items-center"
                 type="button"
                 onClick={toggleFilters}
-                style={{ borderRadius: '0', borderLeft: 'none', borderRight: 'none' }}
-                title="Filters"
+                style={{ borderRadius: '0', borderLeft: 'none', borderRight: 'none', padding: '0.375rem 0.75rem' }}
+                title="Advanced Filters"
               >
-                🔧
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                </svg>
               </button>
               {showFilters && (
                 <div 
@@ -195,11 +197,14 @@ const Header = ({ user, onLogout, cartCount }) => {
                 </div>
               )}
               <button 
-                className="btn btn-warning" 
+                className="btn btn-warning d-flex align-items-center justify-content-center" 
                 type="submit"
                 style={{ borderRadius: '0 4px 4px 0', minWidth: '50px' }}
+                title="Search"
               >
-                🔍
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
               </button>
             </div>
           </form>
@@ -245,15 +250,20 @@ const Header = ({ user, onLogout, cartCount }) => {
               onChange={(e) => setSearchQuery(sanitizeInput(e.target.value))}
             />
             <button 
-              className="btn btn-outline-secondary"
+              className="btn btn-outline-secondary d-flex align-items-center justify-content-center"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#mobileFilters"
+              title="Filters"
             >
-              🔧
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+              </svg>
             </button>
-            <button className="btn btn-warning" type="submit">
-              🔍
+            <button className="btn btn-warning d-flex align-items-center justify-content-center" type="submit" title="Search">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
             </button>
           </div>
         </form>

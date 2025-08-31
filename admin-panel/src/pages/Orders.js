@@ -23,7 +23,7 @@ const Orders = () => {
 
   useEffect(() => {
     filterAndSortOrders();
-  }, [orderList, filterPeriod, sortBy, showArchived]);
+  }, [orderList, filterPeriod, sortBy, showArchived, searchTerm, statusFilter, amountFilter]);
 
   const fetchOrders = async () => {
     try {
@@ -245,7 +245,7 @@ const Orders = () => {
                   <label className="form-label fw-bold">Search Orders:</label>
                   <input 
                     type="text"
-                    className="form-select"
+                    className="form-control"
                     placeholder="Search by customer, order ID, city..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
