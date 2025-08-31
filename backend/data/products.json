@@ -1,161 +1,282 @@
 [
   {
     "name": "Herbal Coconut Oil (100ml)",
-    "description": "Pure cold-pressed virgin coconut oil enriched with natural herbs for hair and skin care. This premium quality oil is extracted using traditional methods to preserve all natural nutrients. Perfect for daily hair and skin care routine.",
-    "price": "1",
+    "description": "Pure cold-pressed virgin coconut oil enriched with natural herbs for hair and skin care. Perfect for daily nourishment.",
+    "price": "149",
     "category": "oils",
     "stock": "50",
     "volume": "100ml",
-    "benefits": [
-      "Deep moisturizes hair and skin",
-      "Promotes hair growth",
-      "Anti-bacterial properties",
-      "Natural sun protection",
-      "Reduces inflammation"
-    ],
-    "ingredients": [
-      "100% Virgin Coconut Oil",
-      "Curry leaves extract",
-      "Fenugreek oil"
-    ],
+    "benefits": ["Deep moisturizes hair and skin", "Promotes hair growth", "Anti-bacterial properties"],
+    "ingredients": ["100% Virgin Coconut Oil", "Curry leaves extract", "Fenugreek oil"],
     "usage": "Apply to hair and scalp, massage gently. Leave for 30 minutes before washing",
-    "images": [
-      "pdt-img/herbal-leaf-default.jpg"
-    ],
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
     "isActive": true,
-    "_id": "HERB001",
-    "updatedAt": "2025-08-27T16:03:59.472Z"
+    "_id": "OIL001"
   },
   {
     "name": "Herbal Argan Oil (50ml)",
-    "description": "Premium Moroccan argan oil infused with ayurvedic herbs for ultimate nourishment. Known as 'liquid gold', this rare oil provides intensive care for hair and skin. Rich in essential fatty acids and antioxidants.",
-    "price": "599",
+    "description": "Premium Moroccan argan oil infused with ayurvedic herbs. Known as 'liquid gold' for ultimate nourishment.",
+    "price": "199",
     "category": "oils",
     "stock": "30",
     "volume": "50ml",
-    "benefits": [
-      "Rich in Vitamin E",
-      "Anti-aging properties",
-      "Repairs damaged hair",
-      "Softens skin naturally",
-      "Reduces fine lines"
-    ],
-    "ingredients": [
-      "Pure Moroccan Argan Oil",
-      "Brahmi extract",
-      "Amla oil"
-    ],
+    "benefits": ["Rich in Vitamin E", "Anti-aging properties", "Repairs damaged hair"],
+    "ingredients": ["Pure Moroccan Argan Oil", "Brahmi extract", "Amla oil"],
     "usage": "Apply few drops to face and hair. Use daily for best results",
-    "images": [
-      "pdt-img/argan-oil-sample.jpg"
-    ],
+    "images": ["pdt-img/argan-oil-sample.jpg"],
     "isActive": true,
-    "_id": "HERB002"
+    "_id": "OIL002"
   },
   {
     "name": "Herbal Eucalyptus Oil (30ml)",
-    "description": "Therapeutic eucalyptus oil blended with traditional herbs for respiratory wellness. This concentrated formula provides instant relief from congestion and promotes clear breathing. Perfect for aromatherapy and topical application.",
-    "price": "249",
+    "description": "Therapeutic eucalyptus oil blended with traditional herbs for respiratory wellness and aromatherapy.",
+    "price": "129",
     "category": "oils",
     "stock": "40",
     "volume": "30ml",
-    "benefits": [
-      "Clears respiratory passages",
-      "Natural decongestant",
-      "Antimicrobial properties",
-      "Relieves muscle pain",
-      "Energizing aroma"
-    ],
-    "ingredients": [
-      "Pure Eucalyptus Oil",
-      "Tulsi extract",
-      "Camphor oil"
-    ],
+    "benefits": ["Clears respiratory passages", "Natural decongestant", "Antimicrobial properties"],
+    "ingredients": ["Pure Eucalyptus Oil", "Tulsi extract", "Camphor oil"],
     "usage": "Add 2-3 drops to steam inhalation or diffuser. For topical use, dilute with carrier oil",
-    "images": [
-      "pdt-img/eucalyptus-oil-sample.jpg"
-    ],
+    "images": ["pdt-img/eucalyptus-oil-sample.jpg"],
     "isActive": true,
-    "_id": "HERB003"
-  },
-  {
-    "name": "Herbal Face Oil (30ml)",
-    "description": "Luxurious facial oil blend with precious herbs for radiant and youthful skin. This anti-aging formula combines traditional Ayurvedic ingredients with modern skincare science. Suitable for all skin types.",
-    "price": "449",
-    "category": "oils",
-    "stock": "25",
-    "volume": "30ml",
-    "benefits": [
-      "Deep skin nourishment",
-      "Reduces dark spots",
-      "Anti-aging formula",
-      "Natural glow enhancer",
-      "Balances skin tone"
-    ],
-    "ingredients": [
-      "Jojoba Oil",
-      "Kumkumadi tailam",
-      "Saffron extract",
-      "Rose oil"
-    ],
-    "usage": "Apply 3-4 drops to clean face before bedtime. Gently massage in upward motions",
-    "images": [
-      "pdt-img/herbal-leaf-default.jpg"
-    ],
-    "isActive": true,
-    "_id": "HERB004"
+    "_id": "OIL003"
   },
   {
     "name": "Herbal Lavender Oil (50ml)",
-    "description": "Calming lavender oil enhanced with stress-relieving ayurvedic herbs. This therapeutic blend promotes relaxation and peaceful sleep. Perfect for bedtime routine and stress management.",
-    "price": "349",
+    "description": "Calming lavender oil enhanced with stress-relieving ayurvedic herbs for relaxation and peaceful sleep.",
+    "price": "169",
     "category": "oils",
     "stock": "35",
     "volume": "50ml",
-    "benefits": [
-      "Promotes deep sleep",
-      "Reduces stress and anxiety",
-      "Soothes skin irritation",
-      "Natural aromatherapy",
-      "Calms mind and body"
-    ],
-    "ingredients": [
-      "Pure Lavender Oil",
-      "Shankhpushpi extract",
-      "Jatamansi oil"
-    ],
+    "benefits": ["Promotes deep sleep", "Reduces stress and anxiety", "Natural aromatherapy"],
+    "ingredients": ["Pure Lavender Oil", "Shankhpushpi extract", "Jatamansi oil"],
     "usage": "Apply to temples and pulse points. Add to diffuser for aromatherapy benefits",
-    "images": [
-      "pdt-img/herbal-leaf-default.jpg"
-    ],
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
     "isActive": true,
-    "_id": "HERB005"
+    "_id": "OIL004"
   },
   {
-    "name": "Herbal Rosemary Oil (100ml)",
-    "description": "Stimulating rosemary oil fortified with hair-growth promoting herbs. This potent formula activates hair follicles and improves scalp circulation. Clinically proven ingredients for stronger, healthier hair.",
-    "price": "329",
-    "category": "oils",
-    "stock": "45",
-    "volume": "100ml",
-    "benefits": [
-      "Stimulates hair growth",
-      "Improves memory and focus",
-      "Increases blood circulation",
-      "Prevents premature graying",
-      "Strengthens hair roots"
-    ],
-    "ingredients": [
-      "Pure Rosemary Oil",
-      "Bhringraj extract",
-      "Methi oil",
-      "Neem oil"
-    ],
-    "usage": "Massage into scalp and hair roots. Leave for 1 hour before washing with herbal shampoo",
-    "images": [
-      "pdt-img/herbal-leaf-default.jpg"
-    ],
+    "name": "Ashwagandha Capsules (60 caps)",
+    "description": "Premium quality Ashwagandha root extract capsules for stress relief and energy boost. Natural adaptogen.",
+    "price": "179",
+    "category": "capsules",
+    "stock": "100",
+    "volume": "60 capsules",
+    "benefits": ["Reduces stress and anxiety", "Boosts energy levels", "Improves sleep quality"],
+    "ingredients": ["Ashwagandha root extract 500mg", "Vegetarian capsule shell"],
+    "usage": "Take 1-2 capsules daily with warm water after meals",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
     "isActive": true,
-    "_id": "HERB006"
+    "_id": "CAP001"
+  },
+  {
+    "name": "Turmeric Curcumin Capsules (60 caps)",
+    "description": "High potency turmeric curcumin capsules with black pepper extract for maximum absorption and anti-inflammatory benefits.",
+    "price": "159",
+    "category": "capsules",
+    "stock": "80",
+    "volume": "60 capsules",
+    "benefits": ["Powerful anti-inflammatory", "Boosts immunity", "Supports joint health"],
+    "ingredients": ["Turmeric extract 500mg", "Black pepper extract 5mg", "Vegetarian capsule"],
+    "usage": "Take 1 capsule twice daily with meals",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "CAP002"
+  },
+  {
+    "name": "Brahmi Memory Capsules (60 caps)",
+    "description": "Pure Brahmi extract capsules to enhance memory, focus and cognitive function. Traditional brain tonic.",
+    "price": "149",
+    "category": "capsules",
+    "stock": "60",
+    "volume": "60 capsules",
+    "benefits": ["Enhances memory and focus", "Reduces mental fatigue", "Supports brain health"],
+    "ingredients": ["Brahmi leaf extract 300mg", "Mandukaparni extract 200mg"],
+    "usage": "Take 1 capsule daily in the morning with water",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "CAP003"
+  },
+  {
+    "name": "Triphala Digestive Capsules (60 caps)",
+    "description": "Traditional Triphala blend capsules for digestive health and natural detoxification. Gentle daily cleanser.",
+    "price": "139",
+    "category": "capsules",
+    "stock": "90",
+    "volume": "60 capsules",
+    "benefits": ["Improves digestion", "Natural detoxification", "Supports gut health"],
+    "ingredients": ["Amla extract", "Haritaki extract", "Bibhitaki extract"],
+    "usage": "Take 1-2 capsules before bedtime with warm water",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "CAP004"
+  },
+  {
+    "name": "Neem Face Wash (100ml)",
+    "description": "Gentle neem-based face wash for acne-prone skin. Natural antibacterial properties for clear, healthy skin.",
+    "price": "89",
+    "category": "skincare",
+    "stock": "70",
+    "volume": "100ml",
+    "benefits": ["Fights acne and pimples", "Natural antibacterial", "Gentle daily cleanser"],
+    "ingredients": ["Neem leaf extract", "Tulsi extract", "Aloe vera gel"],
+    "usage": "Apply to wet face, massage gently, rinse with water. Use twice daily",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "SKIN001"
+  },
+  {
+    "name": "Turmeric Glow Face Pack (50g)",
+    "description": "Natural turmeric and sandalwood face pack for glowing skin. Removes tan and brightens complexion.",
+    "price": "99",
+    "category": "skincare",
+    "stock": "50",
+    "volume": "50g",
+    "benefits": ["Natural skin brightening", "Removes tan and dark spots", "Anti-aging properties"],
+    "ingredients": ["Turmeric powder", "Sandalwood powder", "Rose petal powder"],
+    "usage": "Mix with rose water, apply for 15 minutes, rinse off. Use 2-3 times weekly",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "SKIN002"
+  },
+  {
+    "name": "Aloe Vera Moisturizer (100ml)",
+    "description": "Pure aloe vera gel moisturizer for all skin types. Hydrates and soothes irritated skin naturally.",
+    "price": "119",
+    "category": "skincare",
+    "stock": "80",
+    "volume": "100ml",
+    "benefits": ["Deep hydration", "Soothes irritated skin", "Non-greasy formula"],
+    "ingredients": ["99% Pure Aloe vera gel", "Vitamin E", "Glycerin"],
+    "usage": "Apply to clean skin, massage gently until absorbed. Use morning and evening",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "SKIN003"
+  },
+  {
+    "name": "Rose Water Toner (150ml)",
+    "description": "Pure rose water toner for refreshing and toning skin. Natural astringent with anti-aging benefits.",
+    "price": "79",
+    "category": "skincare",
+    "stock": "60",
+    "volume": "150ml",
+    "benefits": ["Natural skin toner", "Refreshes and hydrates", "Anti-aging properties"],
+    "ingredients": ["Pure rose water", "Witch hazel extract", "Glycerin"],
+    "usage": "Apply with cotton pad after cleansing. Use morning and evening",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "SKIN004"
+  },
+  {
+    "name": "Amla Vitamin C Powder (100g)",
+    "description": "Pure amla powder rich in natural Vitamin C. Boosts immunity and promotes healthy hair and skin.",
+    "price": "129",
+    "category": "powders",
+    "stock": "40",
+    "volume": "100g",
+    "benefits": ["Rich in Vitamin C", "Boosts immunity", "Promotes hair growth"],
+    "ingredients": ["100% Pure Amla powder", "No additives or preservatives"],
+    "usage": "Mix 1 tsp with water or juice daily. Can be used in face packs",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "POW001"
+  },
+  {
+    "name": "Moringa Leaf Powder (100g)",
+    "description": "Nutrient-dense moringa leaf powder. Complete superfood with vitamins, minerals and antioxidants.",
+    "price": "149",
+    "category": "powders",
+    "stock": "35",
+    "volume": "100g",
+    "benefits": ["Complete nutrition", "High in antioxidants", "Boosts energy levels"],
+    "ingredients": ["100% Pure Moringa leaf powder", "Organically grown"],
+    "usage": "Mix 1-2 tsp with smoothies, juice or water daily",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "POW002"
+  },
+  {
+    "name": "Spirulina Powder (100g)",
+    "description": "Premium quality spirulina powder. Rich in protein, vitamins and minerals for complete nutrition.",
+    "price": "179",
+    "category": "powders",
+    "stock": "30",
+    "volume": "100g",
+    "benefits": ["High protein content", "Rich in B vitamins", "Supports immune system"],
+    "ingredients": ["100% Pure Spirulina powder", "No artificial additives"],
+    "usage": "Mix 1 tsp with water or juice daily, preferably on empty stomach",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "POW003"
+  },
+  {
+    "name": "Wheatgrass Powder (100g)",
+    "description": "Fresh wheatgrass powder for detoxification and energy. Rich in chlorophyll and essential nutrients.",
+    "price": "119",
+    "category": "powders",
+    "stock": "45",
+    "volume": "100g",
+    "benefits": ["Natural detoxification", "Boosts energy", "Rich in chlorophyll"],
+    "ingredients": ["100% Pure Wheatgrass powder", "Freshly harvested and dried"],
+    "usage": "Mix 1 tsp with water on empty stomach daily",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "POW004"
+  },
+  {
+    "name": "Digestive Herbal Tea (50g)",
+    "description": "Soothing herbal tea blend for digestive health. Contains ginger, fennel and mint for stomach comfort.",
+    "price": "99",
+    "category": "teas",
+    "stock": "60",
+    "volume": "50g",
+    "benefits": ["Improves digestion", "Reduces bloating", "Soothes stomach"],
+    "ingredients": ["Ginger", "Fennel seeds", "Mint leaves", "Cumin seeds"],
+    "usage": "Steep 1 tsp in hot water for 5 minutes. Drink after meals",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "TEA001"
+  },
+  {
+    "name": "Immunity Booster Tea (50g)",
+    "description": "Powerful immunity boosting herbal tea with tulsi, ginger and turmeric. Natural defense against infections.",
+    "price": "119",
+    "category": "teas",
+    "stock": "70",
+    "volume": "50g",
+    "benefits": ["Boosts immunity", "Fights infections", "Rich in antioxidants"],
+    "ingredients": ["Tulsi leaves", "Ginger", "Turmeric", "Black pepper", "Cinnamon"],
+    "usage": "Steep 1 tsp in hot water for 7 minutes. Drink twice daily",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "TEA002"
+  },
+  {
+    "name": "Stress Relief Tea (50g)",
+    "description": "Calming herbal tea blend with chamomile and lavender. Perfect for relaxation and better sleep.",
+    "price": "109",
+    "category": "teas",
+    "stock": "50",
+    "volume": "50g",
+    "benefits": ["Reduces stress", "Promotes relaxation", "Improves sleep quality"],
+    "ingredients": ["Chamomile flowers", "Lavender", "Lemon balm", "Passionflower"],
+    "usage": "Steep 1 tsp in hot water for 5 minutes. Drink before bedtime",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "TEA003"
+  },
+  {
+    "name": "Detox Green Tea (50g)",
+    "description": "Cleansing green tea blend with herbs for natural detoxification. Supports weight management and metabolism.",
+    "price": "129",
+    "category": "teas",
+    "stock": "40",
+    "volume": "50g",
+    "benefits": ["Natural detoxification", "Supports weight loss", "Boosts metabolism"],
+    "ingredients": ["Green tea", "Dandelion", "Nettle leaves", "Lemon grass"],
+    "usage": "Steep 1 tsp in hot water for 3 minutes. Drink 2-3 times daily",
+    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "isActive": true,
+    "_id": "TEA004"
   }
 ]

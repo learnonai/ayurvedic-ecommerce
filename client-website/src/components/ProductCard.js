@@ -45,11 +45,29 @@ const ProductCard = ({ product, onAddToCart, user }) => {
     }
   };
 
+  const handleBuyNow = async () => {
+    if (!user) {
+      navigate('/register');
+      return;
+    }
+    if ((product.stock || 0) === 0) {
+      alert('Sorry, this product is out of stock!');
+      return;
+    }
+    setLoading(true);
+    try {
+      await onAddToCart(product);
+      navigate('/cart');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const hasImage = product.images && product.images.length > 0;
   const imageUrl = hasImage ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '').replace('pdt-img/', '')}` : null;
 
   return (
-    <div className="card h-100" style={{cursor: 'pointer'}}>
+    <div className="card h-100 shadow-sm" style={{cursor: 'pointer', transition: 'transform 0.2s, box-shadow 0.2s'}} onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'} onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}>
       <div className="position-relative" style={{height: '200px'}} onClick={() => navigate(`/product/${product._id}`)}>
         {hasImage && !imageError ? (
           <>
@@ -110,29 +128,38 @@ const ProductCard = ({ product, onAddToCart, user }) => {
           </div>
         )}
         
-        <div className="d-flex gap-2" onClick={(e) => e.stopPropagation()}>
+        <div className="d-grid gap-2" onClick={(e) => e.stopPropagation()}>
           <button 
-            className="btn btn-success flex-fill" 
-            onClick={handleAddToCart}
+            className="btn btn-warning fw-bold" 
+            onClick={handleBuyNow}
             disabled={(product.stock || 0) === 0 || loading}
           >
             {loading ? (
               <>
                 <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                Adding...
+                Processing...
               </>
-            ) : (product.stock || 0) === 0 ? 'Out of Stock' : 'Add to Cart'}
+            ) : (product.stock || 0) === 0 ? 'Out of Stock' : '🛒 Buy Now'}
           </button>
-          <button 
-            className="btn btn-outline-danger"
-            onClick={addToWishlist}
-            disabled={wishlistLoading}
-            title="Add to Wishlist"
-          >
-            {wishlistLoading ? (
-              <span className="spinner-border spinner-border-sm" role="status"></span>
-            ) : '❤️'}
-          </button>
+          <div className="d-flex gap-2">
+            <button 
+              className="btn btn-success flex-fill" 
+              onClick={handleAddToCart}
+              disabled={(product.stock || 0) === 0 || loading}
+            >
+              {loading ? 'Adding...' : 'Add to Cart'}
+            </button>
+            <button 
+              className="btn btn-outline-danger"
+              onClick={addToWishlist}
+              disabled={wishlistLoading}
+              title="Add to Wishlist"
+            >
+              {wishlistLoading ? (
+                <span className="spinner-border spinner-border-sm" role="status"></span>
+              ) : '❤️'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -155,6 +155,10 @@ const Header = ({ user, onLogout, cartCount }) => {
                     >
                       <option value="">All Categories</option>
                       <option value="oils">Herbal Oils</option>
+                      <option value="capsules">Capsules</option>
+                      <option value="skincare">Skincare</option>
+                      <option value="powders">Powders</option>
+                      <option value="teas">Herbal Teas</option>
                     </select>
                   </div>
                   
@@ -311,6 +315,10 @@ const Header = ({ user, onLogout, cartCount }) => {
                 >
                   <option value="">All Categories</option>
                   <option value="oils">Herbal Oils</option>
+                  <option value="capsules">Capsules</option>
+                  <option value="skincare">Skincare</option>
+                  <option value="powders">Powders</option>
+                  <option value="teas">Herbal Teas</option>
                 </select>
               </div>
               <div className="col-6">
