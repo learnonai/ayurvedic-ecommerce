@@ -6,7 +6,7 @@ const { validateProduct, handleValidationErrors } = require('../utils/validation
 const router = express.Router();
 
 const storage = multer.diskStorage({
-  destination: 'uploads/',
+  destination: 'pdt-img/',
   filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
 });
 const upload = multer({ storage });
@@ -50,7 +50,7 @@ router.post('/', auth, adminAuth, upload.array('images', 5), validateProduct, ha
       productData.ingredients = JSON.parse(productData.ingredients);
     }
     
-    // Add image paths
+    // Add image paths (save to pdt-img)
     if (req.files) productData.images = req.files.map(file => file.path);
     
     const product = Product.create(productData);
@@ -73,7 +73,7 @@ router.put('/:id', auth, adminAuth, upload.array('images', 5), async (req, res) 
       updateData.ingredients = JSON.parse(updateData.ingredients);
     }
     
-    // Add new images if uploaded
+    // Add new images if uploaded (save to pdt-img)
     if (req.files && req.files.length > 0) {
       updateData.images = req.files.map(file => file.path);
     }

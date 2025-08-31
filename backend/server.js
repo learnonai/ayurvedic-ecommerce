@@ -17,6 +17,7 @@ const app = express();
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
+app.use('/pdt-img', express.static('pdt-img'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'Herbal Ecommerce API is running!', status: 'OK' });

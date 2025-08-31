@@ -20,7 +20,7 @@
     ],
     "usage": "Apply to hair and scalp, massage gently. Leave for 30 minutes before washing",
     "images": [
-      "uploads/1756310639470-image.png"
+      "pdt-img/herbal-leaf-default.jpg"
     ],
     "isActive": true,
     "_id": "HERB001",
@@ -47,7 +47,7 @@
     ],
     "usage": "Apply few drops to face and hair. Use daily for best results",
     "images": [
-      "uploads/argan-oil-sample.jpg"
+      "pdt-img/argan-oil-sample.jpg"
     ],
     "isActive": true,
     "_id": "HERB002"
@@ -73,7 +73,7 @@
     ],
     "usage": "Add 2-3 drops to steam inhalation or diffuser. For topical use, dilute with carrier oil",
     "images": [
-      "uploads/eucalyptus-oil-sample.jpg"
+      "pdt-img/eucalyptus-oil-sample.jpg"
     ],
     "isActive": true,
     "_id": "HERB003"
@@ -99,7 +99,9 @@
       "Rose oil"
     ],
     "usage": "Apply 3-4 drops to clean face before bedtime. Gently massage in upward motions",
-    "images": [],
+    "images": [
+      "pdt-img/herbal-leaf-default.jpg"
+    ],
     "isActive": true,
     "_id": "HERB004"
   },
@@ -123,7 +125,9 @@
       "Jatamansi oil"
     ],
     "usage": "Apply to temples and pulse points. Add to diffuser for aromatherapy benefits",
-    "images": [],
+    "images": [
+      "pdt-img/herbal-leaf-default.jpg"
+    ],
     "isActive": true,
     "_id": "HERB005"
   },
@@ -148,7 +152,9 @@
       "Neem oil"
     ],
     "usage": "Massage into scalp and hair roots. Leave for 1 hour before washing with herbal shampoo",
-    "images": [],
+    "images": [
+      "pdt-img/herbal-leaf-default.jpg"
+    ],
     "isActive": true,
     "_id": "HERB006"
   }
