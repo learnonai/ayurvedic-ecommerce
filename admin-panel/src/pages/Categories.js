@@ -11,34 +11,54 @@ const Categories = () => {
   
   const [showForm, setShowForm] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
-  const [formData, setFormData] = useState({ id: '', name: '', icon: '', description: '' });
+  const [formData, setFormData] = useState({ id: '', name: '', icon: '', description: '', image: '' });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target.result);
+        setFormData({...formData, image: e.target.result});
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    let updatedCategories;
     if (editingCategory) {
-      setCategories(categories.map(cat => 
+      updatedCategories = categories.map(cat => 
         cat.id === editingCategory.id ? { ...formData } : cat
-      ));
+      );
       setEditingCategory(null);
     } else {
       if (categories.find(cat => cat.id === formData.id)) {
         alert('Category ID already exists!');
         return;
       }
-      setCategories([...categories, { ...formData }]);
+      updatedCategories = [...categories, { ...formData }];
     }
     
+    setCategories(updatedCategories);
     setShowForm(false);
-    setFormData({ id: '', name: '', icon: '', description: '' });
+    setFormData({ id: '', name: '', icon: '', description: '', image: '' });
+    setSelectedFile(null);
+    setImagePreview('');
     
     // Save to localStorage for persistence
-    localStorage.setItem('categories', JSON.stringify(categories));
+    localStorage.setItem('categories', JSON.stringify(updatedCategories));
   };
 
   const handleEdit = (category) => {
     setEditingCategory(category);
     setFormData({ ...category });
+    setImagePreview(category.image || '');
     setShowForm(true);
   };
 
@@ -119,6 +139,25 @@ const Categories = () => {
                   ></textarea>
                 </div>
               </div>
+              <div className="mb-3">
+                <label className="form-label">Category Image</label>
+                <input 
+                  type="file" 
+                  className="form-control" 
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  required={!editingCategory}
+                />
+                {imagePreview && (
+                  <div className="mt-2">
+                    <img 
+                      src={imagePreview} 
+                      alt="Preview" 
+                      style={{width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px'}}
+                    />
+                  </div>
+                )}
+              </div>
               <button type="submit" className="btn btn-success">
                 {editingCategory ? 'Update Category' : 'Add Category'}
               </button>
@@ -132,7 +171,15 @@ const Categories = () => {
           <div key={category.id} className="col-md-4 mb-4">
             <div className="card h-100">
               <div className="card-body text-center">
-                <div style={{fontSize: '3rem', marginBottom: '1rem'}}>{category.icon}</div>
+                {category.image ? (
+                  <img 
+                    src={category.image} 
+                    alt={category.name}
+                    style={{width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px', marginBottom: '1rem'}}
+                  />
+                ) : (
+                  <div style={{fontSize: '3rem', marginBottom: '1rem'}}>{category.icon}</div>
+                )}
                 <h5 className="card-title">{category.name}</h5>
                 <p className="card-text text-muted">{category.description}</p>
                 <small className="text-muted">ID: {category.id}</small>

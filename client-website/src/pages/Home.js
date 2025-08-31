@@ -66,7 +66,15 @@ const Home = ({ onAddToCart, user }) => {
             <div key={category.id} className="col-lg-2 col-md-3 col-4">
               <Link to={`/products?category=${category.id}`} className="text-decoration-none">
                 <div className="card h-100 border-0 shadow-sm text-center p-3" style={{transition: 'transform 0.2s'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                  <div className="mb-2" style={{fontSize: '2.5rem', color: '#2d5016'}}>{category.icon}</div>
+                  {category.image ? (
+                    <img 
+                      src={category.image} 
+                      alt={category.name}
+                      style={{width: '60px', height: '60px', objectFit: 'cover', borderRadius: '8px', margin: '0 auto 10px'}}
+                    />
+                  ) : (
+                    <div className="mb-2" style={{fontSize: '2.5rem', color: '#2d5016'}}>{category.icon}</div>
+                  )}
                   <h6 className="fw-bold mb-0">{category.name}</h6>
                 </div>
               </Link>

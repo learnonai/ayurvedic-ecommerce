@@ -1,13 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BASE_URL } from '../utils/api';
+import { BASE_URL, products } from '../utils/api';
 
 const RecentlyViewed = () => {
   const [recentProducts, setRecentProducts] = useState([]);
 
   useEffect(() => {
-    const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-    setRecentProducts(recent.slice(0, 4));
+    const fetchFreshData = async () => {
+      try {
+        const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+        if (recent.length === 0) return;
+        
+        // Get fresh product data
+        const response = await products.getAll();
+        const allProducts = response.data;
+        
+        // Update recent products with fresh data
+        const updatedRecent = recent.map(recentProduct => {
+          const freshProduct = allProducts.find(p => p._id === recentProduct._id);
+          return freshProduct || recentProduct;
+        });
+        
+        // Update localStorage with fresh data
+        localStorage.setItem('recentlyViewed', JSON.stringify(updatedRecent));
+        setRecentProducts(updatedRecent.slice(0, 4));
+      } catch (error) {
+        const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+        setRecentProducts(recent.slice(0, 4));
+      }
+    };
+    
+    fetchFreshData();
   }, []);
 
   if (recentProducts.length === 0) return null;
