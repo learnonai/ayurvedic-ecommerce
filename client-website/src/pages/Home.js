@@ -8,24 +8,21 @@ const Home = ({ onAddToCart, user }) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const categories = [
-    { name: 'oils', title: 'Herbal Oils' },
-    { name: 'capsules', title: 'Capsules' },
-    { name: 'skincare', title: 'Skincare' },
-    { name: 'powders', title: 'Powders' },
-    { name: 'teas', title: 'Herbal Teas' }
-  ];
+  const [categories, setCategories] = useState([
+    { id: 'oils', name: 'Herbal Oils', icon: '⚜️' },
+    { id: 'capsules', name: 'Capsules', icon: '⚕️' },
+    { id: 'skincare', name: 'Skincare', icon: '🌿' },
+    { id: 'powders', name: 'Powders', icon: '⚰️' },
+    { id: 'teas', name: 'Herbal Teas', icon: '🌱' }
+  ]);
 
-  const getAyurvedicSymbol = (category) => {
-    const symbols = {
-      oils: '⚜️', // Fleur-de-lis (represents purity and healing)
-      capsules: '⚕️', // Medical symbol (represents health and medicine)
-      skincare: '🌿', // Herb (represents natural beauty)
-      powders: '⚰️', // Coffin/mortar (represents grinding/powder making)
-      teas: '🌱' // Seedling (represents growth and wellness)
-    };
-    return symbols[category] || 'ॐ'; // Om symbol as fallback
-  };
+  useEffect(() => {
+    // Load categories from localStorage if available
+    const savedCategories = localStorage.getItem('categories');
+    if (savedCategories) {
+      setCategories(JSON.parse(savedCategories));
+    }
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -66,11 +63,11 @@ const Home = ({ onAddToCart, user }) => {
         </div>
         <div className="row g-3 justify-content-center">
           {categories.map(category => (
-            <div key={category.name} className="col-lg-2 col-md-3 col-4">
-              <Link to={`/products?category=${category.name}`} className="text-decoration-none">
+            <div key={category.id} className="col-lg-2 col-md-3 col-4">
+              <Link to={`/products?category=${category.id}`} className="text-decoration-none">
                 <div className="card h-100 border-0 shadow-sm text-center p-3" style={{transition: 'transform 0.2s'}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-                  <div className="mb-2" style={{fontSize: '2.5rem', color: '#2d5016'}}>{getAyurvedicSymbol(category.name)}</div>
-                  <h6 className="fw-bold mb-0">{category.title}</h6>
+                  <div className="mb-2" style={{fontSize: '2.5rem', color: '#2d5016'}}>{category.icon}</div>
+                  <h6 className="fw-bold mb-0">{category.name}</h6>
                 </div>
               </Link>
             </div>

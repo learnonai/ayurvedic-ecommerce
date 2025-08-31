@@ -337,7 +337,8 @@ const Products = () => {
             {filteredProducts.map(product => (
               <tr key={product._id}>
                 <td>
-                  {(!product.images || product.images.length === 0) ? (
+                  {(!product.images || product.images.length === 0 || 
+                    product.images.some(img => img.includes('herbal-leaf-default') || img.includes('sample'))) ? (
                     <span className="badge bg-danger">❌ NO IMAGE</span>
                   ) : (
                     <span className="badge bg-success">✅ HAS IMAGE</span>

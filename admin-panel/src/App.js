@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Orders from './pages/Orders';
 import Users from './pages/Users';
+import Categories from './pages/Categories';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
               <Link to="/products" className="nav-link text-white">Products</Link>
             </li>
             <li className="nav-item">
+              <Link to="/categories" className="nav-link text-white">Categories</Link>
+            </li>
+            <li className="nav-item">
               <Link to="/orders" className="nav-link text-white">Orders</Link>
             </li>
             <li className="nav-item">
@@ -58,6 +62,7 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/categories" element={<Categories />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/users" element={<Users />} />
           </Routes>
