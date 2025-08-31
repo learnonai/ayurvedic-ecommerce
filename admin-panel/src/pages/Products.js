@@ -3,6 +3,7 @@ import { products } from '../utils/api';
 
 const Products = () => {
   const [productList, setProductList] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
@@ -10,10 +11,21 @@ const Products = () => {
   });
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imagePreview, setImagePreview] = useState([]);
+  
+  // Filter states
+  const [searchTerm, setSearchTerm] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [priceFilter, setPriceFilter] = useState('all');
+  const [stockFilter, setStockFilter] = useState('all');
+  const [sortBy, setSortBy] = useState('name');
 
   useEffect(() => {
     fetchProducts();
   }, []);
+  
+  useEffect(() => {
+    filterProducts();
+  }, [productList, searchTerm, categoryFilter, priceFilter, stockFilter, sortBy]);
 
   const fetchProducts = async () => {
     try {
@@ -22,6 +34,73 @@ const Products = () => {
     } catch (error) {
       console.error('Error fetching products:', error);
     }
+  };
+  
+  const filterProducts = () => {
+    let filtered = [...productList];
+    
+    // Search by name
+    if (searchTerm) {
+      filtered = filtered.filter(product => 
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    
+    // Filter by category
+    if (categoryFilter !== 'all') {
+      filtered = filtered.filter(product => product.category === categoryFilter);
+    }
+    
+    // Filter by price range
+    if (priceFilter !== 'all') {
+      switch(priceFilter) {
+        case 'low': // Under 300
+          filtered = filtered.filter(product => product.price < 300);
+          break;
+        case 'medium': // 300-500
+          filtered = filtered.filter(product => product.price >= 300 && product.price <= 500);
+          break;
+        case 'high': // Above 500
+          filtered = filtered.filter(product => product.price > 500);
+          break;
+      }
+    }
+    
+    // Filter by stock status
+    if (stockFilter !== 'all') {
+      switch(stockFilter) {
+        case 'instock':
+          filtered = filtered.filter(product => product.stock > 0);
+          break;
+        case 'lowstock':
+          filtered = filtered.filter(product => product.stock > 0 && product.stock <= 10);
+          break;
+        case 'outofstock':
+          filtered = filtered.filter(product => product.stock === 0);
+          break;
+      }
+    }
+    
+    // Sort products
+    switch(sortBy) {
+      case 'name':
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'price_low':
+        filtered.sort((a, b) => a.price - b.price);
+        break;
+      case 'price_high':
+        filtered.sort((a, b) => b.price - a.price);
+        break;
+      case 'stock_low':
+        filtered.sort((a, b) => a.stock - b.stock);
+        break;
+      case 'stock_high':
+        filtered.sort((a, b) => b.stock - a.stock);
+        break;
+    }
+    
+    setFilteredProducts(filtered);
   };
 
   const handleFileChange = (e) => {
@@ -88,6 +167,83 @@ const Products = () => {
         <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
           {showForm ? 'Cancel' : 'Add Product'}
         </button>
+      </div>
+      
+      {/* Search and Filter Controls */}
+      <div className="card mb-4">
+        <div className="card-body">
+          <div className="row g-3">
+            <div className="col-md-3">
+              <label className="form-label fw-bold">Search Products:</label>
+              <input 
+                type="text"
+                className="form-control"
+                placeholder="Search by name..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <div className="col-md-2">
+              <label className="form-label fw-bold">Category:</label>
+              <select 
+                className="form-select"
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+              >
+                <option value="all">All Categories</option>
+                <option value="oils">Herbal Oils</option>
+              </select>
+            </div>
+            <div className="col-md-2">
+              <label className="form-label fw-bold">Price Range:</label>
+              <select 
+                className="form-select"
+                value={priceFilter}
+                onChange={(e) => setPriceFilter(e.target.value)}
+              >
+                <option value="all">All Prices</option>
+                <option value="low">Under ₹300</option>
+                <option value="medium">₹300 - ₹500</option>
+                <option value="high">Above ₹500</option>
+              </select>
+            </div>
+            <div className="col-md-2">
+              <label className="form-label fw-bold">Stock Status:</label>
+              <select 
+                className="form-select"
+                value={stockFilter}
+                onChange={(e) => setStockFilter(e.target.value)}
+              >
+                <option value="all">All Stock</option>
+                <option value="instock">In Stock</option>
+                <option value="lowstock">Low Stock (≤10)</option>
+                <option value="outofstock">Out of Stock</option>
+              </select>
+            </div>
+            <div className="col-md-2">
+              <label className="form-label fw-bold">Sort By:</label>
+              <select 
+                className="form-select"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="name">Name (A-Z)</option>
+                <option value="price_low">Price (Low to High)</option>
+                <option value="price_high">Price (High to Low)</option>
+                <option value="stock_low">Stock (Low to High)</option>
+                <option value="stock_high">Stock (High to Low)</option>
+              </select>
+            </div>
+            <div className="col-md-1">
+              <label className="form-label fw-bold">Results:</label>
+              <div>
+                <span className="badge bg-primary fs-6" style={{padding: '8px 12px'}}>
+                  {filteredProducts.length}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {showForm && (
@@ -170,7 +326,7 @@ const Products = () => {
             </tr>
           </thead>
           <tbody>
-            {productList.map(product => (
+            {filteredProducts.map(product => (
               <tr key={product._id}>
                 <td>
                   {(!product.images || product.images.length === 0) ? (
