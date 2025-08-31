@@ -154,11 +154,26 @@ const Header = ({ user, onLogout, cartCount }) => {
                       onChange={(e) => handleFilterChange('category', e.target.value)}
                     >
                       <option value="">All Categories</option>
-                      <option value="oils">Herbal Oils</option>
-                      <option value="capsules">Capsules</option>
-                      <option value="skincare">Skincare</option>
-                      <option value="powders">Powders</option>
-                      <option value="teas">Herbal Teas</option>
+                      {(() => {
+                        try {
+                          const savedCategories = localStorage.getItem('categories');
+                          if (savedCategories) {
+                            const categories = JSON.parse(savedCategories);
+                            return categories.map(cat => (
+                              <option key={cat.id} value={cat.id}>{cat.name}</option>
+                            ));
+                          }
+                        } catch (error) {
+                          console.error('Error loading categories in header:', error);
+                        }
+                        return [
+                          <option key="oils" value="oils">Herbal Oils</option>,
+                          <option key="capsules" value="capsules">Capsules</option>,
+                          <option key="skincare" value="skincare">Skincare</option>,
+                          <option key="powders" value="powders">Powders</option>,
+                          <option key="teas" value="teas">Herbal Teas</option>
+                        ];
+                      })()}
                     </select>
                   </div>
                   
@@ -314,11 +329,26 @@ const Header = ({ user, onLogout, cartCount }) => {
                   onChange={(e) => handleFilterChange('category', e.target.value)}
                 >
                   <option value="">All Categories</option>
-                  <option value="oils">Herbal Oils</option>
-                  <option value="capsules">Capsules</option>
-                  <option value="skincare">Skincare</option>
-                  <option value="powders">Powders</option>
-                  <option value="teas">Herbal Teas</option>
+                  {(() => {
+                    try {
+                      const savedCategories = localStorage.getItem('categories');
+                      if (savedCategories) {
+                        const categories = JSON.parse(savedCategories);
+                        return categories.map(cat => (
+                          <option key={cat.id} value={cat.id}>{cat.name}</option>
+                        ));
+                      }
+                    } catch (error) {
+                      console.error('Error loading categories in mobile header:', error);
+                    }
+                    return [
+                      <option key="oils" value="oils">Herbal Oils</option>,
+                      <option key="capsules" value="capsules">Capsules</option>,
+                      <option key="skincare" value="skincare">Skincare</option>,
+                      <option key="powders" value="powders">Powders</option>,
+                      <option key="teas" value="teas">Herbal Teas</option>
+                    ];
+                  })()}
                 </select>
               </div>
               <div className="col-6">

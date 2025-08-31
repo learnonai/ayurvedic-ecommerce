@@ -8,40 +8,39 @@ const Home = ({ onAddToCart, user }) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [categories, setCategories] = useState([
-    { id: 'oils', name: 'Herbal Oils', icon: '⚜️' },
-    { id: 'capsules', name: 'Capsules', icon: '⚕️' },
-    { id: 'skincare', name: 'Skincare', icon: '🌿' },
-    { id: 'powders', name: 'Powders', icon: '⚰️' },
-    { id: 'teas', name: 'Herbal Teas', icon: '🌱' }
-  ]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    // Load categories from localStorage if available
     const loadCategories = () => {
-      const savedCategories = localStorage.getItem('categories');
-      if (savedCategories) {
-        const parsedCategories = JSON.parse(savedCategories);
-        setCategories(parsedCategories);
+      try {
+        const savedCategories = localStorage.getItem('categories');
+        if (savedCategories) {
+          const parsedCategories = JSON.parse(savedCategories);
+          console.log('Loaded categories:', parsedCategories);
+          setCategories(parsedCategories);
+        } else {
+          // Default categories if none exist
+          const defaultCategories = [
+            { id: 'oils', name: 'Herbal Oils', icon: '⚜️', description: 'Natural herbal oils' },
+            { id: 'capsules', name: 'Capsules', icon: '⚕️', description: 'Health supplements' },
+            { id: 'skincare', name: 'Skincare', icon: '🌿', description: 'Natural skincare' },
+            { id: 'powders', name: 'Powders', icon: '⚰️', description: 'Herbal powders' },
+            { id: 'teas', name: 'Herbal Teas', icon: '🌱', description: 'Wellness teas' }
+          ];
+          setCategories(defaultCategories);
+          localStorage.setItem('categories', JSON.stringify(defaultCategories));
+        }
+      } catch (error) {
+        console.error('Error loading categories:', error);
       }
     };
     
     loadCategories();
     
-    // Listen for localStorage changes
-    const handleStorageChange = () => {
-      loadCategories();
-    };
+    // Force refresh every 1 second
+    const interval = setInterval(loadCategories, 1000);
     
-    window.addEventListener('storage', handleStorageChange);
-    
-    // Also check every 2 seconds for changes (for same-tab updates)
-    const interval = setInterval(loadCategories, 2000);
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {

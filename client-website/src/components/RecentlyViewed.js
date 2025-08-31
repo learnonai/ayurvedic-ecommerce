@@ -4,45 +4,62 @@ import { BASE_URL, products } from '../utils/api';
 
 const RecentlyViewed = () => {
   const [recentProducts, setRecentProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadFreshRecentProducts = async () => {
+    try {
+      const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+      if (recent.length === 0) {
+        setLoading(false);
+        return;
+      }
+
+      // Get ALL products from API to get fresh data
+      const response = await products.getAll();
+      const allProducts = response.data;
+      
+      // Map recent product IDs to fresh product data
+      const freshRecentProducts = recent.map(recentProduct => {
+        const freshProduct = allProducts.find(p => p._id === recentProduct._id);
+        return freshProduct || recentProduct; // Use fresh data if available
+      }).slice(0, 4);
+      
+      setRecentProducts(freshRecentProducts);
+      
+      // Update localStorage with fresh data
+      localStorage.setItem('recentlyViewed', JSON.stringify(recent.map(recentProduct => {
+        const freshProduct = allProducts.find(p => p._id === recentProduct._id);
+        return freshProduct || recentProduct;
+      })));
+      
+    } catch (error) {
+      console.error('Error loading recent products:', error);
+      const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+      setRecentProducts(recent.slice(0, 4));
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const loadRecentProducts = async () => {
-      try {
-        const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-        if (recent.length === 0) return;
-        
-        // Get fresh product data to get updated images
-        const response = await products.getAll();
-        const allProducts = response.data;
-        
-        // Update recent products with fresh image data
-        const updatedRecent = recent.map(recentProduct => {
-          const freshProduct = allProducts.find(p => p._id === recentProduct._id);
-          if (freshProduct) {
-            // Use fresh product data with updated images
-            return freshProduct;
-          }
-          return recentProduct;
-        });
-        
-        setRecentProducts(updatedRecent.slice(0, 4));
-        
-        // Update localStorage with fresh data
-        localStorage.setItem('recentlyViewed', JSON.stringify(updatedRecent));
-      } catch (error) {
-        // Fallback to localStorage data
-        const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-        setRecentProducts(recent.slice(0, 4));
-      }
-    };
+    loadFreshRecentProducts();
     
-    loadRecentProducts();
-    
-    // Refresh every 5 seconds to get updated images
-    const interval = setInterval(loadRecentProducts, 5000);
+    // Refresh every 3 seconds to get updated images
+    const interval = setInterval(loadFreshRecentProducts, 3000);
     
     return () => clearInterval(interval);
   }, []);
+
+  if (loading) {
+    return (
+      <div className="container my-4">
+        <div className="d-flex justify-content-center">
+          <div className="spinner-border spinner-border-sm text-success" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (recentProducts.length === 0) return null;
 
@@ -53,22 +70,9 @@ const RecentlyViewed = () => {
         <div className="d-flex gap-2">
           <button 
             className="btn btn-sm btn-outline-primary"
-            onClick={async () => {
-              try {
-                const response = await products.getAll();
-                const allProducts = response.data;
-                const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-                
-                const updatedRecent = recent.map(recentProduct => {
-                  const freshProduct = allProducts.find(p => p._id === recentProduct._id);
-                  return freshProduct || recentProduct;
-                });
-                
-                setRecentProducts(updatedRecent.slice(0, 4));
-                localStorage.setItem('recentlyViewed', JSON.stringify(updatedRecent));
-              } catch (error) {
-                // Silent error
-              }
+            onClick={() => {
+              setLoading(true);
+              loadFreshRecentProducts();
             }}
           >
             Refresh
@@ -106,6 +110,7 @@ const RecentlyViewed = () => {
                           objectFit: 'cover'
                         }}
                         onError={(e) => {
+                          console.log('Image failed to load:', imageUrl);
                           e.target.style.display = 'none';
                           e.target.nextSibling.style.display = 'flex';
                         }}
@@ -140,17 +145,30 @@ const RecentlyViewed = () => {
   );
 };
 
-// Helper function to add product to recently viewed
-export const addToRecentlyViewed = (product) => {
-  const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-  
-  // Remove if already exists
-  const filtered = recent.filter(item => item._id !== product._id);
-  
-  // Add to beginning
-  const updated = [product, ...filtered].slice(0, 10); // Keep max 10 items
-  
-  localStorage.setItem('recentlyViewed', JSON.stringify(updated));
+// Helper function to add product to recently viewed - FORCE FRESH DATA
+export const addToRecentlyViewed = async (product) => {
+  try {
+    // Get fresh product data from API
+    const response = await products.getAll();
+    const allProducts = response.data;
+    const freshProduct = allProducts.find(p => p._id === product._id) || product;
+    
+    const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+    
+    // Remove if already exists
+    const filtered = recent.filter(item => item._id !== freshProduct._id);
+    
+    // Add fresh product to beginning
+    const updated = [freshProduct, ...filtered].slice(0, 10);
+    
+    localStorage.setItem('recentlyViewed', JSON.stringify(updated));
+  } catch (error) {
+    // Fallback to original method
+    const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+    const filtered = recent.filter(item => item._id !== product._id);
+    const updated = [product, ...filtered].slice(0, 10);
+    localStorage.setItem('recentlyViewed', JSON.stringify(updated));
+  }
 };
 
 export default RecentlyViewed;
