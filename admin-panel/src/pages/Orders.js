@@ -10,6 +10,11 @@ const Orders = () => {
   const [sortBy, setSortBy] = useState('latest');
   const [showArchived, setShowArchived] = useState(false);
   const [productList, setProductList] = useState([]);
+  
+  // Search and filter states
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [amountFilter, setAmountFilter] = useState('all');
 
   useEffect(() => {
     fetchOrders();
@@ -62,6 +67,35 @@ const Orders = () => {
     filtered = filtered.filter(order => 
       showArchived ? (order.archived === true) : (order.archived !== true)
     );
+    
+    // Search by customer name, order ID, or city
+    if (searchTerm) {
+      filtered = filtered.filter(order => 
+        order.shippingAddress?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.shippingAddress?.city?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    
+    // Filter by status
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(order => order.status === statusFilter);
+    }
+    
+    // Filter by amount range
+    if (amountFilter !== 'all') {
+      switch(amountFilter) {
+        case 'low': // Under 300
+          filtered = filtered.filter(order => order.totalAmount < 300);
+          break;
+        case 'medium': // 300-600
+          filtered = filtered.filter(order => order.totalAmount >= 300 && order.totalAmount <= 600);
+          break;
+        case 'high': // Above 600
+          filtered = filtered.filter(order => order.totalAmount > 600);
+          break;
+      }
+    }
     
     // Filter by time period (skip if no createdAt)
     if (filterPeriod !== 'all') {
@@ -208,37 +242,80 @@ const Orders = () => {
             <div className="card-body">
               <div className="row g-3">
                 <div className="col-md-3">
-                  <label className="form-label fw-bold">Filter by Period:</label>
+                  <label className="form-label fw-bold">Search Orders:</label>
+                  <input 
+                    type="text"
+                    className="form-select"
+                    placeholder="Search by customer, order ID, city..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-2">
+                  <label className="form-label fw-bold">Status:</label>
+                  <select 
+                    className="form-select"
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                  >
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                </div>
+                <div className="col-md-2">
+                  <label className="form-label fw-bold">Amount:</label>
+                  <select 
+                    className="form-select"
+                    value={amountFilter}
+                    onChange={(e) => setAmountFilter(e.target.value)}
+                  >
+                    <option value="all">All Amounts</option>
+                    <option value="low">Under ₹300</option>
+                    <option value="medium">₹300 - ₹600</option>
+                    <option value="high">Above ₹600</option>
+                  </select>
+                </div>
+                <div className="col-md-2">
+                  <label className="form-label fw-bold">Period:</label>
                   <select 
                     className="form-select"
                     value={filterPeriod}
                     onChange={(e) => setFilterPeriod(e.target.value)}
                   >
-                    <option value="all">All Orders</option>
+                    <option value="all">All Time</option>
                     <option value="today">Today</option>
                     <option value="thisWeek">This Week</option>
-                    <option value="lastWeek">Last Week</option>
                     <option value="thisMonth">This Month</option>
-                    <option value="lastMonth">Last Month</option>
-                    <option value="thisYear">This Year</option>
                   </select>
                 </div>
-                <div className="col-md-3">
-                  <label className="form-label fw-bold">Sort by:</label>
+                <div className="col-md-2">
+                  <label className="form-label fw-bold">Sort:</label>
                   <select 
                     className="form-select"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
                   >
                     <option value="latest">Latest First</option>
-                    <option value="oldest">Oldest First</option>
-                    <option value="amount_high">Amount (High to Low)</option>
-                    <option value="amount_low">Amount (Low to High)</option>
+                    <option value="amount_high">Amount High</option>
+                    <option value="amount_low">Amount Low</option>
                     <option value="status">Status</option>
                   </select>
                 </div>
-                <div className="col-md-3">
-                  <label className="form-label fw-bold">View:</label>
+                <div className="col-md-1">
+                  <label className="form-label fw-bold">Results:</label>
+                  <div>
+                    <span className="badge bg-primary fs-6" style={{padding: '8px 12px'}}>
+                      {filteredOrders.length}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="row mt-2">
+                <div className="col-md-12">
                   <div className="form-check form-switch">
                     <input 
                       className="form-check-input"
@@ -246,17 +323,9 @@ const Orders = () => {
                       checked={showArchived}
                       onChange={(e) => setShowArchived(e.target.checked)}
                     />
-                    <label className="form-check-label ms-2">
-                      {showArchived ? 'Archived Orders' : 'Active Orders'}
+                    <label className="form-check-label ms-2 fw-bold">
+                      {showArchived ? 'Showing Archived Orders' : 'Showing Active Orders'}
                     </label>
-                  </div>
-                </div>
-                <div className="col-md-3">
-                  <label className="form-label fw-bold">Total Orders:</label>
-                  <div>
-                    <span className="badge bg-primary fs-6" style={{padding: '8px 12px'}}>
-                      {filteredOrders.length}
-                    </span>
                   </div>
                 </div>
               </div>

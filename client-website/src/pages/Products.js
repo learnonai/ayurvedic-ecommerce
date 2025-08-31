@@ -60,15 +60,34 @@ const Products = ({ onAddToCart, user }) => {
       );
     }
     
-    // Search filter
+    // Search filter - improved with better matching
     if (filters.search) {
-      const searchTerm = filters.search.toLowerCase();
-      filtered = filtered.filter(product => 
-        product.name.toLowerCase().includes(searchTerm) ||
-        product.description.toLowerCase().includes(searchTerm) ||
-        (product.benefits && product.benefits.some(benefit => benefit.toLowerCase().includes(searchTerm))) ||
-        (product.ingredients && product.ingredients.some(ingredient => ingredient.toLowerCase().includes(searchTerm)))
-      );
+      const searchTerm = filters.search.toLowerCase().trim();
+      if (searchTerm) {
+        filtered = filtered.filter(product => {
+          const name = (product.name || '').toLowerCase();
+          const description = (product.description || '').toLowerCase();
+          const category = (product.category || '').toLowerCase();
+          
+          // Check benefits array
+          const benefitsMatch = product.benefits && Array.isArray(product.benefits) ? 
+            product.benefits.some(benefit => 
+              typeof benefit === 'string' && benefit.toLowerCase().includes(searchTerm)
+            ) : false;
+          
+          // Check ingredients array
+          const ingredientsMatch = product.ingredients && Array.isArray(product.ingredients) ? 
+            product.ingredients.some(ingredient => 
+              typeof ingredient === 'string' && ingredient.toLowerCase().includes(searchTerm)
+            ) : false;
+          
+          return name.includes(searchTerm) ||
+                 description.includes(searchTerm) ||
+                 category.includes(searchTerm) ||
+                 benefitsMatch ||
+                 ingredientsMatch;
+        });
+      }
     }
     
     // Price range filter
