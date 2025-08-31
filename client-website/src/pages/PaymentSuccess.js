@@ -24,9 +24,10 @@ const PaymentSuccess = () => {
           return;
         }
         
-        // For success status, verify with backend
+        // Only proceed if status is explicitly success
         if (paymentStatus === 'success') {
           try {
+            // Always verify with backend before creating order
             const verifyResponse = await payment.verify({ transactionId });
             
             if (verifyResponse.data.success && verifyResponse.data.status === 'COMPLETED') {
@@ -36,7 +37,7 @@ const PaymentSuccess = () => {
               if (pendingOrderStr) {
                 const orderData = JSON.parse(pendingOrderStr);
                 
-                // Create order in database
+                // Create order in database only after successful verification
                 const orderResponse = await orders.create({
                   ...orderData,
                   paymentStatus: 'completed',
@@ -45,6 +46,7 @@ const PaymentSuccess = () => {
                 
                 if (orderResponse.data.success) {
                   localStorage.removeItem('pendingOrder');
+                  localStorage.removeItem('cart'); // Clear cart after successful order
                   setStatus('success');
                 } else {
                   setStatus('error');
@@ -53,20 +55,18 @@ const PaymentSuccess = () => {
                 setStatus('error');
               }
             } else {
+              // Verification failed - payment not actually completed
+              console.log('Payment verification failed:', verifyResponse.data);
               setStatus('failed');
             }
           } catch (verifyError) {
+            console.error('Payment verification error:', verifyError);
             setStatus('failed');
           }
         } else {
-          // No status parameter, assume success and verify
-          const verifyResponse = await payment.verify({ transactionId });
-          
-          if (verifyResponse.data.success && verifyResponse.data.status === 'COMPLETED') {
-            setStatus('success');
-          } else {
-            setStatus('failed');
-          }
+          // Any other status (failed, cancelled, error) - no order creation
+          console.log('Payment not successful, status:', paymentStatus);
+          setStatus('failed');
         }
       } catch (error) {
         console.error('Payment verification error:', error);

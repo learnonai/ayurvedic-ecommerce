@@ -54,7 +54,8 @@ class PhonePeService {
           type: 'PG_CHECKOUT',
           message: 'Payment for Ayurvedic products',
           merchantUrls: {
-            redirectUrl: `https://learnonai.com/payment-success?transactionId=${merchantOrderId}&status=success`
+            redirectUrl: `https://learnonai.com/api/payment/callback?transactionId=${merchantOrderId}`,
+            cancelUrl: `https://learnonai.com/api/payment/callback?transactionId=${merchantOrderId}&code=PAYMENT_CANCELLED`
           }
         }
       };
@@ -103,11 +104,27 @@ class PhonePeService {
         await this.getAccessToken();
       }
       
-      // For demo purposes, always return success if transactionId exists
+      // Store payment statuses in memory for demo (in production, this would be in database)
+      if (!global.paymentStatuses) {
+        global.paymentStatuses = {};
+      }
+      
+      // Check if we have a stored status for this transaction
+      const storedStatus = global.paymentStatuses[transactionId];
+      
+      if (storedStatus) {
+        return {
+          success: storedStatus === 'COMPLETED',
+          status: storedStatus,
+          transactionId: transactionId
+        };
+      }
+      
+      // For demo: if transaction exists but no status stored, assume it's pending/failed
       if (transactionId && transactionId.startsWith('TX')) {
         return {
-          success: true,
-          status: 'COMPLETED',
+          success: false,
+          status: 'PENDING',
           transactionId: transactionId
         };
       }
@@ -125,6 +142,15 @@ class PhonePeService {
         error: error.message 
       };
     }
+  }
+  
+  // Method to simulate payment completion (for demo)
+  setPaymentStatus(transactionId, status) {
+    if (!global.paymentStatuses) {
+      global.paymentStatuses = {};
+    }
+    global.paymentStatuses[transactionId] = status;
+    console.log(`Payment status set: ${transactionId} -> ${status}`);
   }
 }
 
