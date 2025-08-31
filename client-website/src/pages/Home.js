@@ -18,13 +18,13 @@ const Home = ({ onAddToCart, user }) => {
 
   const getAyurvedicSymbol = (category) => {
     const symbols = {
-      oils: 'ॐ', // Om symbol
-      capsules: '☯', // Yin Yang
-      skincare: '☘', // Shamrock
-      powders: '⚜', // Fleur-de-lis
-      teas: '⚕' // Medical symbol
+      oils: '🛢️', // Oil bottle
+      capsules: '💊', // Pill/capsule
+      skincare: '✨', // Sparkles for beauty
+      powders: '🥄', // Spoon for powder
+      teas: '🍵' // Tea cup
     };
-    return symbols[category] || 'ॐ';
+    return symbols[category] || '🌿';
   };
 
   useEffect(() => {

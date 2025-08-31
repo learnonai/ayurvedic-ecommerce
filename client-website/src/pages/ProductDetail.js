@@ -77,7 +77,7 @@ const ProductDetail = ({ onAddToCart, user }) => {
   }
 
   const hasImage = product.images && product.images.length > 0;
-  const imageUrl = hasImage ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}` : null;
+  const imageUrl = hasImage ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '').replace('pdt-img/', '')}` : null;
 
   return (
     <div className="container my-4">
