@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { orders, products } from '../utils/api';
-import DebugInfo from '../components/DebugInfo';
 
 const Orders = () => {
   const [orderList, setOrderList] = useState([]);
@@ -199,59 +198,63 @@ const Orders = () => {
   return (
     <div>
       <h2>Orders Management</h2>
-      <DebugInfo />
       
       {!showDetails ? (
         <div>
           {/* Filter and Sort Controls */}
-          <div className="row mb-3">
-            <div className="col-md-3">
-              <label className="form-label">Filter by Period:</label>
-              <select 
-                className="form-select"
-                value={filterPeriod}
-                onChange={(e) => setFilterPeriod(e.target.value)}
-              >
-                <option value="all">All Orders</option>
-                <option value="today">Today</option>
-                <option value="thisWeek">This Week</option>
-                <option value="lastWeek">Last Week</option>
-                <option value="thisMonth">This Month</option>
-                <option value="lastMonth">Last Month</option>
-                <option value="thisYear">This Year</option>
-              </select>
-            </div>
-            <div className="col-md-3">
-              <label className="form-label">Sort by:</label>
-              <select 
-                className="form-select"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="latest">Latest First</option>
-                <option value="oldest">Oldest First</option>
-                <option value="amount_high">Amount (High to Low)</option>
-                <option value="amount_low">Amount (Low to High)</option>
-                <option value="status">Status</option>
-              </select>
-            </div>
-            <div className="col-md-3">
-              <label className="form-label">View:</label>
-              <div className="form-check form-switch">
-                <input 
-                  className="form-check-input" 
-                  type="checkbox" 
-                  checked={showArchived}
-                  onChange={(e) => setShowArchived(e.target.checked)}
-                />
-                <label className="form-check-label">
-                  {showArchived ? 'Archived Orders' : 'Active Orders'}
-                </label>
+          <div className="card mb-3">
+            <div className="card-body">
+              <div className="row">
+                <div className="col-md-3">
+                  <label><strong>Filter by Period:</strong></label>
+                  <select 
+                    className="form-control"
+                    value={filterPeriod}
+                    onChange={(e) => setFilterPeriod(e.target.value)}
+                  >
+                    <option value="all">All Orders</option>
+                    <option value="today">Today</option>
+                    <option value="thisWeek">This Week</option>
+                    <option value="lastWeek">Last Week</option>
+                    <option value="thisMonth">This Month</option>
+                    <option value="lastMonth">Last Month</option>
+                    <option value="thisYear">This Year</option>
+                  </select>
+                </div>
+                <div className="col-md-3">
+                  <label><strong>Sort by:</strong></label>
+                  <select 
+                    className="form-control"
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                  >
+                    <option value="latest">Latest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="amount_high">Amount (High to Low)</option>
+                    <option value="amount_low">Amount (Low to High)</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+                <div className="col-md-3">
+                  <label><strong>View:</strong></label>
+                  <div>
+                    <input 
+                      type="checkbox" 
+                      checked={showArchived}
+                      onChange={(e) => setShowArchived(e.target.checked)}
+                    />
+                    <span className="ml-2">
+                      {showArchived ? 'Archived Orders' : 'Active Orders'}
+                    </span>
+                  </div>
+                </div>
+                <div className="col-md-3">
+                  <label><strong>Total Orders:</strong></label>
+                  <div className="badge badge-primary" style={{fontSize: '14px', padding: '5px 10px'}}>
+                    {filteredOrders.length}
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="col-md-3">
-              <label className="form-label">Total Orders:</label>
-              <div className="badge bg-primary fs-6">{filteredOrders.length}</div>
             </div>
           </div>
           
@@ -291,7 +294,7 @@ const Orders = () => {
                     </button>
                     <div className="d-flex gap-1">
                       <select 
-                        className="form-select form-select-sm" 
+                        className="form-control form-control-sm" 
                         style={{width: '120px'}}
                         value={order.status || 'pending'}
                         onChange={(e) => updateOrderStatus(order._id, e.target.value)}
@@ -351,7 +354,7 @@ const Orders = () => {
                   </p>
                   <p><strong>Order Status:</strong>
                     <select 
-                      className="form-select form-select-sm d-inline-block ms-2" 
+                      className="form-control form-control-sm d-inline-block ml-2" 
                       style={{width: 'auto'}}
                       value={selectedOrder.status || 'pending'}
                       onChange={(e) => {
