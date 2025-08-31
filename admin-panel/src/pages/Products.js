@@ -192,6 +192,10 @@ const Products = () => {
               >
                 <option value="all">All Categories</option>
                 <option value="oils">Herbal Oils</option>
+                <option value="capsules">Capsules</option>
+                <option value="skincare">Skincare</option>
+                <option value="powders">Powders</option>
+                <option value="teas">Herbal Teas</option>
               </select>
             </div>
             <div className="col-md-2">
@@ -257,6 +261,10 @@ const Products = () => {
                 <div className="col-md-6 mb-3">
                   <select className="form-control" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})}>
                     <option value="oils">Herbal Oils</option>
+                    <option value="capsules">Capsules</option>
+                    <option value="skincare">Skincare</option>
+                    <option value="powders">Powders</option>
+                    <option value="teas">Herbal Teas</option>
                   </select>
                 </div>
               </div>

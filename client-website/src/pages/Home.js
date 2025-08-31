@@ -18,13 +18,13 @@ const Home = ({ onAddToCart, user }) => {
 
   const getAyurvedicSymbol = (category) => {
     const symbols = {
-      oils: '🛢️', // Oil bottle
-      capsules: '💊', // Pill/capsule
-      skincare: '✨', // Sparkles for beauty
-      powders: '🥄', // Spoon for powder
-      teas: '🍵' // Tea cup
+      oils: '⚜️', // Fleur-de-lis (represents purity and healing)
+      capsules: '⚕️', // Medical symbol (represents health and medicine)
+      skincare: '🌿', // Herb (represents natural beauty)
+      powders: '⚰️', // Coffin/mortar (represents grinding/powder making)
+      teas: '🌱' // Seedling (represents growth and wellness)
     };
-    return symbols[category] || '🌿';
+    return symbols[category] || 'ॐ'; // Om symbol as fallback
   };
 
   useEffect(() => {

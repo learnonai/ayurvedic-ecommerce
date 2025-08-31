@@ -39,8 +39,7 @@ const RecentlyViewed = () => {
     fetchRecentProducts();
   }, []);
 
-  // Temporarily disable recently viewed to fix image issues
-  return null;
+  // Re-enabled with proper image handling
   
   if (loading) {
     return (
