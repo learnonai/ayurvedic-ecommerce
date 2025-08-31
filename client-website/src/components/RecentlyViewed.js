@@ -18,10 +18,10 @@ const RecentlyViewed = () => {
         const response = await products.getAll();
         const currentProducts = response.data;
         
-        // Get fresh data for recent products
-        const freshRecent = recentIds.map(id => 
+        // Get fresh data for recent products in LIFO order
+        const freshRecent = recentIds.slice(0, 4).map(id => 
           currentProducts.find(p => p._id === id)
-        ).filter(Boolean).slice(0, 4);
+        ).filter(Boolean);
         
         setRecentProducts(freshRecent);
       } catch (error) {
@@ -97,11 +97,13 @@ const RecentlyViewed = () => {
   );
 };
 
-// Simple function to add to recently viewed
+// Add to recently viewed - keep last 4 different items
 export const addToRecentlyViewed = (product) => {
   const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+  // Remove if already exists to avoid duplicates
   const filtered = recent.filter(item => (item._id || item.id) !== product._id);
-  const updated = [product, ...filtered].slice(0, 10);
+  // Add new product to beginning
+  const updated = [product, ...filtered].slice(0, 4); // Keep only 4 items
   localStorage.setItem('recentlyViewed', JSON.stringify(updated));
 };
 
