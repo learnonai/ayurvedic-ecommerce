@@ -29,7 +29,7 @@ const RecentlyViewed = () => {
       <div className="row">
         {recentProducts.map((product, index) => {
           const hasImage = product.images && product.images.length > 0;
-          const imageUrl = hasImage ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '')}` : null;
+          const imageUrl = hasImage ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '').replace('pdt-img/', '')}` : null;
           
           return (
             <div key={`${product._id}-${index}`} className="col-6 col-md-3 mb-3">
