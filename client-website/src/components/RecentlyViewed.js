@@ -7,7 +7,20 @@ const RecentlyViewed = () => {
 
   useEffect(() => {
     const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-    setRecentProducts(recent.slice(0, 4));
+    // Filter out products with invalid image paths
+    const validRecent = recent.filter(product => {
+      if (!product.images || product.images.length === 0) return true;
+      const imagePath = product.images[0];
+      // Keep products with valid image extensions and current naming
+      return imagePath.includes('.jpg') || imagePath.includes('.png') || imagePath.includes('.jpeg');
+    });
+    
+    // Update localStorage if we filtered out invalid products
+    if (validRecent.length !== recent.length) {
+      localStorage.setItem('recentlyViewed', JSON.stringify(validRecent));
+    }
+    
+    setRecentProducts(validRecent.slice(0, 4));
   }, []);
 
   if (recentProducts.length === 0) return null;
@@ -29,7 +42,8 @@ const RecentlyViewed = () => {
       <div className="row">
         {recentProducts.map((product, index) => {
           const hasImage = product.images && product.images.length > 0;
-          const imageUrl = hasImage ? `${BASE_URL}/api/images/${product.images[0].replace('uploads/', '').replace('pdt-img/', '')}` : null;
+          const imagePath = hasImage ? product.images[0].replace('uploads/', '').replace('pdt-img/', '') : null;
+          const imageUrl = hasImage ? `${BASE_URL}/api/images/${imagePath}` : null;
           
           return (
             <div key={`${product._id}-${index}`} className="col-6 col-md-3 mb-3">
@@ -47,6 +61,7 @@ const RecentlyViewed = () => {
                           objectFit: 'cover'
                         }}
                         onError={(e) => {
+                          console.log('Image failed to load:', imageUrl);
                           e.target.style.display = 'none';
                           e.target.nextSibling.style.display = 'flex';
                         }}
