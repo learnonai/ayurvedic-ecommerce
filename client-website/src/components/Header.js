@@ -113,7 +113,7 @@ const Header = ({ user, onLogout, cartCount }) => {
                 className="form-control"
                 placeholder="Search for herbal products..."
                 value={searchQuery}
-                onChange={(e) => handleSearchChange(sanitizeInput(e.target.value)))
+                onChange={(e) => handleSearchChange(sanitizeInput(e.target.value))}
                 style={{ borderRadius: '4px 0 0 0' }}
               />
               <button 
