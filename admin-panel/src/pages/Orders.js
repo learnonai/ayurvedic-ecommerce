@@ -199,66 +199,66 @@ const Orders = () => {
     <div>
       <h2>Orders Management</h2>
       
-      {/* Simple Test - This should always be visible */}
-      <div style={{backgroundColor: 'red', color: 'white', padding: '10px', margin: '10px 0'}}>
-        <strong>TEST: If you can see this red box, React is working!</strong>
-        <br />Orders loaded: {orderList.length} | Filtered: {filteredOrders.length}
-        <br />Filter Period: {filterPeriod} | Show Archived: {showArchived ? 'Yes' : 'No'}
-      </div>
+
       
       {!showDetails ? (
         <div>
-          {/* Simple Inline Filters - No Bootstrap Dependencies */}
-          <div style={{backgroundColor: '#f0f0f0', padding: '15px', margin: '10px 0', border: '1px solid #ccc'}}>
-            <div style={{display: 'flex', gap: '20px', flexWrap: 'wrap', alignItems: 'center'}}>
-              <div>
-                <label style={{fontWeight: 'bold', marginRight: '5px'}}>Period:</label>
-                <select 
-                  value={filterPeriod}
-                  onChange={(e) => setFilterPeriod(e.target.value)}
-                  style={{padding: '5px', border: '1px solid #ccc'}}
-                >
-                  <option value="all">All Orders</option>
-                  <option value="today">Today</option>
-                  <option value="thisWeek">This Week</option>
-                  <option value="lastWeek">Last Week</option>
-                  <option value="thisMonth">This Month</option>
-                  <option value="lastMonth">Last Month</option>
-                  <option value="thisYear">This Year</option>
-                </select>
-              </div>
-              
-              <div>
-                <label style={{fontWeight: 'bold', marginRight: '5px'}}>Sort:</label>
-                <select 
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  style={{padding: '5px', border: '1px solid #ccc'}}
-                >
-                  <option value="latest">Latest First</option>
-                  <option value="oldest">Oldest First</option>
-                  <option value="amount_high">Amount (High to Low)</option>
-                  <option value="amount_low">Amount (Low to High)</option>
-                  <option value="status">Status</option>
-                </select>
-              </div>
-              
-              <div>
-                <label style={{fontWeight: 'bold', marginRight: '5px'}}>
-                  <input 
-                    type="checkbox" 
-                    checked={showArchived}
-                    onChange={(e) => setShowArchived(e.target.checked)}
-                    style={{marginRight: '5px'}}
-                  />
-                  {showArchived ? 'Show Archived' : 'Show Active'}
-                </label>
-              </div>
-              
-              <div>
-                <span style={{backgroundColor: '#007bff', color: 'white', padding: '5px 10px', borderRadius: '3px'}}>
-                  Total: {filteredOrders.length}
-                </span>
+          {/* Filter Controls with Bootstrap */}
+          <div className="card mb-3">
+            <div className="card-body">
+              <div className="row g-3">
+                <div className="col-md-3">
+                  <label className="form-label fw-bold">Filter by Period:</label>
+                  <select 
+                    className="form-select"
+                    value={filterPeriod}
+                    onChange={(e) => setFilterPeriod(e.target.value)}
+                  >
+                    <option value="all">All Orders</option>
+                    <option value="today">Today</option>
+                    <option value="thisWeek">This Week</option>
+                    <option value="lastWeek">Last Week</option>
+                    <option value="thisMonth">This Month</option>
+                    <option value="lastMonth">Last Month</option>
+                    <option value="thisYear">This Year</option>
+                  </select>
+                </div>
+                <div className="col-md-3">
+                  <label className="form-label fw-bold">Sort by:</label>
+                  <select 
+                    className="form-select"
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                  >
+                    <option value="latest">Latest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="amount_high">Amount (High to Low)</option>
+                    <option value="amount_low">Amount (Low to High)</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+                <div className="col-md-3">
+                  <label className="form-label fw-bold">View:</label>
+                  <div className="form-check form-switch">
+                    <input 
+                      className="form-check-input"
+                      type="checkbox" 
+                      checked={showArchived}
+                      onChange={(e) => setShowArchived(e.target.checked)}
+                    />
+                    <label className="form-check-label ms-2">
+                      {showArchived ? 'Archived Orders' : 'Active Orders'}
+                    </label>
+                  </div>
+                </div>
+                <div className="col-md-3">
+                  <label className="form-label fw-bold">Total Orders:</label>
+                  <div>
+                    <span className="badge bg-primary fs-6" style={{padding: '8px 12px'}}>
+                      {filteredOrders.length}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
