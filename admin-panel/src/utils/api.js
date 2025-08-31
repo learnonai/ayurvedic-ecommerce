@@ -19,6 +19,9 @@ const getApiUrl = () => {
 
 const API_URL = getApiUrl();
 
+// Export BASE_URL for direct API calls
+export const BASE_URL = API_URL.replace('/api', '');
+
 const api = axios.create({
   baseURL: API_URL,
 });
@@ -97,4 +100,5 @@ export const users = {
   updateRole: (id, role) => api.put(`/users/${id}/role`, { role }),
 };
 
+export { API_URL };
 export default api;
