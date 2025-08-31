@@ -6,31 +6,42 @@ const RecentlyViewed = () => {
   const [recentProducts, setRecentProducts] = useState([]);
 
   useEffect(() => {
-    const fetchFreshData = async () => {
+    const loadRecentProducts = async () => {
       try {
         const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
         if (recent.length === 0) return;
         
-        // Get fresh product data
+        // Get fresh product data to get updated images
         const response = await products.getAll();
         const allProducts = response.data;
         
-        // Update recent products with fresh data
+        // Update recent products with fresh image data
         const updatedRecent = recent.map(recentProduct => {
           const freshProduct = allProducts.find(p => p._id === recentProduct._id);
-          return freshProduct || recentProduct;
+          if (freshProduct) {
+            // Use fresh product data with updated images
+            return freshProduct;
+          }
+          return recentProduct;
         });
+        
+        setRecentProducts(updatedRecent.slice(0, 4));
         
         // Update localStorage with fresh data
         localStorage.setItem('recentlyViewed', JSON.stringify(updatedRecent));
-        setRecentProducts(updatedRecent.slice(0, 4));
       } catch (error) {
+        // Fallback to localStorage data
         const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
         setRecentProducts(recent.slice(0, 4));
       }
     };
     
-    fetchFreshData();
+    loadRecentProducts();
+    
+    // Refresh every 5 seconds to get updated images
+    const interval = setInterval(loadRecentProducts, 5000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   if (recentProducts.length === 0) return null;
@@ -39,15 +50,39 @@ const RecentlyViewed = () => {
     <div className="container my-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="mb-0">👁️ Recently Viewed</h5>
-        <button 
-          className="btn btn-sm btn-outline-secondary"
-          onClick={() => {
-            localStorage.removeItem('recentlyViewed');
-            setRecentProducts([]);
-          }}
-        >
-          Clear
-        </button>
+        <div className="d-flex gap-2">
+          <button 
+            className="btn btn-sm btn-outline-primary"
+            onClick={async () => {
+              try {
+                const response = await products.getAll();
+                const allProducts = response.data;
+                const recent = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+                
+                const updatedRecent = recent.map(recentProduct => {
+                  const freshProduct = allProducts.find(p => p._id === recentProduct._id);
+                  return freshProduct || recentProduct;
+                });
+                
+                setRecentProducts(updatedRecent.slice(0, 4));
+                localStorage.setItem('recentlyViewed', JSON.stringify(updatedRecent));
+              } catch (error) {
+                // Silent error
+              }
+            }}
+          >
+            Refresh
+          </button>
+          <button 
+            className="btn btn-sm btn-outline-secondary"
+            onClick={() => {
+              localStorage.removeItem('recentlyViewed');
+              setRecentProducts([]);
+            }}
+          >
+            Clear
+          </button>
+        </div>
       </div>
       <div className="row">
         {recentProducts.map((product, index) => {

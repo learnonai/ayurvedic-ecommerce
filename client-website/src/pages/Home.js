@@ -18,10 +18,30 @@ const Home = ({ onAddToCart, user }) => {
 
   useEffect(() => {
     // Load categories from localStorage if available
-    const savedCategories = localStorage.getItem('categories');
-    if (savedCategories) {
-      setCategories(JSON.parse(savedCategories));
-    }
+    const loadCategories = () => {
+      const savedCategories = localStorage.getItem('categories');
+      if (savedCategories) {
+        const parsedCategories = JSON.parse(savedCategories);
+        setCategories(parsedCategories);
+      }
+    };
+    
+    loadCategories();
+    
+    // Listen for localStorage changes
+    const handleStorageChange = () => {
+      loadCategories();
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also check every 2 seconds for changes (for same-tab updates)
+    const interval = setInterval(loadCategories, 2000);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
   }, []);
 
   useEffect(() => {
