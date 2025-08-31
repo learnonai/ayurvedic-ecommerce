@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { auth } from '../utils/api';
-import ApiTest from './ApiTest';
+
 
 const Login = ({ onLogin }) => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -12,9 +12,9 @@ const Login = ({ onLogin }) => {
     setLoading(true);
     setError('');
     try {
-      console.log('Attempting login with:', credentials.email);
+
       const response = await auth.login(credentials);
-      console.log('Login successful:', response.data);
+
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userToken', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -29,7 +29,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="container mt-5">
-      <ApiTest />
+
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card">

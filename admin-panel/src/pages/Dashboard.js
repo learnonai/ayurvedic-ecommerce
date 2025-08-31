@@ -30,18 +30,14 @@ const Dashboard = () => {
       setLoading(true);
       setError(null);
       try {
-        console.log('Fetching dashboard stats...');
+
         const [productsRes, ordersRes, usersRes] = await Promise.all([
           products.getAll(),
           orders.getAll(),
           users.getAll().catch(() => ({ data: [] }))
         ]);
         
-        console.log('Data received:', {
-          products: productsRes.data?.length,
-          orders: ordersRes.data?.length,
-          users: usersRes.data?.length
-        });
+
         
         // Category stats
         const categoryStats = {};

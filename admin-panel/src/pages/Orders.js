@@ -27,9 +27,9 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      console.log('Fetching orders...');
+
       const response = await orders.getAll();
-      console.log('Orders response:', response.data);
+
       
       // Ensure all orders have required fields
       const ordersWithDefaults = response.data.map(order => ({
@@ -170,9 +170,9 @@ const Orders = () => {
 
   const updateOrderStatus = async (orderId, status) => {
     try {
-      console.log('Updating order status:', orderId, 'to:', status);
+
       const response = await orders.updateStatus(orderId, status);
-      console.log('Status update response:', response);
+
       
       // Update local state immediately
       setOrderList(prevOrders => 
@@ -191,9 +191,9 @@ const Orders = () => {
 
   const toggleArchiveOrder = async (orderId, archived) => {
     try {
-      console.log('Archiving order:', orderId, 'archived:', archived);
+
       const response = await orders.updateStatus(orderId, null, { archived });
-      console.log('Archive response:', response);
+
       
       // Update local state immediately for better UX
       setOrderList(prevOrders => 

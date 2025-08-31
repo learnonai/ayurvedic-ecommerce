@@ -35,13 +35,13 @@ api.interceptors.request.use((config) => {
     config.headers['Pragma'] = 'no-cache';
   }
   
-  console.log('API Request:', config.method?.toUpperCase(), config.url, 'Base:', config.baseURL);
+
   return config;
 });
 
 api.interceptors.response.use(
   (response) => {
-    console.log('API Success:', response.config.url, response.status);
+
     return response;
   },
   (error) => {
@@ -79,14 +79,14 @@ export const products = {
 
 export const orders = {
   getAll: () => {
-    console.log('Fetching orders from:', API_URL + '/orders');
+
     return api.get('/orders');
   },
   updateStatus: (id, status, extraData = {}) => {
     const payload = {};
     if (status) payload.status = status;
     if (extraData.archived !== undefined) payload.archived = extraData.archived;
-    console.log('Updating order:', id, 'with payload:', payload);
+
     return api.put(`/orders/${id}/status`, payload);
   },
 };
