@@ -13,6 +13,7 @@ NC='\033[0m' # No Color
 APP_DIR="/home/ec2-user/ayurvedic-ecommerce"
 BACKUP_DIR="/home/ec2-user/backups"
 UPLOADS_DIR="$APP_DIR/backend/uploads"
+PDT_IMG_DIR="$APP_DIR/backend/pdt-img"
 BUILD_ID=$(date +%Y%m%d_%H%M%S)_$(git rev-parse --short HEAD)
 
 echo -e "${GREEN}🚀 Starting deployment - Build ID: $BUILD_ID${NC}"
@@ -20,12 +21,9 @@ echo -e "${GREEN}🚀 Starting deployment - Build ID: $BUILD_ID${NC}"
 # Create backup directory if not exists
 mkdir -p $BACKUP_DIR
 
-# Backup current uploads before deployment
-echo -e "${YELLOW}📦 Backing up current uploads...${NC}"
-if [ -d "$UPLOADS_DIR" ]; then
-    cp -r $UPLOADS_DIR $BACKUP_DIR/uploads_backup_$BUILD_ID
-    echo -e "${GREEN}✅ Uploads backed up to: $BACKUP_DIR/uploads_backup_$BUILD_ID${NC}"
-fi
+# Setup persistent image storage
+echo -e "${YELLOW}🖼️  Setting up persistent image storage...${NC}"
+$APP_DIR/scripts/preserve-images.sh
 
 # Backup current application
 echo -e "${YELLOW}📦 Creating application backup...${NC}"
@@ -41,17 +39,16 @@ git pull origin main
 echo -e "${YELLOW}🛑 Stopping services...${NC}"
 pm2 delete all || true
 
-# Restore uploads directory
-echo -e "${YELLOW}📁 Restoring uploads...${NC}"
-mkdir -p $UPLOADS_DIR
-if [ -d "$BACKUP_DIR/uploads_backup_$BUILD_ID" ]; then
-    cp -r $BACKUP_DIR/uploads_backup_$BUILD_ID/* $UPLOADS_DIR/ 2>/dev/null || true
-fi
+# Ensure persistent image storage is set up
+echo -e "${YELLOW}📁 Ensuring image persistence...${NC}"
+$APP_DIR/scripts/preserve-images.sh
 
-# Copy sample images if uploads is empty
-if [ ! "$(ls -A $UPLOADS_DIR)" ]; then
-    echo -e "${YELLOW}📷 No uploads found, copying sample images...${NC}"
-    cp backend/sample-images/* $UPLOADS_DIR/ 2>/dev/null || true
+# Copy sample images to persistent storage if empty
+PERSISTENT_DIR="/home/ec2-user/persistent-images"
+if [ ! "$(ls -A $PERSISTENT_DIR 2>/dev/null)" ]; then
+    echo -e "${YELLOW}📷 No images found, copying sample images...${NC}"
+    mkdir -p $PERSISTENT_DIR
+    cp backend/sample-images/* $PERSISTENT_DIR/ 2>/dev/null || true
 fi
 
 # Backend deployment

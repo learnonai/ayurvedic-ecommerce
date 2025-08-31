@@ -9,7 +9,7 @@
     "benefits": ["Deep moisturizes hair and skin", "Promotes hair growth", "Anti-bacterial properties"],
     "ingredients": ["100% Virgin Coconut Oil", "Curry leaves extract", "Fenugreek oil"],
     "usage": "Apply to hair and scalp, massage gently. Leave for 30 minutes before washing",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/coconut-oil.jpg"],
     "isActive": true,
     "_id": "OIL001"
   },
@@ -51,7 +51,7 @@
     "benefits": ["Promotes deep sleep", "Reduces stress and anxiety", "Natural aromatherapy"],
     "ingredients": ["Pure Lavender Oil", "Shankhpushpi extract", "Jatamansi oil"],
     "usage": "Apply to temples and pulse points. Add to diffuser for aromatherapy benefits",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/lavender-oil.jpg"],
     "isActive": true,
     "_id": "OIL004"
   },
@@ -65,7 +65,7 @@
     "benefits": ["Reduces stress and anxiety", "Boosts energy levels", "Improves sleep quality"],
     "ingredients": ["Ashwagandha root extract 500mg", "Vegetarian capsule shell"],
     "usage": "Take 1-2 capsules daily with warm water after meals",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/ashwagandha-capsules.jpg"],
     "isActive": true,
     "_id": "CAP001"
   },
@@ -79,7 +79,7 @@
     "benefits": ["Powerful anti-inflammatory", "Boosts immunity", "Supports joint health"],
     "ingredients": ["Turmeric extract 500mg", "Black pepper extract 5mg", "Vegetarian capsule"],
     "usage": "Take 1 capsule twice daily with meals",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/turmeric-capsules.jpg"],
     "isActive": true,
     "_id": "CAP002"
   },
@@ -93,7 +93,7 @@
     "benefits": ["Enhances memory and focus", "Reduces mental fatigue", "Supports brain health"],
     "ingredients": ["Brahmi leaf extract 300mg", "Mandukaparni extract 200mg"],
     "usage": "Take 1 capsule daily in the morning with water",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/brahmi-capsules.jpg"],
     "isActive": true,
     "_id": "CAP003"
   },
@@ -107,7 +107,7 @@
     "benefits": ["Improves digestion", "Natural detoxification", "Supports gut health"],
     "ingredients": ["Amla extract", "Haritaki extract", "Bibhitaki extract"],
     "usage": "Take 1-2 capsules before bedtime with warm water",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/triphala-capsules.jpg"],
     "isActive": true,
     "_id": "CAP004"
   },
@@ -121,7 +121,7 @@
     "benefits": ["Fights acne and pimples", "Natural antibacterial", "Gentle daily cleanser"],
     "ingredients": ["Neem leaf extract", "Tulsi extract", "Aloe vera gel"],
     "usage": "Apply to wet face, massage gently, rinse with water. Use twice daily",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/neem-face-wash.jpg"],
     "isActive": true,
     "_id": "SKIN001"
   },
@@ -135,7 +135,7 @@
     "benefits": ["Natural skin brightening", "Removes tan and dark spots", "Anti-aging properties"],
     "ingredients": ["Turmeric powder", "Sandalwood powder", "Rose petal powder"],
     "usage": "Mix with rose water, apply for 15 minutes, rinse off. Use 2-3 times weekly",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/turmeric-face-pack.jpg"],
     "isActive": true,
     "_id": "SKIN002"
   },
@@ -149,7 +149,7 @@
     "benefits": ["Deep hydration", "Soothes irritated skin", "Non-greasy formula"],
     "ingredients": ["99% Pure Aloe vera gel", "Vitamin E", "Glycerin"],
     "usage": "Apply to clean skin, massage gently until absorbed. Use morning and evening",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/aloe-moisturizer.jpg"],
     "isActive": true,
     "_id": "SKIN003"
   },
@@ -163,7 +163,7 @@
     "benefits": ["Natural skin toner", "Refreshes and hydrates", "Anti-aging properties"],
     "ingredients": ["Pure rose water", "Witch hazel extract", "Glycerin"],
     "usage": "Apply with cotton pad after cleansing. Use morning and evening",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/rose-water-toner.jpg"],
     "isActive": true,
     "_id": "SKIN004"
   },
@@ -177,7 +177,7 @@
     "benefits": ["Rich in Vitamin C", "Boosts immunity", "Promotes hair growth"],
     "ingredients": ["100% Pure Amla powder", "No additives or preservatives"],
     "usage": "Mix 1 tsp with water or juice daily. Can be used in face packs",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/amla-powder.jpg"],
     "isActive": true,
     "_id": "POW001"
   },
@@ -191,7 +191,7 @@
     "benefits": ["Complete nutrition", "High in antioxidants", "Boosts energy levels"],
     "ingredients": ["100% Pure Moringa leaf powder", "Organically grown"],
     "usage": "Mix 1-2 tsp with smoothies, juice or water daily",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/moringa-powder.jpg"],
     "isActive": true,
     "_id": "POW002"
   },
@@ -205,7 +205,7 @@
     "benefits": ["High protein content", "Rich in B vitamins", "Supports immune system"],
     "ingredients": ["100% Pure Spirulina powder", "No artificial additives"],
     "usage": "Mix 1 tsp with water or juice daily, preferably on empty stomach",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/spirulina-powder.jpg"],
     "isActive": true,
     "_id": "POW003"
   },
@@ -219,7 +219,7 @@
     "benefits": ["Natural detoxification", "Boosts energy", "Rich in chlorophyll"],
     "ingredients": ["100% Pure Wheatgrass powder", "Freshly harvested and dried"],
     "usage": "Mix 1 tsp with water on empty stomach daily",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/wheatgrass-powder.jpg"],
     "isActive": true,
     "_id": "POW004"
   },
@@ -233,7 +233,7 @@
     "benefits": ["Improves digestion", "Reduces bloating", "Soothes stomach"],
     "ingredients": ["Ginger", "Fennel seeds", "Mint leaves", "Cumin seeds"],
     "usage": "Steep 1 tsp in hot water for 5 minutes. Drink after meals",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/digestive-tea.jpg"],
     "isActive": true,
     "_id": "TEA001"
   },
@@ -247,7 +247,7 @@
     "benefits": ["Boosts immunity", "Fights infections", "Rich in antioxidants"],
     "ingredients": ["Tulsi leaves", "Ginger", "Turmeric", "Black pepper", "Cinnamon"],
     "usage": "Steep 1 tsp in hot water for 7 minutes. Drink twice daily",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/immunity-tea.jpg"],
     "isActive": true,
     "_id": "TEA002"
   },
@@ -261,7 +261,7 @@
     "benefits": ["Reduces stress", "Promotes relaxation", "Improves sleep quality"],
     "ingredients": ["Chamomile flowers", "Lavender", "Lemon balm", "Passionflower"],
     "usage": "Steep 1 tsp in hot water for 5 minutes. Drink before bedtime",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/stress-relief-tea.jpg"],
     "isActive": true,
     "_id": "TEA003"
   },
@@ -275,7 +275,7 @@
     "benefits": ["Natural detoxification", "Supports weight loss", "Boosts metabolism"],
     "ingredients": ["Green tea", "Dandelion", "Nettle leaves", "Lemon grass"],
     "usage": "Steep 1 tsp in hot water for 3 minutes. Drink 2-3 times daily",
-    "images": ["pdt-img/herbal-leaf-default.jpg"],
+    "images": ["pdt-img/detox-tea.jpg"],
     "isActive": true,
     "_id": "TEA004"
   }

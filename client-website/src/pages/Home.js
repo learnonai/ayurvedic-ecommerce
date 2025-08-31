@@ -42,20 +42,20 @@ const Home = ({ onAddToCart, user }) => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-gradient" style={{background: 'linear-gradient(135deg, #2d5016 0%, #4a7c59 100%)'}}>
+      <div className="bg-gradient" style={{background: 'linear-gradient(135deg, #2d5016 0%, #4a7c59 100%)', minHeight: '500px'}}>
         <div className="container text-white py-5">
-          <div className="row align-items-center">
-            <div className="col-lg-6">
-              <h1 className="display-4 fw-bold mb-3">🌿 Pure Ayurvedic Wellness</h1>
-              <p className="lead mb-4">Discover nature's healing power with our premium collection of authentic Ayurvedic products. All items under ₹199!</p>
-              <div className="d-flex gap-3">
+          <div className="row align-items-center min-vh-50">
+            <div className="col-lg-6" style={{minWidth: '400px'}}>
+              <h1 className="display-4 fw-bold mb-3" style={{fontSize: 'clamp(2rem, 5vw, 3.5rem)'}}>🌿 Pure Ayurvedic Wellness</h1>
+              <p className="lead mb-4" style={{fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', lineHeight: '1.6'}}>Discover nature's healing power with our premium collection of authentic Ayurvedic products. All items under ₹199!</p>
+              <div className="d-flex gap-3 flex-wrap">
                 <Link to="/products" className="btn btn-light btn-lg px-4">Shop Now</Link>
                 <Link to="/products?category=oils" className="btn btn-outline-light btn-lg px-4">Best Sellers</Link>
               </div>
             </div>
             <div className="col-lg-6 text-center">
               <div className="bg-white bg-opacity-10 rounded-circle p-5 d-inline-block">
-                <span style={{fontSize: '120px'}}>🌿</span>
+                <span style={{fontSize: '120px', filter: 'hue-rotate(90deg) saturate(1.5)'}}>🌿</span>
               </div>
             </div>
           </div>

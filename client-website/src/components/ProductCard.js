@@ -128,38 +128,34 @@ const ProductCard = ({ product, onAddToCart, user }) => {
           </div>
         )}
         
-        <div className="d-grid gap-2" onClick={(e) => e.stopPropagation()}>
+        <div className="d-flex gap-1" onClick={(e) => e.stopPropagation()}>
           <button 
-            className="btn btn-warning fw-bold" 
+            className="btn btn-warning btn-sm flex-fill fw-bold" 
             onClick={handleBuyNow}
             disabled={(product.stock || 0) === 0 || loading}
+            style={{fontSize: '0.8rem'}}
           >
-            {loading ? (
-              <>
-                <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                Processing...
-              </>
-            ) : (product.stock || 0) === 0 ? 'Out of Stock' : '🛒 Buy Now'}
+            {loading ? 'Processing...' : (product.stock || 0) === 0 ? 'Out of Stock' : 'Buy Now'}
           </button>
-          <div className="d-flex gap-2">
-            <button 
-              className="btn btn-success flex-fill" 
-              onClick={handleAddToCart}
-              disabled={(product.stock || 0) === 0 || loading}
-            >
-              {loading ? 'Adding...' : 'Add to Cart'}
-            </button>
-            <button 
-              className="btn btn-outline-danger"
-              onClick={addToWishlist}
-              disabled={wishlistLoading}
-              title="Add to Wishlist"
-            >
-              {wishlistLoading ? (
-                <span className="spinner-border spinner-border-sm" role="status"></span>
-              ) : '❤️'}
-            </button>
-          </div>
+          <button 
+            className="btn btn-success btn-sm flex-fill" 
+            onClick={handleAddToCart}
+            disabled={(product.stock || 0) === 0 || loading}
+            style={{fontSize: '0.8rem'}}
+          >
+            {loading ? 'Adding...' : 'Add to Cart'}
+          </button>
+          <button 
+            className="btn btn-outline-danger btn-sm"
+            onClick={addToWishlist}
+            disabled={wishlistLoading}
+            title="Add to Wishlist"
+            style={{minWidth: '40px'}}
+          >
+            {wishlistLoading ? (
+              <span className="spinner-border spinner-border-sm" role="status"></span>
+            ) : '❤️'}
+          </button>
         </div>
       </div>
     </div>
