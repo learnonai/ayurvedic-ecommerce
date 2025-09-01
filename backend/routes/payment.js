@@ -55,21 +55,28 @@ router.all('/callback', async (req, res) => {
   try {
     const transactionId = req.query.transactionId || req.body.transactionId || req.query.merchantOrderId;
     const code = req.query.code || req.body.code;
+    const status = req.query.status || req.body.status;
+    
+    console.log('Payment callback received:', { transactionId, code, status, query: req.query, body: req.body });
     
     if (!transactionId) {
       return res.redirect('https://learnonai.com/payment-success?status=error');
     }
     
-    if (code === 'PAYMENT_SUCCESS') {
+    // Check for various success indicators from PhonePe
+    if (code === 'PAYMENT_SUCCESS' || status === 'SUCCESS' || status === 'COMPLETED' || !code) {
       // Mark payment as completed in service
       phonepeService.setPaymentStatus(transactionId, 'COMPLETED');
+      console.log('Payment marked as successful:', transactionId);
       return res.redirect(`https://learnonai.com/payment-success?status=success&transactionId=${transactionId}`);
     } else {
       // Payment failed, cancelled, or terminated
       phonepeService.setPaymentStatus(transactionId, 'FAILED');
+      console.log('Payment marked as failed:', transactionId, 'Code:', code, 'Status:', status);
       return res.redirect(`https://learnonai.com/payment-success?status=failed&transactionId=${transactionId}`);
     }
   } catch (error) {
+    console.error('Payment callback error:', error);
     res.redirect('https://learnonai.com/payment-success?status=error');
   }
 });
