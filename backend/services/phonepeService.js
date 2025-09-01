@@ -120,13 +120,11 @@ class PhonePeService {
         };
       }
       
-      // For demo: if transaction exists but no status stored, assume it's completed
+      // For demo: if transaction exists but no status stored, it's still pending
       if (transactionId && transactionId.startsWith('TX')) {
-        // Auto-set to completed for demo purposes
-        global.paymentStatuses[transactionId] = 'COMPLETED';
         return {
-          success: true,
-          status: 'COMPLETED',
+          success: false,
+          status: 'PENDING',
           transactionId: transactionId
         };
       }

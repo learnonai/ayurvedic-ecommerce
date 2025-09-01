@@ -60,11 +60,13 @@ router.all('/callback', async (req, res) => {
       return res.redirect('https://learnonai.com/payment-success?status=error');
     }
     
-    if (code === 'PAYMENT_SUCCESS' || !code) {
-      // Default to success for demo purposes when no code or explicit success
+    if (code === 'PAYMENT_SUCCESS') {
+      // Mark payment as completed in service
+      phonepeService.setPaymentStatus(transactionId, 'COMPLETED');
       return res.redirect(`https://learnonai.com/payment-success?status=success&transactionId=${transactionId}`);
     } else {
-      // Only fail if explicitly failed/cancelled
+      // Payment failed, cancelled, or terminated
+      phonepeService.setPaymentStatus(transactionId, 'FAILED');
       return res.redirect(`https://learnonai.com/payment-success?status=failed&transactionId=${transactionId}`);
     }
   } catch (error) {
@@ -117,6 +119,17 @@ router.post('/simulate-success/:transactionId', (req, res) => {
     res.json({ success: true, message: 'Payment marked as completed' });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Route to complete payment manually (for demo testing)
+router.get('/complete/:transactionId', (req, res) => {
+  try {
+    const { transactionId } = req.params;
+    phonepeService.setPaymentStatus(transactionId, 'COMPLETED');
+    res.redirect(`https://learnonai.com/payment-success?status=success&transactionId=${transactionId}`);
+  } catch (error) {
+    res.redirect('https://learnonai.com/payment-success?status=error');
   }
 });
 
