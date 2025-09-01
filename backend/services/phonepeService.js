@@ -55,7 +55,7 @@ class PhonePeService {
           message: 'Payment for Ayurvedic products',
           merchantUrls: {
             redirectUrl: `https://learnonai.com/api/payment/callback?transactionId=${merchantOrderId}`,
-            cancelUrl: `https://learnonai.com/api/payment/callback?transactionId=${merchantOrderId}&code=PAYMENT_CANCELLED`
+            cancelUrl: `https://learnonai.com/api/payment/callback?transactionId=${merchantOrderId}&code=PAYMENT_CANCELLED&status=CANCELLED`
           }
         }
       };

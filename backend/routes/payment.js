@@ -63,14 +63,14 @@ router.all('/callback', async (req, res) => {
       return res.redirect('https://learnonai.com/payment-success?status=error');
     }
     
-    // Check for various success indicators from PhonePe
-    if (code === 'PAYMENT_SUCCESS' || status === 'SUCCESS' || status === 'COMPLETED' || !code) {
+    // Only mark as success for explicit success indicators
+    if (code === 'PAYMENT_SUCCESS' || status === 'SUCCESS' || status === 'COMPLETED') {
       // Mark payment as completed in service
       phonepeService.setPaymentStatus(transactionId, 'COMPLETED');
       console.log('Payment marked as successful:', transactionId);
       return res.redirect(`https://learnonai.com/payment-success?status=success&transactionId=${transactionId}`);
     } else {
-      // Payment failed, cancelled, or terminated
+      // Payment failed, cancelled, or terminated (including no code)
       phonepeService.setPaymentStatus(transactionId, 'FAILED');
       console.log('Payment marked as failed:', transactionId, 'Code:', code, 'Status:', status);
       return res.redirect(`https://learnonai.com/payment-success?status=failed&transactionId=${transactionId}`);
